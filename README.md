@@ -1,5 +1,7 @@
 # 谢宇 · 自我介绍（Vibe AI Lab）
 
+线上地址：**https://xieyu200808.github.io/xieyu-homepage/**
+
 一份单文件（HTML + CSS + JS）的自我介绍网页，作者谢宇，杭州电子科技大学 Vibe AI Lab 成员。
 风格为「现代二次元唯美 + 玻璃拟态」，配色全部从下面四张角色图里取样。
 
