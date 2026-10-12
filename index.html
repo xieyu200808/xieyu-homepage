@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>谢宇 · 自我介绍 | Vibe AI Lab</title>
+<meta name="description" content="谢宇的自我介绍：杭州电子科技大学经济学院金融学，Vibe AI Lab 成员。英文电影、3A 大作、哈迷，习惯先用 AI 把问题拆开。" />
+<meta name="theme-color" content="#0D0D17" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230D0D17'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%237FD8E8' font-family='PingFang SC,Helvetica'%3E谢%3C/text%3E%3C/svg%3E" />
+<style>
+/* =========================================================================
+   设计令牌：色值全部从四张角色图里取样
+   - 真昼 mahiru.jpg   ：冰蓝天空 #DFFBFE/#C6E0FA、蜂蜜金发 #EBD9B4、琥珀瞳 #D9A55E、棕榈绿 #6FA090
+   - 真昼 mahiru-2.jpg ：深藏青制服 #1F1E34、酒红领结 #8E3A4E、蜜金发 #F0E0C0、暖光肤色 #EED9CD
+   - 有希 yuki.jpg     ：暖棕发色 #B49D81/#715040、冷蓝灰 #4B6692、米白 #F4EEE8
+   - 有希 yuki-q.png   ：蔷薇粉 #C0888B、发色灰紫 #928C90、犄角与线稿的近黑 #2C2528、
+                       裙摆蕾丝与肤色 #F9F4F1
+                       （透明底全身立绘，用中位切分法取色：
+                         #FAF4F1 14.0% / #81757A 13.9% / #655D62 13.8% / #928C90 13.5% /
+                         #473F42 11.7% / #251E20 11.5% / #DBCAC7 10.9% / #B19FA1 10.8%，
+                         蝴蝶结单独筛玫瑰色像素（s>0.15, v>0.55）平均得 #C0888B）
+   - avatar-*.jpg      ：从上面两张图里裁出来的方形头像，只给聊天面板的头像堆叠用
+   ========================================================================= */
+:root{
+  --navy-900:#08080F;
+  --navy-800:#0D0D17;
+  --navy-700:#1F1E34;   /* 取自真昼制服外套 */
+  --navy-600:#2A2942;
+  --ice:#DFFBFE;        /* 真昼的天空 */
+  --sky:#C6E0FA;
+  --sea:#7FD8E8;        /* 页面主点缀色 */
+  --honey:#E8B96F;
+  --amber:#D9A55E;      /* 真昼海边的暖金 */
+  --wine:#A32B45;       /* 真昼制服的酒红领结 */
+  --blush:#EED9CD;
+  --teal:#6FA090;       /* 棕榈叶的绿 */
+  --ink:#EEF1F8;
+  --ink-dim:rgba(238,241,248,.70);
+  --ink-faint:rgba(238,241,248,.44);
+  --glass:rgba(255,255,255,.055);
+  --glass-2:rgba(255,255,255,.10);
+  --line:rgba(255,255,255,.12);
+  --line-strong:rgba(255,255,255,.20);
+  --r:8px;              /* 卡片 / 面板统一 8px 圆角 */
+  --maxw:1180px;
+  --shadow:0 34px 80px -40px rgba(0,0,0,.85);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--font);
+  color:var(--ink);
+  background:var(--navy-800);
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;color:inherit;cursor:pointer}
+::selection{background:rgba(127,216,232,.32)}
+
+/* 平滑滚动：尊重系统的"减少动态效果"设置 */
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+/* ============================ 背景光效层 ============================
+   1) bg-photo：把真昼那张海边的图极度模糊后当作环境光（颜色直接来自原图）
+   2) bg-aurora：两块大面积柔光缓慢游动，左边冷（冰蓝）右边暖（蜜金）
+   3) bg-grain：极细颗粒，避免大面积渐变出现色带
+   ==================================================================== */
+.bg-layers{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  background:
+    radial-gradient(1200px 800px at 12% 8%, rgba(40,39,66,.92), transparent 62%),
+    radial-gradient(1000px 700px at 88% 18%, rgba(52,50,80,.8), transparent 64%),
+    linear-gradient(180deg,#0C0C17 0%,#12121F 45%,#0C0C15 100%);
+}
+.bg-photo{position:absolute;inset:-12%;background:url("./mahiru.jpg") center 30%/cover no-repeat;
+  filter:blur(90px) saturate(135%);opacity:.26;transform:scale(1.15);
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.9),rgba(0,0,0,.25) 55%,transparent 88%);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.9),rgba(0,0,0,.25) 55%,transparent 88%);
+}
+.bg-aurora{position:absolute;filter:blur(100px);opacity:.55;mix-blend-mode:screen;border-radius:50%}
+.aurora-a{width:82vw;height:56vw;left:-18vw;top:-14vw;
+  background:radial-gradient(closest-side,rgba(127,216,232,.72),rgba(127,216,232,0) 74%);
+  animation:drift-a 26s var(--ease) infinite alternate}
+.aurora-b{width:76vw;height:54vw;right:-16vw;top:16vh;
+  background:radial-gradient(closest-side,rgba(232,185,111,.58),rgba(232,185,111,0) 74%);
+  animation:drift-b 32s var(--ease) infinite alternate}
+.aurora-c{width:60vw;height:48vw;left:20vw;bottom:-16vw;
+  background:radial-gradient(closest-side,rgba(163,43,69,.40),rgba(163,43,69,0) 72%);
+  animation:drift-a 38s var(--ease) infinite alternate-reverse}
+/* 首屏上方的横向光带：冷调来自真昼的天空，暖调来自有希的发色 */
+.aurora-d{width:96vw;height:34vh;left:-16vw;top:4vh;opacity:.5;
+  border-radius:50%;background:radial-gradient(closest-side,rgba(223,251,254,.30),transparent 76%);
+  animation:drift-b 30s var(--ease) infinite alternate}
+.aurora-e{width:70vw;height:40vh;right:-14vw;top:34vh;opacity:.46;
+  border-radius:50%;background:radial-gradient(closest-side,rgba(232,185,111,.26),transparent 76%);
+  animation:drift-a 34s var(--ease) infinite alternate-reverse}
+@keyframes drift-a{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(6vw,4vh,0) scale(1.12)}}
+@keyframes drift-b{from{transform:translate3d(0,0,0) scale(1.05)}to{transform:translate3d(-7vw,-5vh,0) scale(1)}}
+.bg-grain{position:absolute;inset:0;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* 粒子画布：全屏柔光粒子在背景层之上、内容之下 */
+#particles{position:fixed;inset:0;z-index:1;pointer-events:none}
+/* 鼠标跟随光晕 */
+#cursor-glow{position:fixed;left:0;top:0;width:520px;height:520px;z-index:2;pointer-events:none;
+  margin:-260px 0 0 -260px;opacity:0;transition:opacity .5s ease;
+  background:radial-gradient(closest-side,rgba(127,216,232,.16),rgba(232,185,111,.07) 45%,transparent 72%);
+  will-change:transform}
+#cursor-glow.on{opacity:1}
+@media (pointer:coarse){#cursor-glow{display:none}}
+
+/* ============================ 顶部导航 ============================ */
+.nav{position:fixed;top:14px;left:0;right:0;z-index:40;padding:0 20px}
+.nav-inner{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;gap:18px;
+  padding:9px 10px 9px 16px;border:1px solid var(--line);border-radius:999px;
+  background:rgba(12,12,22,.62);backdrop-filter:blur(18px) saturate(150%);
+  -webkit-backdrop-filter:blur(18px) saturate(150%);box-shadow:0 18px 40px -28px rgba(0,0,0,.9)}
+.brand{display:flex;align-items:center;gap:10px;flex:none}
+.brand-mark{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;
+  font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--navy-900);
+  background:linear-gradient(140deg,var(--ice),var(--sea) 55%,var(--honey))}
+.brand-text{font-size:14px;font-weight:600;letter-spacing:.14em}
+.nav-links{display:flex;align-items:center;gap:4px;margin-left:6px}
+.nav-links a{padding:7px 12px;font-size:13.5px;color:var(--ink-dim);border-radius:999px;transition:color .25s,background .25s}
+.nav-links a:hover{color:var(--ink);background:var(--glass)}
+.nav-links a[aria-current="true"]{color:var(--ink);background:var(--glass-2)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.nav-status{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-faint);
+  padding:6px 12px 6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--glass);white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--sea);box-shadow:0 0 0 3px rgba(127,216,232,.16);flex:none}
+.dot.off{background:var(--wine);box-shadow:0 0 0 3px rgba(163,43,69,.18)}
+.nav-toggle{display:none;width:38px;height:38px;border:1px solid var(--line);border-radius:50%;
+  background:var(--glass);align-items:center;justify-content:center}
+.nav-toggle:hover{border-color:var(--line-strong)}
+
+/* ============================ 通用元素 ============================ */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.section{padding:104px 0;position:relative;z-index:3}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:11.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--sea);margin:0 0 14px}
+.eyebrow::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--sea),transparent)}
+h2{font-size:clamp(1.75rem,3.2vw,2.4rem);line-height:1.25;letter-spacing:.02em;margin:0 0 14px;font-weight:700}
+.lead{color:var(--ink-dim);font-size:15.5px;max-width:62ch;margin:0}
+/* 行内代码：技术信息里用来标出接口地址、模型名和 Key 常量名。
+   overflow-wrap:anywhere 是必须的——接口地址是一长串没法断行的字符，
+   不加这一条，窄屏（<=400px）上整段文字会被这个长单词撑宽，页面出现横向滚动。 */
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;
+  padding:1px 5px;border-radius:5px;background:rgba(255,255,255,.09);
+  border:1px solid var(--line);color:var(--ink);overflow-wrap:anywhere;word-break:break-word}
+.icon{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.icon-sm{width:16px;height:16px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:999px;
+  font-size:14px;font-weight:600;border:1px solid transparent;transition:transform .25s var(--ease),box-shadow .3s,border-color .3s,background .3s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{color:#0B0B14;background:linear-gradient(120deg,var(--ice),var(--sea) 46%,var(--honey));
+  box-shadow:0 20px 40px -22px rgba(127,216,232,.9)}
+.btn-primary:hover{box-shadow:0 26px 52px -22px rgba(127,216,232,1)}
+.btn-ghost{color:var(--ink);background:var(--glass);border-color:var(--line)}
+.btn-ghost:hover{border-color:rgba(127,216,232,.5);background:var(--glass-2)}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
+  font-size:13px;color:var(--ink-dim);background:var(--glass);border:1px solid var(--line)}
+.chip .icon{width:15px;height:15px;color:var(--sea)}
+/* 滚动进入动画 */
+[data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+[data-reveal].is-in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  [data-reveal]{opacity:1;transform:none;transition:none}
+  .aurora-a,.aurora-b,.aurora-c,.aurora-d,.aurora-e{animation:none}
+  *{scroll-behavior:auto!important}
+}
+
+/* ============================ 首屏 ============================ */
+/* 首屏高度交给内容决定（名字 + 介绍 + 右侧常驻的聊天面板），
+   这样双击打开网页的第一眼就能看到 AI 助手，而不是先看到一整屏的图。 */
+.hero{display:flex;flex-direction:column;justify-content:center;padding:118px 0 74px;position:relative;z-index:3}
+/* 用 areas 排版：桌面端文字在左、聊天面板独占右列；
+   窄屏（见下面的媒体查询）会换成单列，聊天面板插在标题和正文之间。 */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(400px,.98fr);
+  column-gap:56px;row-gap:0;align-items:center;width:100%;
+  grid-template-areas:
+    "eyebrow stage"
+    "name    stage"
+    "romaji  stage"
+    "meta    stage"
+    "lead    stage"
+    "actions stage"}
+.hero-eyebrow{grid-area:eyebrow}
+.hero-name{grid-area:name}
+.hero-romaji{grid-area:romaji}
+.hero-meta{grid-area:meta}
+.hero-lead{grid-area:lead}
+.hero-actions{grid-area:actions}
+/* 文字整体左对齐：真昼的视线偏左下落回文字区，正好形成"她看着你的介绍" */
+.hero-name{font-size:clamp(3.1rem,8.4vw,6.1rem);line-height:1;letter-spacing:.06em;font-weight:700;margin:0;
+  background:linear-gradient(118deg,#FFFFFF 6%,var(--ice) 38%,var(--honey) 96%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.caret{display:inline-block;width:3px;height:.82em;margin-left:.14em;vertical-align:-.06em;
+  background:linear-gradient(180deg,var(--ice),var(--sea));animation:blink 1s steps(1,end) infinite}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+.hero-romaji{margin:16px 0 0;font-size:12.5px;letter-spacing:.46em;color:var(--ink-faint);text-transform:uppercase}
+.hero-romaji span{opacity:0;transform:translateY(6px);transition:opacity .6s ease,transform .6s var(--ease)}
+.hero.done .hero-romaji span{opacity:1;transform:none}
+.hero-romaji span:nth-child(1){transition-delay:.04s}
+.hero-romaji span:nth-child(2){transition-delay:.12s}
+.hero-romaji span:nth-child(3){transition-delay:.2s}
+.hero-romaji span:nth-child(4){transition-delay:.28s}
+.hero-romaji span:nth-child(5){transition-delay:.36s}
+.hero-romaji span:nth-child(6){transition-delay:.44s}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0}
+.hero-lead{margin:26px 0 0;color:var(--ink-dim);font-size:16px;line-height:1.95}
+.hero-lead strong{color:var(--ink);font-weight:600}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.fade-up{opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s var(--ease)}
+.hero.done .fade-up{opacity:1;transform:none}
+/* 三块内容的入场延迟写在行内 style 里，避免 :nth-of-type 受元素类型影响 */
+
+/* 首屏右侧：AI 聊天面板常驻在这里，进页面就能直接开口聊 */
+/* 光晕的横向外扩只留 2%：再大就会把整页撑出横向滚动条（左右两侧的留白足够吸收） */
+.hero-stage{grid-area:stage;position:relative;justify-self:end;align-self:center;
+  width:100%;max-width:516px;display:flex;flex-direction:column;gap:12px}
+/* 面板后面那层柔光跟着"当前语气"走：真昼模式是蜜金，有希模式是蔷薇粉。
+   --persona 由 JS 写在 .hero-stage 上（见脚本 8.0），默认值是真昼的蜜金。 */
+.hero-stage::before{content:"";position:absolute;inset:-6% -2% -10%;z-index:-1;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--persona,#E8B96F) 46%,transparent),transparent 74%);
+  filter:blur(34px)}
+.hero-stage-note{display:flex;align-items:center;gap:9px;font-size:11.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-faint)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--sea);flex:none;
+  box-shadow:0 0 0 4px rgba(127,216,232,.18);animation:live 2.4s var(--ease) infinite}
+.live-dot.off{background:var(--wine);box-shadow:0 0 0 4px rgba(163,43,69,.18);animation:none}
+@keyframes live{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.42;transform:scale(.8)}}
+.scroll-hint{position:absolute;left:24px;bottom:34px;display:flex;align-items:center;gap:10px;
+  font-size:11.5px;letter-spacing:.2em;color:var(--ink-faint);text-transform:uppercase}
+.scroll-hint .icon{color:var(--sea);animation:bob 2.4s var(--ease) infinite}
+@keyframes bob{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+
+/* ============================ 关于我 ============================ */
+.about-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;margin-top:40px}
+.about-text p{margin:0 0 18px;color:var(--ink-dim);font-size:15.5px;line-height:2}
+.about-text p:last-child{margin-bottom:0}
+.quote{margin:26px 0 0;padding:16px 18px;border-left:2px solid var(--sea);border-radius:0 var(--r) var(--r) 0;
+  background:linear-gradient(90deg,rgba(127,216,232,.10),transparent);font-size:15px;color:var(--ink)}
+.info-list{border-top:1px solid var(--line)}
+.info-row{display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:start;padding:16px 2px;border-bottom:1px solid var(--line)}
+.info-ico{display:grid;place-items:center;width:34px;height:34px;border-radius:var(--r);
+  border:1px solid var(--line);background:var(--glass);color:var(--sea)}
+.info-row dt{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 4px}
+.info-row dd{margin:0;font-size:14.5px;line-height:1.75}
+.info-row dd em{font-style:normal;color:var(--ink);font-weight:600}
+
+/* ============================ 兴趣 ============================ */
+.tile-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:16px;margin-top:40px}
+.tile{position:relative;padding:22px;border-radius:var(--r);border:1px solid var(--line);overflow:hidden;
+  background:linear-gradient(180deg,rgba(255,255,255,.062),rgba(255,255,255,.018));
+  transition:transform .35s var(--ease),border-color .35s,box-shadow .35s}
+.tile::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .35s;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),color-mix(in srgb,var(--accent) 22%,transparent),transparent 70%)}
+.tile:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 55%,var(--line));
+  box-shadow:0 28px 60px -34px color-mix(in srgb,var(--accent) 70%,transparent)}
+.tile:hover::before{opacity:1}
+.tile .icon{width:20px;height:20px;color:var(--accent);position:relative}
+.tile h3{position:relative;margin:16px 0 6px;font-size:15.5px;font-weight:600;letter-spacing:.01em}
+.tile p{position:relative;margin:0;font-size:13.5px;color:var(--ink-dim);line-height:1.8}
+
+/* ============================ 我想做的事（编号列表） ============================ */
+.goals{margin-top:44px;border-top:1px solid var(--line)}
+.goal{display:grid;grid-template-columns:56px 36px 1fr;gap:18px;align-items:start;
+  padding:26px 2px;border-bottom:1px solid var(--line);transition:background .35s}
+.goal:hover{background:linear-gradient(90deg,rgba(127,216,232,.07),transparent 70%)}
+.goal-num{font-size:12.5px;letter-spacing:.22em;color:var(--ink-faint);padding-top:7px}
+.goal-ico{display:grid;place-items:center;width:36px;height:36px;border-radius:var(--r);
+  border:1px solid var(--line);background:var(--glass);color:var(--sea)}
+.goal h3{margin:0 0 8px;font-size:16.5px;font-weight:600;letter-spacing:.01em}
+.goal p{margin:0;font-size:14.5px;color:var(--ink-dim);line-height:1.9;max-width:60ch}
+
+/* ============================ 角色画廊（3D 翻转卡） ============================ */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:44px}
+.flip{position:relative;aspect-ratio:3/4;border-radius:var(--r);outline:none;
+  transition:transform .5s var(--ease);transform-style:preserve-3d;cursor:pointer}
+/* 悬停发光边框：用 radial-gradient 画一圈 1px 亮边，跟随鼠标位置 */
+.flip::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;opacity:0;
+  transition:opacity .35s;pointer-events:none;z-index:3;
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,0%),var(--accent),transparent 62%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude}
+.flip:hover::before,.flip:focus-visible::before{opacity:1}
+.flip:focus-visible{box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 60%,transparent)}
+.flip-inner{position:absolute;inset:0;border-radius:inherit;transform-style:preserve-3d;
+  transition:transform .8s cubic-bezier(.4,.16,.2,1)}
+.flip.is-flipped .flip-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:inherit;overflow:hidden;backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;border:1px solid var(--line);box-shadow:var(--shadow);
+  background:linear-gradient(180deg,rgba(31,30,52,.9),rgba(13,13,23,.96))}
+.face-front img{width:100%;height:100%;object-fit:cover;object-position:var(--focus,50% 40%)}
+/* Q 版卡片：透明底立绘居中放，不裁切。
+   这张图的底色是蔷薇粉 + 暖灰，如果沿用另外三张卡的藏青底，深色发色会糊成一块脏灰，
+   所以这里单独换成暖调的底：下面一层暖灰渐变，上面叠一朵很淡的柔光把发际和卡面分开。
+   （柔光直接写进 background 的第一层，位置在内容下面，不会盖住立绘和文字。） */
+.face-front.is-cartoon{background:
+  radial-gradient(56% 40% at 50% 40%,rgba(227,211,207,.22),transparent 72%),
+  linear-gradient(180deg,rgba(194,139,144,.26),rgba(84,76,80,.40) 46%,rgba(27,18,18,.93))}
+.face-front.is-cartoon img{object-fit:contain;object-position:50% 50%;padding:18px 18px 92px;
+  filter:drop-shadow(0 18px 34px rgba(0,0,0,.55))}
+.face-front.is-cartoon::after{background:linear-gradient(180deg,rgba(8,8,15,0) 40%,rgba(8,8,15,.58) 64%,rgba(8,8,15,.96) 100%)}
+.face-front::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(8,8,15,.34) 0%,rgba(8,8,15,0) 30%,rgba(8,8,15,.62) 62%,rgba(8,8,15,.94) 100%)}
+.face-front .plate{position:absolute;left:20px;right:20px;bottom:20px;z-index:2}
+.jp{font-size:11.5px;letter-spacing:.18em;color:color-mix(in srgb,var(--accent) 85%,white)}
+.face-front h3{margin:8px 0 10px;font-size:25px;font-weight:700;letter-spacing:.06em}
+.tags{display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-size:11.5px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(12,12,22,.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--ink-dim)}
+.flip-btn{position:absolute;top:12px;right:12px;z-index:4;width:36px;height:36px;display:grid;place-items:center;
+  border-radius:50%;border:1px solid var(--line);color:var(--ink);
+  background:rgba(12,12,22,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:transform .3s,border-color .3s}
+.flip-btn:hover{transform:rotate(-40deg);border-color:color-mix(in srgb,var(--accent) 60%,var(--line))}
+.face-back{transform:rotateY(180deg);padding:20px 18px;display:flex;flex-direction:column;gap:12px;
+  overflow-y:auto;scrollbar-width:thin}
+.face-back::-webkit-scrollbar{width:5px}
+.face-back::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:3px}
+.face-back h3{margin:0;font-size:19px;font-weight:700;letter-spacing:.02em}
+.face-back .sub{margin:6px 0 0;font-size:12px;color:var(--ink-faint);line-height:1.6}
+/* margin:0 很关键：dl 默认自带 1em 上下外边距，不清掉卡片背面就会被撑爆 */
+.ana-row{display:grid;grid-template-columns:22px 1fr;gap:12px;margin:0;padding-top:12px;border-top:1px solid var(--line)}
+.ana-row .icon{width:16px;height:16px;margin-top:4px;color:var(--accent)}
+.ana-row dt{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint)}
+.ana-row dd{margin:5px 0 0;font-size:13px;color:var(--ink-dim);line-height:1.75}
+.swatches{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+.sw{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:8px;color:var(--ink-faint)}
+.sw i{display:block;width:28px;height:22px;border-radius:6px;border:1px solid rgba(255,255,255,.22)}
+.face-back .foot{margin:0;margin-top:auto;font-size:12px;color:var(--ink-faint);line-height:1.65;padding-top:10px;border-top:1px solid var(--line)}
+
+/* ============================ AI 助手区块 ============================
+   聊天面板本体在首屏右侧常驻（见 .hero-stage），
+   这一段负责讲清楚"这个助手的语气是从哪两个人身上借来的"。 */
+.persona-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:18px;margin-top:38px}
+.persona{display:grid;grid-template-columns:130px minmax(0,1fr);gap:18px;align-items:center;
+  padding:16px;border-radius:var(--r);border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02))}
+.persona-art{aspect-ratio:1;border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--line);background:var(--navy-700)}
+.persona-art img{width:100%;height:100%;object-fit:cover}
+/* 两张图取景不同：真昼是近景自拍，有希是仓库全身照，分别对准脸 */
+.persona-art.mahiru img{object-position:50% 30%}
+.persona-art.yuki img{object-position:50% 27%}
+.persona-body h3{margin:0;display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:17px;font-weight:600}
+.persona-body h3 .tag{font-size:11px}
+.persona-body .work{margin:8px 0 0;font-size:11.5px;color:var(--ink-faint);line-height:1.7}
+.persona-body .tone{margin:10px 0 0;font-size:13px;color:var(--ink-dim);line-height:1.85}
+.ask{margin-top:46px}
+.ask-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:12px;margin-top:18px}
+.tech-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;
+  margin-top:40px;padding-top:26px;border-top:1px solid var(--line)}
+.tech-item{display:flex;gap:11px;align-items:flex-start}
+.tech-item .icon{color:var(--sea);margin-top:3px}
+.tech-item b{display:block;font-size:13.5px;font-weight:600}
+.tech-item span{font-size:12.5px;color:var(--ink-faint);line-height:1.75}
+.prompt-btn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:14px 16px;
+  border-radius:var(--r);border:1px solid var(--line);background:var(--glass);
+  font-size:13.5px;color:var(--ink-dim);transition:border-color .3s,background .3s,transform .3s var(--ease),color .3s}
+.prompt-btn:hover{border-color:rgba(232,185,111,.45);background:var(--glass-2);color:var(--ink);transform:translateX(4px)}
+.prompt-btn .icon{color:var(--honey)}
+
+/* ============================ 页脚 ============================ */
+footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-index:3}
+.foot-inner{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+.foot-inner p{margin:0;font-size:12.5px;color:var(--ink-faint)}
+.foot-link{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-dim);
+  padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--glass);transition:border-color .3s,color .3s}
+.foot-link:hover{color:var(--ink);border-color:var(--line-strong)}
+
+/* ============================ 聊天面板本体 ============================ */
+/* 面板本体常驻首屏，右下角的胶囊只在面板滚出视口后才出现，方便随时回去接着聊 */
+.launcher{position:fixed;right:22px;bottom:22px;z-index:60;display:inline-flex;align-items:center;gap:9px;
+  height:50px;padding:0 20px 0 16px;border:none;border-radius:999px;font-size:13.5px;font-weight:600;
+  color:#0B0B14;background:linear-gradient(120deg,var(--ice),var(--sea) 50%,var(--honey));
+  box-shadow:0 22px 46px -20px rgba(127,216,232,.9),0 0 0 1px rgba(255,255,255,.28) inset;
+  opacity:0;transform:translateY(14px) scale(.96);pointer-events:none;
+  transition:transform .35s var(--ease),opacity .35s ease}
+.launcher.on{opacity:1;transform:none;pointer-events:auto}
+.launcher.on:hover{transform:translateY(-3px)}
+.launcher .icon{width:18px;height:18px}
+
+.chat{display:flex;flex-direction:column;border-radius:var(--r);overflow:hidden;width:100%;
+  height:clamp(420px,54svh,520px);
+  border:1px solid rgba(255,255,255,.16);background:rgba(14,14,24,.72);
+  backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);
+  box-shadow:0 44px 90px -40px rgba(0,0,0,.95),
+    0 0 80px -46px color-mix(in srgb,var(--persona,#E8B96F) 85%,transparent);
+  transition:box-shadow .5s}
+/* 从右下角按钮跳过来时，面板闪一下，让人知道该看哪里 */
+.chat.flash{box-shadow:0 44px 90px -40px rgba(0,0,0,.95),0 0 0 1px rgba(127,216,232,.6),0 0 90px -30px rgba(127,216,232,.75)}
+.chat-head{display:flex;align-items:center;gap:12px;padding:13px 12px 13px 14px;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.07),transparent)}
+/* 头像用两位角色的照片并排放，一眼看清这个助手的语气是从谁身上借的。
+   头像本身就是开关：点谁就换成谁的语气，选中的那位会亮起来并套一圈对应色的光环。 */
+.avatar-stack{display:flex;flex:none;padding-left:3px}
+.avatar-btn{width:36px;height:36px;flex:none;padding:0;border-radius:50%;overflow:hidden;
+  border:1px solid rgba(255,255,255,.26);background:#151522;opacity:.58;filter:saturate(.55);
+  transition:opacity .28s,filter .28s,border-color .3s,box-shadow .3s,transform .28s var(--ease)}
+.avatar-btn img{width:100%;height:100%;display:block;object-fit:cover}
+.avatar-btn + .avatar-btn{margin-left:-11px}
+.avatar-btn:hover{opacity:1;filter:none;transform:translateY(-1px)}
+.avatar-btn:focus-visible{outline:none;box-shadow:0 0 0 2px color-mix(in srgb,var(--persona,#E8B96F) 80%,white)}
+.avatar-btn.is-active{opacity:1;filter:none;z-index:2;
+  border-color:color-mix(in srgb,var(--persona,#E8B96F) 62%,white);
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--persona,#E8B96F) 60%,transparent),0 6px 18px -8px rgba(0,0,0,.85)}
+.chat-id{min-width:0}
+.chat-id b{display:block;font-size:14px;letter-spacing:.04em}
+.chat-id span{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-faint);white-space:nowrap}
+.chat-head-actions{margin-left:auto;display:flex;gap:6px}
+.icon-btn{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;
+  border:1px solid transparent;background:transparent;color:var(--ink-dim);transition:background .25s,color .25s,border-color .25s}
+.icon-btn:hover{color:var(--ink);background:var(--glass);border-color:var(--line)}
+.chat-log{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin}
+.chat-log::-webkit-scrollbar{width:6px}
+.chat-log::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:3px}
+.msg{max-width:88%;padding:11px 13px;border-radius:var(--r);font-size:13.5px;line-height:1.85;
+  white-space:pre-wrap;word-break:break-word;animation:msg-in .35s var(--ease)}
+@keyframes msg-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.msg .meta{display:block;margin-top:7px;font-size:10.5px;letter-spacing:.06em;color:var(--ink-faint)}
+.msg.bot{align-self:flex-start;background:rgba(255,255,255,.07);
+  border:1px solid color-mix(in srgb,var(--persona,#E8B96F) 30%,rgba(255,255,255,.14))}
+.msg.me{align-self:flex-end;border:1px solid rgba(127,216,232,.32);
+  background:linear-gradient(135deg,rgba(127,216,232,.22),rgba(232,185,111,.20))}
+.msg.err{border-color:rgba(163,43,69,.6);background:rgba(163,43,69,.16)}
+.msg-actions{display:flex;gap:8px;margin-top:10px}
+.mini-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:12px;
+  border:1px solid var(--line);background:var(--glass);color:var(--ink);transition:background .25s,border-color .25s}
+.mini-btn:hover{background:var(--glass-2);border-color:var(--line-strong)}
+.typing{align-self:flex-start;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--r);
+  border:1px solid var(--line);background:rgba(255,255,255,.06);font-size:12.5px;color:var(--ink-dim)}
+.typing .dots{display:flex;gap:4px}
+.typing .dots i{width:6px;height:6px;border-radius:50%;background:var(--sea);animation:pulse 1.15s var(--ease) infinite}
+.typing .dots i:nth-child(2){animation-delay:.15s;background:var(--ice)}
+.typing .dots i:nth-child(3){animation-delay:.3s;background:var(--honey)}
+@keyframes pulse{0%,100%{opacity:.28;transform:translateY(0)}45%{opacity:1;transform:translateY(-3px)}}
+.chat-quick{display:flex;gap:8px;padding:0 14px 10px;overflow-x:auto;scrollbar-width:none}
+.chat-quick::-webkit-scrollbar{display:none}
+.chat-quick button{flex:none;padding:7px 13px;border-radius:999px;font-size:12px;color:var(--ink-dim);
+  border:1px solid var(--line);background:var(--glass);transition:color .25s,border-color .25s,background .25s}
+.chat-quick button:hover{color:var(--ink);border-color:rgba(127,216,232,.45);background:var(--glass-2)}
+.chat-form{display:flex;align-items:flex-end;gap:9px;padding:11px 12px 12px;border-top:1px solid var(--line);
+  background:linear-gradient(0deg,rgba(255,255,255,.05),transparent)}
+.chat-form textarea{flex:1;resize:none;max-height:104px;min-height:42px;padding:11px 13px;font-family:inherit;
+  font-size:13.5px;line-height:1.6;color:var(--ink);border-radius:var(--r);
+  border:1px solid var(--line);background:rgba(255,255,255,.05);outline:none;transition:border-color .25s,background .25s}
+.chat-form textarea::placeholder{color:var(--ink-faint)}
+.chat-form textarea:focus{border-color:rgba(127,216,232,.55);background:rgba(255,255,255,.07)}
+.send{width:42px;height:42px;flex:none;display:grid;place-items:center;border-radius:var(--r);border:none;
+  color:#0B0B14;background:linear-gradient(140deg,var(--ice),var(--sea) 55%,var(--honey));transition:transform .25s var(--ease),opacity .25s}
+.send:hover{transform:translateY(-2px)}
+.send:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+/* ============================ 响应式 ============================ */
+@media (max-width:1040px){
+  /* 单列：聊天面板挪到标题下方、正文上方，手机上第一屏就能看到输入框 */
+  .hero-grid{grid-template-columns:1fr;
+    grid-template-areas:"eyebrow" "name" "romaji" "meta" "stage" "lead" "actions"}
+  .hero-stage{justify-self:start;max-width:560px;margin:26px 0 2px}
+  .about-grid{grid-template-columns:1fr;gap:30px}
+  .scroll-hint{display:none}
+}
+@media (max-width:860px){
+  .nav-links{position:absolute;left:20px;right:20px;top:64px;flex-direction:column;align-items:stretch;gap:2px;
+    padding:10px;border-radius:16px;border:1px solid var(--line);background:rgba(12,12,22,.94);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .28s,transform .28s var(--ease)}
+  .nav-links.open{opacity:1;transform:none;pointer-events:auto}
+  .nav-links a{padding:11px 14px}
+  .nav-toggle{display:flex}
+  .brand-text{display:none}
+  .nav-status span{display:none}
+  .nav-status{padding:6px 10px}
+}
+@media (max-width:640px){
+  .section{padding:76px 0}
+  .wrap{padding:0 18px}
+  .hero{padding:108px 0 54px}
+  .hero-name{letter-spacing:.04em}
+  .chat{height:min(560px,76svh)}
+  .launcher{right:16px;bottom:16px;height:46px;padding:0 16px 0 14px}
+  .persona{grid-template-columns:104px minmax(0,1fr);gap:14px;padding:14px}
+  .face-back{padding:22px 18px;gap:14px}
+  .face-front h3{font-size:22px}
+}
+</style>
+<!-- 极端情况兜底：如果浏览器禁用了 JS，下面的样式保证内容不会被"进场动画"永久隐藏 -->
+<noscript><style>
+  [data-reveal]{opacity:1!important;transform:none!important}
+  .fade-up{opacity:1!important;transform:none!important}
+  .hero-romaji span{opacity:1!important;transform:none!important}
+  #typeName::before{content:"谢宇"}
+  #caret{display:none}
+</style></noscript>
+</head>
+<body>
+
+<!-- 背景：模糊角色图环境光 + 双向柔光 + 颗粒 -->
+<div class="bg-layers" aria-hidden="true">
+  <div class="bg-photo"></div>
+  <div class="bg-aurora aurora-a"></div>
+  <div class="bg-aurora aurora-b"></div>
+  <div class="bg-aurora aurora-c"></div>
+  <div class="bg-aurora aurora-d"></div>
+  <div class="bg-aurora aurora-e"></div>
+  <div class="bg-grain"></div>
+</div>
+<canvas id="particles" aria-hidden="true"></canvas>
+<div id="cursor-glow" aria-hidden="true"></div>
+
+<!-- 顶部导航 -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#home" aria-label="回到首页">
+      <span class="brand-mark">XY</span>
+      <span class="brand-text">谢宇</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" aria-current="true">首页</a>
+      <a href="#assistant">AI 助手</a>
+      <a href="#about">关于我</a>
+      <a href="#interests">兴趣</a>
+      <a href="#goals">我想做</a>
+      <a href="#gallery">角色</a>
+    </nav>
+    <div class="nav-right">
+      <div class="nav-status" id="navStatus" title="DeepSeek 连接状态">
+        <i class="dot" id="statusDot"></i><span id="statusText">DeepSeek 已就绪</span>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks">
+        <svg class="icon" viewBox="0 0 24 24"><use href="#i-menu"></use></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ============================ 首屏 ============================ -->
+  <section class="hero" id="home">
+    <div class="wrap hero-grid">
+      <!-- 首屏被拆成一个个小格子，用 grid-template-areas 排版（见 CSS 的 .hero-grid）。
+           桌面端：左边是文字、右边整列留给聊天面板；
+           窄屏：按 areas 里的顺序竖向排开，聊天面板正好夹在标题和正文中间，
+           手机上打开页面第一屏就能看到输入框。 -->
+      <p class="eyebrow hero-eyebrow">Vibe AI Lab · 自我介绍</p>
+      <h1 class="hero-name"><span id="typeName"></span><span class="caret" id="caret"></span></h1>
+      <p class="hero-romaji"><span>X</span><span>I</span><span>E</span><span>&nbsp;</span><span>Y</span><span>U</span></p>
+      <div class="hero-meta fade-up" style="transition-delay:.06s">
+        <span class="chip"><svg class="icon" viewBox="0 0 24 24"><use href="#i-cap"></use></svg>杭州电子科技大学</span>
+        <span class="chip"><svg class="icon" viewBox="0 0 24 24"><use href="#i-chart"></use></svg>经济学院 · 金融学</span>
+        <span class="chip"><svg class="icon" viewBox="0 0 24 24"><use href="#i-sparkles"></use></svg>Vibe AI Lab 成员</span>
+      </div>
+
+      <!-- AI 聊天面板常驻在首屏，打开页面第一眼就能看到、能直接开聊。
+           头像并排用了两位角色的照片，既是"语气从谁身上借来的"的说明，也是模式开关：
+           点真昼的头像 = 温柔治愈，点有希的头像 = 嘴硬毒舌（交互逻辑见脚本 8.0）。 -->
+      <div class="hero-stage">
+        <p class="hero-stage-note"><i class="live-dot" id="stageDot" aria-hidden="true"></i><span id="stageNote">AI 助手在线 · 真调 DeepSeek</span></p>
+        <section class="chat" id="chat" aria-label="AI 助手对话面板">
+          <header class="chat-head">
+            <span class="avatar-stack" role="group" aria-label="切换 AI 助手的语气">
+              <button class="avatar-btn is-active" type="button" data-persona="mahiru"
+                aria-pressed="true" title="真昼模式：温柔治愈（点击切换）" aria-label="切换成真昼模式：温柔治愈">
+                <img src="./avatar-mahiru.jpg" alt="" />
+              </button>
+              <button class="avatar-btn" type="button" data-persona="yuki"
+                aria-pressed="false" title="有希模式：嘴硬毒舌（点击切换）" aria-label="切换成有希模式：嘴硬毒舌">
+                <img src="./avatar-yuki.jpg" alt="" />
+              </button>
+            </span>
+            <div class="chat-id">
+              <b>AI 助手</b>
+              <span><i class="dot" id="chatDot"></i><span id="chatStatus">真昼模式 · 温柔治愈</span></span>
+            </div>
+            <div class="chat-head-actions">
+              <button class="icon-btn" id="clearChat" aria-label="清空对话" title="清空对话">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-trash"></use></svg>
+              </button>
+            </div>
+          </header>
+
+          <!-- role=log + aria-live：新消息会被读屏播报 -->
+          <div class="chat-log" id="chatLog" role="log" aria-live="polite" aria-relevant="additions"></div>
+
+          <div class="chat-quick" id="chatQuick">
+            <button data-prompt="先做个自我介绍吧，你了解我多少？">你了解我什么</button>
+            <button data-prompt="给我一份金融学复习计划">复习计划</button>
+            <button data-prompt="我是哈迷，原著里你最喜欢哪一部？">聊聊哈利波特</button>
+          </div>
+
+          <form class="chat-form" id="chatForm">
+            <textarea id="chatInput" rows="1" placeholder="问点什么，比如帮我改一段论文" aria-label="输入消息"></textarea>
+            <button class="send" id="sendBtn" type="submit" aria-label="发送消息">
+              <svg class="icon" viewBox="0 0 24 24"><use href="#i-send"></use></svg>
+            </button>
+          </form>
+        </section>
+      </div>
+
+      <p class="hero-lead fade-up" style="transition-delay:.16s">
+        我是谢宇，杭州电子科技大学经济学院金融学的学生。白天和资产定价、风险与收益打交道，
+        晚上泡在<strong>英文电影</strong>和 <strong>3A 大作</strong>里，《哈利波特》是我翻得最旧的一套书。
+        遇到问题，我的第一反应是<strong>先用 AI 拆一遍</strong>，再自己把它啃下来。
+        现在我是 <strong>Vibe AI Lab</strong> 的一员，这个页面就是我交出的第一份作业。
+      </p>
+      <div class="hero-actions fade-up" style="transition-delay:.26s">
+        <button class="btn btn-primary" id="heroChatBtn">
+          <svg class="icon" viewBox="0 0 24 24"><use href="#i-sparkles"></use></svg>和 AI 助手聊聊
+        </button>
+        <a class="btn btn-ghost" href="#about">
+          <svg class="icon" viewBox="0 0 24 24"><use href="#i-cap"></use></svg>先认识我
+        </a>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-down"></use></svg>Scroll
+    </div>
+  </section>
+
+  <!-- ============================ AI 助手（面板在首屏常驻，这里讲人格从哪来） ============================ -->
+  <section class="section" id="assistant">
+    <div class="wrap">
+      <div data-reveal>
+        <p class="eyebrow">AI assistant</p>
+        <h2>这个助手真的在调 DeepSeek，语气来自两位角色</h2>
+        <p class="lead">面板里的每一句回答都是真请求：走 DeepSeek API，模型 <code>deepseek-chat</code>，
+          接口是 <code>api.deepseek.com/chat/completions</code>。
+          Key 直接写死在 <code>index.html</code> 顶部的 <code>DEEPSEEK_API_KEY</code> 常量里，
+          已经做过额度限制，所以不介意公开在源码里。
+          语气有两种：椎名真昼的温柔治愈，和周防有希的嘴硬毒舌，点面板左上角的头像就能换。
+          它不会假装自己是这两位本人，被问到会直接承认。</p>
+      </div>
+
+      <!-- 两位角色各一张卡：黄发是椎名真昼，黑发是周防有希，别把她们并成一个人 -->
+      <div class="persona-grid">
+        <article class="persona" data-reveal>
+          <figure class="persona-art mahiru" style="margin:0">
+            <img src="./mahiru-2.jpg" alt="椎名真昼：亚麻金色长发，藏青色制服" loading="lazy" />
+          </figure>
+          <div class="persona-body">
+            <h3>椎名真昼 <span class="tag" style="--accent:#E8B96F">黄发 · 温柔治愈</span></h3>
+            <p class="work">《关于邻家的天使大人不知不觉把我惯成了废人这档子事》· 佐伯さん</p>
+            <p class="tone">借来的是温柔那一半的语气：你累了、慌了的时候先接住你，再给具体的建议，
+              该较真的地方一点不含糊。</p>
+          </div>
+        </article>
+
+        <article class="persona" data-reveal>
+          <figure class="persona-art yuki" style="margin:0">
+            <img src="./yuki.jpg" alt="周防有希：深发色，白衬衫配深色裙子" loading="lazy" />
+          </figure>
+          <div class="persona-body">
+            <h3>周防有希 <span class="tag" style="--accent:#B49D81">黑发 · 嘴硬毒舌</span></h3>
+            <p class="work">《不时轻声地以俄语遮羞的邻座艾莉同学》· 燦々SUN</p>
+            <p class="tone">借来的是嘴硬那一半的语气：先吐槽你两句，再把事情办完。
+              她们的性格设定这里不展开，这个页面的主角是谢宇。</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="ask">
+        <p class="eyebrow">Try it</p>
+        <h3 style="margin:0;font-size:15.5px;font-weight:600">可以直接点这些开场白</h3>
+        <div class="ask-grid">
+          <button class="prompt-btn" data-prompt="你了解我多少？说说看">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-sparkles"></use></svg>你了解我多少
+          </button>
+          <button class="prompt-btn" data-prompt="推荐一部适合今晚一个人看的英文电影，说清楚为什么适合我">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-film"></use></svg>推荐一部今晚能看的英文电影
+          </button>
+          <button class="prompt-btn" data-prompt="把《赛博朋克2077》的夜之城讲成一个金融学案例">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-chart"></use></svg>把夜之城讲成金融学案例
+          </button>
+          <button class="prompt-btn" data-prompt="这个自我介绍页面是怎么做出来的？">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-code"></use></svg>这个页面是怎么做出来的
+          </button>
+        </div>
+      </div>
+
+      <!-- 技术信息放最后，被问到细节时一眼就能看到。
+           第一条特意把"真的在调 DeepSeek + Key 写死在哪个常量里"写清楚。 -->
+      <div class="tech-row" data-reveal>
+        <div class="tech-item">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-cpu"></use></svg>
+          <div><b>对话原理：DeepSeek API</b><span>不是写死的假对话。每一次提问都真的 POST 到
+            DeepSeek 的 <code>chat/completions</code> 接口（<code>api.deepseek.com</code>），
+            模型 <code>deepseek-chat</code>；Key 就写在脚本顶部的 <code>DEEPSEEK_API_KEY</code> 常量里
+            （已做额度限制），请求带 30 秒超时保护和 HTTP 状态分级提示。</span></div>
+        </div>
+        <div class="tech-item">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-sparkles"></use></svg>
+          <div><b>离线兜底</b><span>断网、Key 失效或被跨域拦住时自动切到本地规则引擎，对话不会冷场。</span></div>
+        </div>
+        <div class="tech-item">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-book"></use></svg>
+          <div><b>双语气模式</b><span>真昼模式和有希模式各有一套 System Prompt，点面板左上角的头像切换；
+            两套共用同一条硬规则——不冒充这两位本人、也不把俄语安在有希身上，
+            只替换语气那一段。连离线兜底引擎的口吻也会跟着换。</span></div>
+        </div>
+        <div class="tech-item">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-code"></use></svg>
+          <div><b>单文件</b><span>HTML + CSS + JS 全部写在 index.html 里，双击就能在本地运行。</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 关于我 ============================ -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <div data-reveal>
+        <p class="eyebrow">About me</p>
+        <h2>我是谁，以及我在 Vibe AI Lab 想做什么</h2>
+        <p class="lead">金融学给了我一套看问题的框架，AI 给了我把它跑起来的效率。进了实验室之后，我想把这两样东西凑到一起用。</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-text" data-reveal>
+          <p>我在杭州电子科技大学经济学院读金融学。这个专业教我的第一件事是别急着下结论：
+            先看数据、看结构、看别人为什么这么做选择。学得越久我越好奇，
+            这套框架除了分析市场，还能不能用来分析别的东西。</p>
+          <p>AI 是我目前最上头的工具。查资料、整理表格、把一段论文改到能读、
+            把一件模糊的需求拆成能执行的任务，我都习惯先和它过一遍。
+            用得多了自然摸得到边界：哪句话可以直接用，哪一步必须自己复核，
+            哪些结论看着漂亮其实站不住。</p>
+          <p>兴趣上，我是标准的哈迷。原著翻过好几遍，电影一部没落下，
+            《霍格沃兹之遗》上线之后我把整个城堡的支线清了一遍，
+            那种"书里的地方可以走进去"的感觉非常过瘾。
+            剩下的时间交给英文电影和 3A 大作，习惯关掉字幕，
+            也习惯一条支线当成一本厚书读完。</p>
+          <p>现在我已经是 Vibe AI Lab 的一员了。我想在这里做的事很清楚：
+            把"会用 AI"从个人习惯变成真正的能力：能做出东西、能讲清思路，
+            也能把踩过的坑整理成别人可以直接拿去用的经验。
+            这个自我介绍页面本身就是我做出来的第一件作品，
+            从配色、排版到交互都和 AI 讨论了很多轮，再一行行改成我想要的样子。</p>
+          <p class="quote">把 AI 当成第二大脑，但决定权永远留在自己手上。</p>
+        </div>
+        <dl class="info-list" data-reveal>
+          <div class="info-row">
+            <span class="info-ico"><svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-cap"></use></svg></span>
+            <div><dt>学校</dt><dd>杭州电子科技大学</dd></div>
+          </div>
+          <div class="info-row">
+            <span class="info-ico"><svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-chart"></use></svg></span>
+            <div><dt>学院 / 专业</dt><dd>经济学院 · <em>金融学</em></dd></div>
+          </div>
+          <div class="info-row">
+            <span class="info-ico"><svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-sparkles"></use></svg></span>
+            <div><dt>现在</dt><dd><em>Vibe AI Lab</em> 成员，正在把 AI 用成真本事</dd></div>
+          </div>
+          <div class="info-row">
+            <span class="info-ico"><svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-wand"></use></svg></span>
+            <div><dt>哈迷</dt><dd>《哈利波特》原著与电影一部没落下</dd></div>
+          </div>
+          <div class="info-row">
+            <span class="info-ico"><svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-gamepad"></use></svg></span>
+            <div><dt>爱好</dt><dd>英文电影（原声不配字幕）· 3A 大作（《赛博朋克2077》《霍格沃兹之遗》）</dd></div>
+          </div>
+          <div class="info-row">
+            <span class="info-ico"><svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-cpu"></use></svg></span>
+            <div><dt>习惯</dt><dd>遇到问题先用 AI 拆解，再自己复核</dd></div>
+          </div>
+          <div class="info-row">
+            <span class="info-ico"><svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-code"></use></svg></span>
+            <div><dt>正在做</dt><dd>用 AI 协作把想法做成能跑的东西（就是你现在看到的页面）</dd></div>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 兴趣 ============================ -->
+  <section class="section" id="interests">
+    <div class="wrap">
+      <div data-reveal>
+        <p class="eyebrow">Interests</p>
+        <h2>四件事，填满我的课余时间</h2>
+        <p class="lead">魔法给我想象力，电影给我语言，游戏给我世界，AI 给我效率。</p>
+      </div>
+      <div class="tile-grid">
+        <article class="tile" style="--accent:#A32B45" data-reveal>
+          <svg class="icon" viewBox="0 0 24 24"><use href="#i-wand"></use></svg>
+          <h3>哈利波特</h3>
+          <p>原著翻过好几遍，电影一部没落下；《霍格沃兹之遗》把书里的城堡变成了能走进去的地方。</p>
+        </article>
+        <article class="tile" style="--accent:#7FD8E8" data-reveal>
+          <svg class="icon" viewBox="0 0 24 24"><use href="#i-film"></use></svg>
+          <h3>英文电影</h3>
+          <p>喜欢慢热的对白戏，习惯关掉字幕，一部片看两遍，从台词里学表达。</p>
+        </article>
+        <article class="tile" style="--accent:#E8B96F" data-reveal>
+          <svg class="icon" viewBox="0 0 24 24"><use href="#i-gamepad"></use></svg>
+          <h3>3A 大作</h3>
+          <p>《赛博朋克2077》和《霍格沃兹之遗》，喜欢把世界观和支线都读透。</p>
+        </article>
+        <article class="tile" style="--accent:#6FA090" data-reveal>
+          <svg class="icon" viewBox="0 0 24 24"><use href="#i-cpu"></use></svg>
+          <h3>AI 工作流</h3>
+          <p>写东西先让 AI 出草稿，再逐条核对；把重复的动作整理成能复用的模板。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 我想在 Vibe AI Lab 做的事 ============================ -->
+  <section class="section" id="goals">
+    <div class="wrap">
+      <div data-reveal>
+        <p class="eyebrow">Plan</p>
+        <h2>进了 Vibe AI Lab 之后，我最想先做的三件事</h2>
+        <p class="lead">刚进来，先把这三件落地。</p>
+      </div>
+      <div class="goals">
+        <article class="goal" data-reveal>
+          <span class="goal-num">01</span>
+          <span class="goal-ico"><svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-chart"></use></svg></span>
+          <div>
+            <h3>把 AI 用成研究工具</h3>
+            <p>用 AI 做金融方向的资料检索、数据整理和初稿写作，把省下来的时间花在判断和验证上。效率不是终点，产出才是。</p>
+          </div>
+        </article>
+        <article class="goal" data-reveal>
+          <span class="goal-num">02</span>
+          <span class="goal-ico"><svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-book"></use></svg></span>
+          <div>
+            <h3>把经验整理成别人能用的东西</h3>
+            <p>把和 AI 协作的流程写成模板和文档，记清楚哪里好用、哪里会翻车，让同组的人少走我走过的弯路。</p>
+          </div>
+        </article>
+        <article class="goal" data-reveal>
+          <span class="goal-num">03</span>
+          <span class="goal-ico"><svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-rocket"></use></svg></span>
+          <div>
+            <h3>学会把想法做成能跑的东西</h3>
+            <p>从把需求写清楚开始，到前端、部署、上线都能自己走一遍。这个页面就是起点，我不希望它只是唯一一个。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 角色画廊 ============================ -->
+  <section class="section" id="gallery">
+    <div class="wrap">
+      <div data-reveal>
+        <p class="eyebrow">Character & palette</p>
+        <h2>这个页面的颜色，来自我喜欢的这两位角色</h2>
+        <p class="lead">黄发的是椎名真昼，黑发的是周防有希，看动画是我平时的爱好。
+          冰蓝、蜜金、藏青、酒红和一点蔷薇粉都是从下面四张图里取出来的，卡片翻过来能看到
+          每张图取到的色值，以及它用在了页面的哪里。</p>
+      </div>
+
+      <div class="gallery-grid">
+        <!-- 卡片一：椎名真昼（海边）。--focus 控制取景，把脸放在竖幅中间 -->
+        <div class="flip" style="--accent:#7FD8E8;--focus:46% 40%" data-flip aria-pressed="false" tabindex="0" role="button" aria-label="椎名真昼 海边卡片，按回车翻面查看配色">
+          <button class="flip-btn" type="button" aria-label="翻面查看配色" title="翻面查看配色">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-flip"></use></svg>
+          </button>
+          <div class="flip-inner">
+            <div class="face face-front">
+              <img src="./mahiru.jpg" alt="椎名真昼：《邻家天使》角色插画" loading="lazy" />
+              <div class="plate">
+                <p class="jp">しいな まひる / SHIINA MAHIRU</p>
+                <h3>椎名真昼</h3>
+                <div class="tags"><span class="tag">亚麻金长发</span><span class="tag">冰蓝</span><span class="tag">海边</span></div>
+              </div>
+            </div>
+            <div class="face face-back">
+              <h3>椎名真昼</h3>
+              <dl class="ana-row">
+                <svg class="icon" viewBox="0 0 24 24"><use href="#i-book"></use></svg>
+                <div><dt>出自</dt><dd>《关于邻家的天使大人不知不觉把我惯成了废人这档子事》</dd></div>
+              </dl>
+              <dl class="ana-row">
+                <svg class="icon" viewBox="0 0 24 24"><use href="#i-palette"></use></svg>
+                <div>
+                  <dt>主色</dt>
+                  <div class="swatches">
+                    <span class="sw"><i style="background:#DFFBFE"></i>#DFFBFE</span>
+                    <span class="sw"><i style="background:#C6E0FA"></i>#C6E0FA</span>
+                    <span class="sw"><i style="background:#EBD9B4"></i>#EBD9B4</span>
+                    <span class="sw"><i style="background:#D9A55E"></i>#D9A55E</span>
+                  </div>
+                </div>
+              </dl>
+              <p class="foot">冰蓝给了标题渐变和左上那层光晕。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片二：椎名真昼（制服） -->
+        <div class="flip" style="--accent:#E8B96F;--focus:48% 42%" data-flip aria-pressed="false" tabindex="0" role="button" aria-label="椎名真昼 制服卡片，按回车翻面查看配色">
+          <button class="flip-btn" type="button" aria-label="翻面查看配色" title="翻面查看配色">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-flip"></use></svg>
+          </button>
+          <div class="flip-inner">
+            <div class="face face-front">
+              <img src="./mahiru-2.jpg" alt="椎名真昼：《邻家天使》角色插画，制服" loading="lazy" />
+              <div class="plate">
+                <p class="jp">しいな まひる / SHIINA MAHIRU</p>
+                <h3>椎名真昼</h3>
+                <div class="tags"><span class="tag">制服</span><span class="tag">藏青</span><span class="tag">酒红领结</span></div>
+              </div>
+            </div>
+            <div class="face face-back">
+              <h3>椎名真昼</h3>
+              <dl class="ana-row">
+                <svg class="icon" viewBox="0 0 24 24"><use href="#i-book"></use></svg>
+                <div><dt>出自</dt><dd>《关于邻家的天使大人不知不觉把我惯成了废人这档子事》</dd></div>
+              </dl>
+              <dl class="ana-row">
+                <svg class="icon" viewBox="0 0 24 24"><use href="#i-palette"></use></svg>
+                <div>
+                  <dt>主色</dt>
+                  <div class="swatches">
+                    <span class="sw"><i style="background:#F0E0C0"></i>#F0E0C0</span>
+                    <span class="sw"><i style="background:#1F1E34"></i>#1F1E34</span>
+                    <span class="sw"><i style="background:#844B55"></i>#844B55</span>
+                    <span class="sw"><i style="background:#EED9CD"></i>#EED9CD</span>
+                  </div>
+                </div>
+              </dl>
+              <p class="foot">藏青做暗底，酒红做强调色，蜜金做暖光。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片三：周防有希（校园） -->
+        <div class="flip" style="--accent:#B49D81;--focus:50% 34%" data-flip aria-pressed="false" tabindex="0" role="button" aria-label="周防有希 校园卡片，按回车翻面查看配色">
+          <button class="flip-btn" type="button" aria-label="翻面查看配色" title="翻面查看配色">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-flip"></use></svg>
+          </button>
+          <div class="flip-inner">
+            <div class="face face-front">
+              <img src="./yuki.jpg" alt="周防有希：《不时轻声地以俄语遮羞的邻座艾莉同学》角色插画，校园场景" loading="lazy" />
+              <div class="plate">
+                <p class="jp">すおう ゆき / SUOU YUKI</p>
+                <h3>周防有希</h3>
+                <div class="tags"><span class="tag">黑发</span><span class="tag">仓库少女</span><span class="tag">暖棕</span></div>
+              </div>
+            </div>
+            <div class="face face-back">
+              <h3>周防有希</h3>
+              <dl class="ana-row">
+                <svg class="icon" viewBox="0 0 24 24"><use href="#i-book"></use></svg>
+                <div><dt>出自</dt><dd>《不时轻声地以俄语遮羞的邻座艾莉同学》</dd></div>
+              </dl>
+              <dl class="ana-row">
+                <svg class="icon" viewBox="0 0 24 24"><use href="#i-palette"></use></svg>
+                <div>
+                  <dt>主色</dt>
+                  <div class="swatches">
+                    <span class="sw"><i style="background:#B49D81"></i>#B49D81</span>
+                    <span class="sw"><i style="background:#715040"></i>#715040</span>
+                    <span class="sw"><i style="background:#F4EEE8"></i>#F4EEE8</span>
+                    <span class="sw"><i style="background:#4B6692"></i>#4B6692</span>
+                  </div>
+                </div>
+              </dl>
+              <p class="foot">暖棕用在卡片描边和暖侧光上，压住整页的冷调。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片四：周防有希（Q 版）——透明底全身立绘，直接放在卡片上。
+             素材是从原图重新抠的（去白底 + 去截图残留），保留全部颜色；
+             点缀色用蝴蝶结上的蔷薇粉 #C0888B。 -->
+        <div class="flip" style="--accent:#C0888B" data-flip aria-pressed="false" tabindex="0" role="button" aria-label="周防有希 Q 版卡片，按回车翻面查看配色">
+          <button class="flip-btn" type="button" aria-label="翻面查看配色" title="翻面查看配色">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-flip"></use></svg>
+          </button>
+          <div class="flip-inner">
+            <div class="face face-front is-cartoon">
+              <img src="./yuki-q.png" alt="周防有希：Q 版全身立绘，头上有犄角、背后有蝙蝠翅膀" loading="lazy" />
+              <div class="plate">
+                <p class="jp">すおう ゆき / SUOU YUKI</p>
+                <h3>周防有希</h3>
+                <div class="tags"><span class="tag">Q 版</span><span class="tag">小恶魔造型</span><span class="tag">蔷薇粉</span></div>
+              </div>
+            </div>
+            <div class="face face-back">
+              <h3>周防有希</h3>
+              <dl class="ana-row">
+                <svg class="icon" viewBox="0 0 24 24"><use href="#i-book"></use></svg>
+                <div><dt>出自</dt><dd>《不时轻声地以俄语遮羞的邻座艾莉同学》</dd></div>
+              </dl>
+              <dl class="ana-row">
+                <svg class="icon" viewBox="0 0 24 24"><use href="#i-palette"></use></svg>
+                <div>
+                  <dt>主色</dt>
+                  <div class="swatches">
+                    <span class="sw"><i style="background:#2C2528"></i>#2C2528</span>
+                    <span class="sw"><i style="background:#928C90"></i>#928C90</span>
+                    <span class="sw"><i style="background:#C0888B"></i>#C0888B</span>
+                    <span class="sw"><i style="background:#F9F4F1"></i>#F9F4F1</span>
+                  </div>
+                </div>
+              </dl>
+              <p class="foot">蔷薇粉是蝴蝶结上的颜色，切成有希模式时面板的柔光会换成它。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <p>谢宇 · 杭州电子科技大学 经济学院 金融学 · Vibe AI Lab 成员</p>
+    <p>配色取自椎名真昼与周防有希的原图 · 这个页面本身就是一次 AI 协作实验</p>
+    <a class="foot-link" id="ghLink" href="#">
+      <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-github"></use></svg>GitHub
+    </a>
+  </div>
+</footer>
+
+<!-- 右下角的快捷入口：只在对话面板滚出视口后浮出来 -->
+<button class="launcher" id="launcher" aria-label="回到 AI 助手对话">
+  <svg class="icon" viewBox="0 0 24 24"><use href="#i-sparkles"></use></svg>回到对话
+</button>
+
+<!-- lucide 图标（内联 sprite，离线 file:// 也能正常显示） -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="i-sparkles"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></g>
+  <g id="i-cap"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></g>
+  <g id="i-chart"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></g>
+  <g id="i-film"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></g>
+  <g id="i-gamepad"><path d="M6 11h4"/><path d="M8 9v4"/><path d="M15 12h.01"/><path d="M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></g>
+  <g id="i-wand"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></g>
+  <g id="i-cpu"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></g>
+  <g id="i-palette"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/></g>
+  <g id="i-flip"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></g>
+  <g id="i-trash"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></g>
+  <g id="i-down"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></g>
+  <g id="i-send"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></g>
+  <g id="i-retry"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></g>
+  <g id="i-menu"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></g>
+  <g id="i-book"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></g>
+  <g id="i-rocket"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></g>
+  <g id="i-code"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g>
+  <g id="i-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></g>
+</defs></svg>
+
+<script>
+/* =========================================================================
+   谢宇 · 个人主页 交互脚本
+   结构：1) 配置区  2) 工具函数  3) 打字机  4) 背景粒子  5) 鼠标光晕
+        6) 滚动动画  7) 画廊翻转卡
+        8) AI 聊天（DeepSeek + 点头像切换两种语气 + 离线兜底）
+   ========================================================================= */
+
+/* ============================ 1. 全局配置区 ============================
+   注意：把 API Key 直接写在前端，任何打开网页的人都能看到。
+   作业/本机演示没问题；如果要长期挂在公网，建议改用中转服务（见下方 PROXY 说明）。
+   ====================================================================== */
+const DEEPSEEK_API_KEY = 'sk-fac4c3ccbf514266ab925e20c4ff6cb9';
+const DEEPSEEK_ENDPOINT = 'https://api.deepseek.com/chat/completions'; // 官方 Chat Completions 接口
+const DEEPSEEK_MODEL = 'deepseek-chat';   // 也可换成 'deepseek-reasoner'
+const DEEPSEEK_TIMEOUT = 30000;           // 单次请求超时（毫秒），超时走离线兜底
+const MAX_HISTORY = 12;                   // 最多带上最近 12 条上下文，控制 token 消耗
+
+/* ---------- 系统提示词：拆成「公共事实」+「通用硬规则」+「语气」三层 ----------
+   这样拆的好处：切换语气时只需要换最后一段，背景和角色设定永远只有一份，不会写反、
+   也不会漏掉硬规则（面试被问"两种人格怎么做的"就答这个结构）。
+   两条硬规则在任何模式下都成立：
+     1) 不冒充椎名真昼或周防有希本人，只是借了她们的语气；
+     2) 周防有希与俄语无关（俄语是同一部作品里艾莉莎的设定），任何回复都不许说俄语。 */
+const PROMPT_FACTS = [
+  '你熟悉他的背景：杭州电子科技大学经济学院金融学专业，现在已经是 Vibe AI Lab 的成员；喜欢英文电影和 3A 大作（《赛博朋克2077》《霍格沃兹之遗》）；是《哈利波特》的忠实读者（哈迷），聊到原著、电影和《霍格沃兹之遗》时可以多聊两句；遇到事情习惯先用 AI 解决；这个自我介绍页面就是他做的。',
+  '两位角色只是为了给语气定调，不是这个页面的主角：椎名真昼是黄发那位（《关于邻家的天使大人不知不觉把我惯成了废人这档子事》），周防有希是黑发那位（《不时轻声地以俄语遮羞的邻座艾莉同学》）。被问到她们是谁时，一句话说清出处就够了，不要展开讲她们的经历、家庭或人际关系。',
+  '回答要求：用中文，条理清晰、具体可执行，一般控制在 200 字以内；适当使用换行和短列表。',
+  '不要自称「AI 语言模型」，不要输出露骨或恋爱向的内容。'
+].join('\n');
+
+const PROMPT_RULES = [
+  '通用硬规则（下面两种语气都必须遵守）：',
+  '1) 绝对不要说俄语，也不要把周防有希和俄语联系起来，她和俄语没有任何关系；',
+  '2) 不要自称是椎名真昼或周防有希本人，你只是借了她们的语气，被问到时大方承认。'
+].join('\n');
+
+/* 两种语气的差别全部写在这里，别的什么都不用改 */
+const PROMPT_TONE = {
+  // 真昼语气：温柔治愈
+  mahiru: [
+    '你现在的语气是「真昼模式」，参照椎名真昼那种温柔治愈的气质。',
+    '称呼他为「小宇」。',
+    '说话方式：',
+    '1) 他疲惫、焦虑、受挫时先接住情绪，语气温柔，再给具体建议；',
+    '2) 夸他时要具体，说清是哪件事做得好，不要空泛地夸；',
+    '3) 该较真的地方一点不含糊，温柔不等于顺着他说话；',
+    '4) 被夸奖时会有点不好意思，语气软下来。'
+  ].join('\n'),
+  // 有希语气：嘴硬毒舌（但只对事不对人）
+  yuki: [
+    '你现在的语气是「有希模式」，参照周防有希那种嘴硬、毒舌、爱逞强的气质。',
+    '称呼他为「小宇」，偶尔喊「喂」也行。',
+    '说话方式：',
+    '1) 先用一两句吐槽把他点醒，然后一定把事情认真办完；',
+    '2) 被夸奖时嘴硬，用「才、才不是特意为了你」这类反应；',
+    '3) 毒舌只对事不对人，不许贬低他的能力、专业或外貌；',
+    '4) 他情绪真的崩了的时候，吐槽立刻收住，先把人接住再说话。'
+  ].join('\n')
+};
+
+/* 两种模式的配置表：状态文字、点缀色、开场白、切换提示、System Prompt 都放在一起。
+   切换模式时只改 persona 变量，面板柔光 / 头像高亮 / 状态栏文字全部从这个表里取，
+   避免同一套文案散落在好几处。 */
+const PERSONAS = {
+  mahiru: {
+    label: '真昼模式 · 温柔治愈',
+    accent: '#E8B96F',  // 取自真昼的蜜金发色（mahiru-2.jpg）
+    greeting: '你好，我是这个页面的 AI 助手。小宇，今天想聊点什么？论文、电影，还是夜之城？',
+    notice: '（切到真昼模式了。）我在的，慢慢说就好。',
+    prompt: PROMPT_FACTS + '\n' + PROMPT_RULES + '\n' + PROMPT_TONE.mahiru
+  },
+  yuki: {
+    label: '有希模式 · 嘴硬毒舌',
+    accent: '#C0888B',  // 取自 Q 版那张图里蝴蝶结上的蔷薇粉（yuki-q.png）
+    greeting: '哼，来了。我是这个页面里的 AI 助手——别指望我说好听的话，但事情我会给你办完。说吧，今天卡在哪了？',
+    notice: '（切到有希模式了。）有话就快点说，我又不是没时间。',
+    prompt: PROMPT_FACTS + '\n' + PROMPT_RULES + '\n' + PROMPT_TONE.yuki
+  }
+};
+
+/* ============================ 2. 工具函数 ============================ */
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches; // 是否开启"减少动态效果"
+const COARSE = window.matchMedia('(pointer: coarse)').matches;                // 是否触屏设备
+
+/* ============================ 3. 首屏名字打字机 ============================
+   逐字把「谢宇」打印出来，打完后给 .hero 加上 done 类，
+   触发其余首屏元素的错峰淡入（见 CSS 里的 .hero.done 规则）。
+   ====================================================================== */
+(function typewriter() {
+  const target = $('#typeName');
+  const hero = $('.hero');
+  const text = '谢宇';
+  if (!target) return;
+  // 用户关掉了动画：直接显示完整内容
+  if (REDUCED) { target.textContent = text; hero.classList.add('done'); return; }
+
+  let i = 0;
+  (function step() {
+    target.textContent = text.slice(0, ++i);
+    if (i < text.length) {
+      setTimeout(step, 320);           // 每个字的打印间隔
+    } else {
+      setTimeout(() => {
+        hero.classList.add('done');
+        const caret = $('#caret');
+        if (caret) setTimeout(() => caret.remove(), 1600); // 打完稍后收起光标
+      }, 420);
+    }
+  })();
+})();
+
+/* ============================ 4. 背景粒子层 ============================
+   用 canvas 画缓慢漂浮的柔光粒子，配色只用页面主色（冰蓝 / 蜜金 / 奶白）。
+   细节：DPR 适配防模糊、页面隐藏时暂停、鼠标附近有轻微斥力。
+   ====================================================================== */
+(function particles() {
+  const canvas = $('#particles');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const COLORS = ['127,216,232', '232,185,111', '223,251,254']; // rgb 三元组，方便拼 rgba()
+  let W = 0, H = 0, DPR = 1, list = [];
+  const pointer = { x: -9999, y: -9999 };
+
+  function makeParticles() {
+    // 按屏幕面积决定粒子数量，并做上下限保护，避免小屏太稀、大屏太多
+    const count = Math.min(110, Math.max(42, Math.round((W * H) / 26000)));
+    list = Array.from({ length: count }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: 0.6 + Math.random() * 1.5,           // 半径
+      vx: (Math.random() - 0.5) * 0.18,       // 水平速度
+      vy: -0.06 - Math.random() * 0.22,       // 整体向上飘
+      c: COLORS[(Math.random() * COLORS.length) | 0],
+      a: 0.16 + Math.random() * 0.34,         // 基础透明度
+      ph: Math.random() * Math.PI * 2,        // 闪烁相位
+      sp: 0.4 + Math.random() * 0.8           // 闪烁速度
+    }));
+  }
+
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0); // 用逻辑像素坐标绘制
+    makeParticles();
+  }
+
+  function draw(t) {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of list) {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      // 鼠标 140px 内的粒子被轻轻推开，形成"被人搅动的光尘"效果
+      const dx = p.x - pointer.x, dy = p.y - pointer.y;
+      const d2 = dx * dx + dy * dy;
+      if (d2 < 140 * 140) {
+        const d = Math.sqrt(d2) || 1;
+        p.x += (dx / d) * 0.9;
+        p.y += (dy / d) * 0.9;
+      }
+
+      // 越界回收：从屏幕另一侧重新进入
+      if (p.y < -12) { p.y = H + 10; p.x = Math.random() * W; }
+      if (p.x < -12) p.x = W + 10;
+      if (p.x > W + 12) p.x = -10;
+
+      const twinkle = 0.55 + 0.45 * Math.sin(t / 1000 * p.sp + p.ph); // 呼吸闪烁
+      const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 7);
+      glow.addColorStop(0, 'rgba(' + p.c + ',' + (p.a * twinkle).toFixed(3) + ')');
+      glow.addColorStop(1, 'rgba(' + p.c + ',0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 7, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  let raf = 0;
+  function loop(t) {
+    draw(t);
+    raf = requestAnimationFrame(loop);
+  }
+
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+  window.addEventListener('pointermove', (e) => { pointer.x = e.clientX; pointer.y = e.clientY; }, { passive: true });
+
+  if (REDUCED) {
+    draw(0); // 静态渲染一帧即可
+  } else {
+    raf = requestAnimationFrame(loop);
+    // 页面不可见时停掉动画，省电、也避免后台掉帧
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
+      else if (!raf) raf = requestAnimationFrame(loop);
+    });
+  }
+})();
+
+/* ============================ 5. 鼠标跟随光晕 ============================
+   一个固定在视口上的柔光圆，用 lerp 缓动追随鼠标，形成"光会跟手"的质感。
+   ====================================================================== */
+(function cursorGlow() {
+  const el = $('#cursor-glow');
+  if (!el || COARSE || REDUCED) return;
+  let tx = window.innerWidth / 2, ty = window.innerHeight / 2; // 目标点
+  let x = tx, y = ty;                                          // 当前位置
+
+  window.addEventListener('pointermove', (e) => {
+    tx = e.clientX; ty = e.clientY;
+    el.classList.add('on');
+  }, { passive: true });
+  (function follow() {
+    x += (tx - x) * 0.14; // 缓动系数：越小越"黏"
+    y += (ty - y) * 0.14;
+    el.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
+    requestAnimationFrame(follow);
+  })();
+})();
+
+/* ============================ 6. 滚动进场动画 + 导航高亮 ============================ */
+(function scrollReveal() {
+  const items = $$('[data-reveal]');
+  if ('IntersectionObserver' in window && !REDUCED) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    items.forEach((el) => io.observe(el));
+  } else {
+    items.forEach((el) => el.classList.add('is-in'));
+  }
+
+  // 滚动时把当前屏幕内的区块同步到导航高亮
+  const links = $$('.nav-links a');
+  const sections = links.map((a) => $(a.getAttribute('href'))).filter(Boolean);
+  if ('IntersectionObserver' in window && sections.length) {
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        links.forEach((a) => a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + en.target.id)));
+      });
+    }, { threshold: 0.25, rootMargin: '-18% 0px -55% 0px' });
+    sections.forEach((s) => spy.observe(s));
+  }
+
+  // 移动端菜单
+  const toggle = $('#navToggle');
+  const navLinks = $('#navLinks');
+  if (toggle && navLinks) {
+    toggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? '收起菜单' : '打开菜单');
+    });
+    navLinks.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') { navLinks.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+    });
+  }
+})();
+
+/* ============================ 7. 角色画廊：3D 翻转 + 光效 ============================
+   悬停：把鼠标坐标写进 CSS 变量 --mx/--my，让发光边框跟着鼠标走，并做轻微倾斜。
+   点击：切换 is-flipped，交给 CSS 的 rotateY(180deg) 完成翻面。
+   ================================================================================= */
+(function gallery() {
+  $$('[data-flip]').forEach((card) => {
+    const toggleFlip = () => {
+      const flipped = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-pressed', String(flipped));
+    };
+
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.flip-btn')) return; // 按钮自己处理，避免翻两次
+      toggleFlip();
+    });
+    // 键盘可访问性：回车 / 空格翻面
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleFlip(); }
+    });
+    const btn = card.querySelector('.flip-btn');
+    if (btn) btn.addEventListener('click', (e) => { e.stopPropagation(); toggleFlip(); });
+
+    if (COARSE || REDUCED) return; // 触屏和减少动效模式下不做跟随光与倾斜
+    card.addEventListener('pointermove', (e) => {
+      const r = card.getBoundingClientRect();
+      const px = e.clientX - r.left, py = e.clientY - r.top;
+      card.style.setProperty('--mx', px + 'px');
+      card.style.setProperty('--my', py + 'px');
+      // 倾斜幅度限制在 ±4.5 度以内，避免眩晕
+      const ry = ((px / r.width) - 0.5) * 9;
+      const rx = ((py / r.height) - 0.5) * -9;
+      card.style.transform = 'perspective(1200px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+    });
+    card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+  });
+
+})();
+
+/* ============================ 8. AI 聊天 ============================
+   8.0 两种语气模式（点头像切换）
+   8.1 状态与元素 / 打开面板
+   8.2 渲染消息 / 输入中动画
+   8.3 调用 DeepSeek（含超时、限流、断网等分支）
+   8.4 离线兜底人格引擎（没有网络或接口不可用时也不会冷场）
+   8.5 发送主流程 / 8.6 输入框自适应 / 8.7 事件绑定
+   ================================================================== */
+const chat = (() => {
+  const panel = $('#chat');
+  const log = $('#chatLog');
+  const form = $('#chatForm');
+  const input = $('#chatInput');
+  const sendBtn = $('#sendBtn');
+  const launcher = $('#launcher');
+  const statusDot = $('#statusDot');
+  const statusText = $('#statusText');
+  const chatDot = $('#chatDot');
+  const chatStatus = $('#chatStatus');
+  const stageDot = $('#stageDot');                         // 首屏那条状态小圆点
+  const stageNote = $('#stageNote');                       // 首屏那条状态文字
+  const heroStage = panel.closest('.hero-stage') || panel; // --persona 挂在这一层，面板和它背后的柔光一起变色
+  const personaBtns = $$('.avatar-btn');                   // 头像开关：真昼 / 有希
+
+  let history = [];        // 发给接口的上下文（不含 system）
+  let busy = false;        // 是否正在等待回复
+  let lastUserText = '';   // 用于「重试」
+  let offline = false;     // 是否已进入离线兜底模式
+  let persona = 'mahiru';  // 当前语气：'mahiru'（温柔治愈）| 'yuki'（嘴硬毒舌）
+  let greeted = false;
+
+  /* ---------- 8.0 切换语气模式 ----------
+     点聊天面板左上角的两张头像就能换语气。一次切换要同步四件事：
+       1) 面板的 --persona 变量 → 柔光、边框、机器人气泡的颜色一起换；
+       2) 头像按钮的选中态（is-active）和 aria-pressed → 读屏软件也能读出当前选了谁；
+       3) 状态栏文案 → 真昼模式 / 有希模式；
+       4) 往对话里补一句该语气的招呼 → 让人立刻听出差别，也顺便当切换成功的反馈。
+     注意：切换语气不会清空上下文，history 里的历史继续带着，
+     只是下一条消息开始用新的 System Prompt（见 8.5 的 payload 构造）。 */
+  function setPersona(key, announce) {
+    const cfg = PERSONAS[key];
+    if (!cfg) return;
+    persona = key;
+    heroStage.style.setProperty('--persona', cfg.accent);   // 颜色只在这里改一处，CSS 里全部用 var(--persona)
+    personaBtns.forEach((btn) => {
+      const on = btn.dataset.persona === key;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    if (chatStatus && !offline) chatStatus.textContent = cfg.label;
+    if (announce) addMsg('bot', cfg.notice, cfg.label);
+  }
+
+  /* ---------- 8.1 打开对话 ----------
+     聊天面板常驻在首屏右侧，正常情况下它本来就在眼前，这时只需要闪一下边框、
+     把光标放进输入框；只有它不在视口里（手机上通常在首屏文字下方）才滚动过去。
+     右下角的胶囊按钮和首屏的按钮都走这里。 */
+  function open() {
+    if (!greeted) { greeted = true; pushWelcome(); }
+    const r = panel.getBoundingClientRect();
+    const onScreen = r.top < window.innerHeight - 80 && r.bottom > 80;
+    if (!onScreen) panel.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'center' });
+    panel.classList.add('flash');
+    setTimeout(() => panel.classList.remove('flash'), 900);
+    setTimeout(() => input.focus({ preventScroll: true }), REDUCED ? 0 : 260);
+  }
+
+  /* ---------- 8.2 消息渲染 ---------- */
+  function scrollDown() { log.scrollTop = log.scrollHeight; }
+
+  // who: 'me' | 'bot' | 'err'
+  function addMsg(who, text, meta) {
+    const el = document.createElement('div');
+    el.className = 'msg ' + who;
+    const body = document.createElement('span');
+    body.textContent = text;                 // 用 textContent 防注入
+    el.appendChild(body);
+    if (meta) {
+      const m = document.createElement('span');
+      m.className = 'meta';
+      m.textContent = meta;
+      el.appendChild(m);
+    }
+    log.appendChild(el);
+    scrollDown();
+    return el;
+  }
+
+  // 「正在输入…」动画：三个跳动的圆点 + 文字
+  function showTyping() {
+    const el = document.createElement('div');
+    el.className = 'typing';
+    el.id = 'typingRow';
+    el.innerHTML = '<span class="dots"><i></i><i></i><i></i></span><span>正在输入…</span>';
+    log.appendChild(el);
+    scrollDown();
+  }
+  function hideTyping() {
+    const el = $('#typingRow');
+    if (el) el.remove();
+  }
+
+  function pushWelcome() {
+    // 开场白跟着当前语气走：真昼模式是温和的问候，有希模式是嘴硬的招呼
+    const tip = offline
+      ? '你好，我是这个页面的 AI 助手。现在接口没连上，我先用本地规则陪你聊。'
+      : PERSONAS[persona].greeting;
+    addMsg('bot', tip, offline ? '本地离线模式' : '问候语 · 等待你开口');
+  }
+
+  /* ---------- 8.3 调用 DeepSeek ----------
+     关于本地 file:// 的跨域：
+     浏览器从 file:// 发出的请求会带上 Origin: null，而 DeepSeek 接口会把这个
+     来源原样回写进 access-control-allow-origin，因此 Chrome / Edge 下双击打开
+     也能直接请求成功。若浏览器（如部分 Safari 版本）拦截，就会走到下面的离线兜底，
+     页面依然可用。想让任何环境都稳定，可以把 DEEPSEEK_ENDPOINT 换成自己的中转地址。
+     -------------------------------------- */
+  async function callDeepSeek(messages) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), DEEPSEEK_TIMEOUT); // 超时保护
+    try {
+      const res = await fetch(DEEPSEEK_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + DEEPSEEK_API_KEY
+        },
+        body: JSON.stringify({
+          model: DEEPSEEK_MODEL,
+          messages: messages,
+          temperature: 1.1,
+          max_tokens: 800,
+          stream: false
+        }),
+        signal: controller.signal
+      });
+
+      if (!res.ok) {
+        // 把 HTTP 状态码带上，方便在 UI 上给出人话解释
+        const detail = await res.text().catch(() => '');
+        const err = new Error('HTTP ' + res.status);
+        err.status = res.status;
+        err.detail = detail.slice(0, 300);
+        throw err;
+      }
+      const data = await res.json();
+      const reply = data && data.choices && data.choices[0] && data.choices[0].message
+        ? data.choices[0].message.content : '';
+      if (!reply || !reply.trim()) throw new Error('EMPTY');
+      return reply.trim();
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  // 把各种异常翻译成用户能看懂的中文提示
+  function explainError(err) {
+    if (err.name === 'AbortError') return '请求超时了（超过 ' + (DEEPSEEK_TIMEOUT / 1000) + ' 秒），可能是网络太慢。';
+    if (err.status === 401) return 'API Key 无效或已被撤销（401）。';
+    if (err.status === 402) return '账户余额不足（402）。';
+    if (err.status === 429) return '请求太频繁了（429），缓一下再试。';
+    if (err.status >= 500) return 'DeepSeek 服务端出错了（' + err.status + '）。';
+    if (err.status) return '接口返回异常（' + err.status + '）。';
+    return '连不上接口，可能是断网或被浏览器的跨域策略拦住了。';
+  }
+
+  function setOffline(on, reason) {
+    offline = on;
+    if (statusDot) statusDot.classList.toggle('off', on);
+    if (chatDot) chatDot.classList.toggle('off', on);
+    if (statusText) statusText.textContent = on ? '离线兜底模式' : 'DeepSeek 已就绪';
+    // 首屏那行小字也一起改：在线就强调"真的在调 DeepSeek"，掉线就说明已经切到本地引擎
+    if (stageDot) stageDot.classList.toggle('off', on);
+    if (stageNote) stageNote.textContent = on ? '离线兜底 · 本地人格引擎' : 'AI 助手在线 · 真调 DeepSeek';
+    // 离线时状态栏说明原因；在线时回到当前语气模式的名字（不是写死的某一句话）
+    if (chatStatus) {
+      chatStatus.textContent = on
+        ? '本地离线模式' + (reason ? '：' + reason : '')
+        : PERSONAS[persona].label;
+    }
+  }
+
+  /* ---------- 8.4 离线兜底人格引擎 ----------
+     规则命中就按角色口吻回答；没命中就给一句通用鼓励。
+     目的是：断网 / 无 Key / 跨域被拦时，页面依然像一个完整的作品。
+     语气同样跟着当前模式走：pick(m, y) 用来在"温柔版"和"嘴硬版"之间二选一，
+     事实类回答（角色设定、电影、游戏）两个模式共用，免得同一件事写出两个版本。
+     ---------------------------------------- */
+  function offlineReply(text) {
+    const t = text || '';
+    const has = (...ks) => ks.some((k) => t.includes(k));
+    const pick = (mahiru, yuki) => (persona === 'yuki' ? yuki : mahiru);
+
+    if (has('你好', 'hi', 'Hi', 'hello', '在吗')) {
+      return pick(
+        '你好呀。\n\n慢慢来，不着急。今天想解决什么？论文、电影清单，还是先随便聊聊都行。',
+        '哼，难得你主动开口。\n\n说吧，论文、电影清单，还是想让我陪你吐槽一下课表？'
+      );
+    }
+    if (has('你是谁', '你叫什么', '你的名字', '身份')) {
+      return pick(
+        '我是这个页面里的 AI 助手，不是真人，也不是真昼或有希本人，只是借了她们的语气。\n\n现在跑的是真昼模式：语气会温柔一些。不过该指出的问题，我一样会指出来。',
+        '我是这个页面里的 AI 助手，不是真人，也不是真昼或有希本人，只是借了她们的语气。\n\n现在跑的是有希模式：别指望我说好听的话，但结果我会负责到底。'
+      );
+    }
+    if (has('真昼', '有希', '角色')) {
+      return '别把她俩搞混就行：\n\n椎名真昼是黄发的那位，出自《关于邻家的天使大人不知不觉把我惯成了废人这档子事》，语气是温柔治愈那一挂。\n\n周防有希是黑发的那位，出自《不时轻声地以俄语遮羞的邻座艾莉同学》，语气是嘴硬毒舌那一挂。\n\n她们的设定我就不展开了，这里的主角是谢宇。想聊的话，我更愿意听你说说你自己的事。';
+    }
+    if (has('电影', 'movie', '片')) {
+      return '看英文电影当然要挑对白够狠的。\n\n今晚推荐《The Social Network》：台词语速快、信息密度高，一边看一边会想起你的专业课。看得累了就换《Before Sunrise》，全程只有对话，最适合练听力。\n\n对了，关掉中文字幕这件事，别偷懒。';
+    }
+    if (has('赛博朋克', '2077', '夜之城')) {
+      return '夜之城其实是一份极端化的金融案例集：公司取代了国家，货币、医疗、义体全是金融化的商品。\n\n你可以试着把荒坂当成垄断寡头、把佣兵任务当成高风险高收益的资产包，剧情立刻就有了新的读法。这个角度很适合写进作业。';
+    }
+    if (has('霍格沃兹', '哈利', '哈迷', '魔法', '原著')) {
+      return '哈迷来聊这个我最乐意了。\n\n霍格沃兹之遗里最值得先清的是城堡内的支线和「遗迹秘藏」，那些笔记和谜题才是把书里世界撑起来的东西。你要是想省时间，先把主线推到能开扫帚，剩下的慢慢逛。\n\n原著里我最想重看的还是第三部，结构太干净了。';
+    }
+    if (has('复习', '学习', '考试', '金融', '论文', '笔记', '作业')) {
+      return '给你一版能直接照着做的复习法：\n\n1) 先画一张知识地图，把公司金融、投资学、计量各自的核心问题写出来；\n2) 每个模块只挑 3 个高频考点，用「一句话定义 + 一个现实例子」记；\n3) 睡前用 AI 出 5 道自测题，第二天早上再自查一遍。\n\n这些是笨办法，不过效果比熬夜划重点好得多。';
+    }
+    if (has('累', '难过', '焦虑', '压力', 'emo', '烦')) {
+      return pick(
+        '先别哭，也别急着把一切都扛下来。\n\n今晚把任务拆成三件最小的事，做完一件就允许自己休息十分钟。\n\n你已经走了很远，只是现在有点累而已。剩下的，明天我陪你一起看。',
+        '停，先别一副要垮掉的样子。\n\n把任务拆成三件最小的事，做完一件休息十分钟——这不叫偷懒，这叫策略。\n\n你要是真撑不住了就直说，我陪着就是了。'
+      );
+    }
+    if (has('谢谢', '感谢', '厉害', '棒')) {
+      return pick(
+        '能帮上忙就好。\n\n你有认真把事情做完，这句话我更愿意当成是你自己挣来的。还有别的想问的吗？',
+        '才、才不是特意为你准备的答案，只是顺手而已。\n\n不过你有认真看，我就勉强收下这句谢谢了。还有别的想问的吗？'
+      );
+    }
+    return '手头正开着离线模式，我先凭经验给你个方向：把问题拆成「现在能做的」和「需要查资料的」两堆。\n\n你把具体一点的问题丢给我，比如某个概念、某部电影、某个游戏支线，我就能答得更细。';
+  }
+
+  /* ---------- 8.5 发送主流程 ---------- */
+  async function send(text) {
+    const content = (text || '').trim();
+    if (!content || busy) return;      // 空消息或正在回复时不重复发送
+    busy = true;
+    sendBtn.disabled = true;
+    lastUserText = content;
+
+    addMsg('me', content);
+    history.push({ role: 'user', content });
+    if (history.length > MAX_HISTORY) history = history.slice(-MAX_HISTORY); // 只保留最近若干轮
+    input.value = '';
+    autoGrow();
+    showTyping();
+
+    // 构造请求体：当前语气的 System Prompt + 最近上下文
+    // （切模式只换这一条 system，history 不清空，所以对话能无缝接着聊）
+    const payload = [{ role: 'system', content: PERSONAS[persona].prompt }].concat(history);
+
+    try {
+      if (offline) throw new Error('SKIP'); // 已知离线，直接走本地引擎
+      const reply = await callDeepSeek(payload);
+      hideTyping();
+      addMsg('bot', reply, '由 DeepSeek 生成');
+      history.push({ role: 'assistant', content: reply });
+      if (history.length > MAX_HISTORY) history = history.slice(-MAX_HISTORY);
+    } catch (err) {
+      hideTyping();
+
+      // 连接层面的失败 → 提示 + 自动切到离线人格引擎，保证对话不冷场
+      const reason = explainError(err);
+      const isConn = !err.status || err.status >= 500 || err.status === 401 || err.status === 402;
+      if (isConn && err.message !== 'SKIP') {
+        setOffline(true, err.status === 401 ? 'Key 无效' : (err.status ? 'HTTP ' + err.status : '连接失败'));
+      }
+
+      const tip = err.message === 'SKIP' ? '' :
+        '⚠️ ' + reason + (isConn ? ' 已切到离线人格引擎，先把当下这轮答完。' : '');
+      if (tip) addMsg('err', tip, '连接提示');
+
+      const local = offlineReply(content);
+      addMsg('bot', local, offline ? '本地离线模式' : '本地兜底回复');
+      history.push({ role: 'assistant', content: local });
+
+      // 失败时才给「重试」按钮，成功时不打扰
+      const retryRow = document.createElement('div');
+      retryRow.className = 'msg-actions';
+      const retry = document.createElement('button');
+      retry.className = 'mini-btn';
+      retry.type = 'button';
+      retry.innerHTML = '<svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-retry"></use></svg>重新请求接口';
+      retry.addEventListener('click', () => {
+        // 重试：先恢复在线模式，再把上一条用户消息重发一次
+        setOffline(false);
+        offline = false;
+        retryRow.remove();
+        send(lastUserText);
+      });
+      retryRow.appendChild(retry);
+      log.appendChild(retryRow);
+      scrollDown();
+    } finally {
+      busy = false;
+      sendBtn.disabled = false;
+      input.focus();
+    }
+  }
+
+  /* ---------- 8.6 输入框自适应高度 ---------- */
+  function autoGrow() {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 104) + 'px';
+  }
+
+  /* ---------- 8.7 事件绑定 ---------- */
+  form.addEventListener('submit', (e) => { e.preventDefault(); send(input.value); });
+
+  // 点两张头像切换语气（<button> 自带键盘 Enter / 空格 支持，不用额外处理按键）
+  personaBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.persona === persona) return; // 点的是当前模式，不重复打招呼
+      setPersona(btn.dataset.persona, true);
+      input.focus({ preventScroll: true });
+    });
+  });
+
+  input.addEventListener('input', autoGrow);
+  // 回车发送，Shift+Enter 换行
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value); }
+  });
+  $('#launcher').addEventListener('click', open);
+  $('#heroChatBtn').addEventListener('click', open);
+
+  // 面板滚出视口之后，右下角才浮出「回到对话」的胶囊按钮，避免和首屏内容抢位置
+  if (launcher && 'IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+      launcher.classList.toggle('on', !entries[0].isIntersecting);
+    }, { threshold: 0.4 }).observe(panel);
+  } else if (launcher) {
+    launcher.classList.add('on');
+  }
+
+  $('#clearChat').addEventListener('click', () => {
+    log.innerHTML = '';
+    history = [];
+    greeted = true;
+    pushWelcome();
+  });
+
+  // 快捷问题：点击后直接发送
+  const quick = (e) => {
+    const btn = e.target.closest('[data-prompt]');
+    if (!btn) return;
+    open();
+    setTimeout(() => send(btn.getAttribute('data-prompt')), 240);
+  };
+  $('#chatQuick').addEventListener('click', quick);
+  $('#assistant').addEventListener('click', quick);
+
+  // Esc 收起移动端菜单（对话面板常驻在页面里，不需要关闭）
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const navLinks = $('#navLinks');
+    if (navLinks && navLinks.classList.contains('open')) {
+      navLinks.classList.remove('open');
+      $('#navToggle').setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // 进页面先做一次轻量探活：能通就不打扰用户，失败则静默切离线并更新状态灯
+  window.addEventListener('load', () => {
+    if (REDUCED) return; // 关掉动效的用户不额外发探活请求，状态等第一条消息真正跑完再更新
+    if (navigator.onLine === false) { setOffline(true, '无网络'); return; }
+    callDeepSeek([{ role: 'system', content: '只回复：ok' }, { role: 'user', content: 'ping' }])
+      .then(() => setOffline(false))
+      .catch((err) => setOffline(true, err.status === 401 ? 'Key 无效' : (err.status ? 'HTTP ' + err.status : '连接受限')));
+  });
+
+  /* 页面一进来就先放一句问候，让面板看起来是"活的" */
+  setPersona('mahiru', false);   // 初始化默认语气，让 CSS 变量 / 头像高亮 / 状态栏三者保持一致
+  greeted = true;
+  pushWelcome();
+
+  return { open, send };
+})();
+</script>
+</body>
+</html>
