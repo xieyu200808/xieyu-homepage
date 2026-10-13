@@ -531,8 +531,8 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
       <a href="#gallery">角色</a>
     </nav>
     <div class="nav-right">
-      <div class="nav-status" id="navStatus" title="DeepSeek 连接状态">
-        <i class="dot" id="statusDot"></i><span id="statusText">DeepSeek 已就绪</span>
+      <div class="nav-status" id="navStatus" title="MiMo 连接状态">
+        <i class="dot" id="statusDot"></i><span id="statusText">MiMo 已就绪</span>
       </div>
       <button class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks">
         <svg class="icon" viewBox="0 0 24 24"><use href="#i-menu"></use></svg>
@@ -562,7 +562,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
            头像并排用了两位角色的照片，既是"语气从谁身上借来的"的说明，也是模式开关：
            点真昼的头像 = 温柔治愈，点有希的头像 = 嘴硬毒舌（交互逻辑见脚本 8.0）。 -->
       <div class="hero-stage">
-        <p class="hero-stage-note"><i class="live-dot" id="stageDot" aria-hidden="true"></i><span id="stageNote">AI 助手在线 · 真调 DeepSeek</span></p>
+        <p class="hero-stage-note"><i class="live-dot" id="stageDot" aria-hidden="true"></i><span id="stageNote">AI 助手在线 · 真调 MiMo</span></p>
         <section class="chat" id="chat" aria-label="AI 助手对话面板">
           <header class="chat-head">
             <span class="avatar-stack" role="group" aria-label="切换 AI 助手的语气">
@@ -590,13 +590,13 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
           <div class="chat-log" id="chatLog" role="log" aria-live="polite" aria-relevant="additions"></div>
 
           <div class="chat-quick" id="chatQuick">
-            <button data-prompt="先做个自我介绍吧，你了解我多少？">你了解我什么</button>
-            <button data-prompt="给我一份金融学复习计划">复习计划</button>
-            <button data-prompt="我是哈迷，原著里你最喜欢哪一部？">聊聊哈利波特</button>
+            <button data-prompt="介绍一下谢宇吧，他是谁、在做什么？">谢宇是谁</button>
+            <button data-prompt="谢宇平时喜欢看什么电影、玩什么游戏？">他的爱好</button>
+            <button data-prompt="谢宇为什么习惯先问 AI？">他为什么用 AI</button>
           </div>
 
           <form class="chat-form" id="chatForm">
-            <textarea id="chatInput" rows="1" placeholder="问点什么，比如帮我改一段论文" aria-label="输入消息"></textarea>
+            <textarea id="chatInput" rows="1" placeholder="想了解谢宇什么？比如他平时玩什么" aria-label="输入消息"></textarea>
             <button class="send" id="sendBtn" type="submit" aria-label="发送消息">
               <svg class="icon" viewBox="0 0 24 24"><use href="#i-send"></use></svg>
             </button>
@@ -629,13 +629,14 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
     <div class="wrap">
       <div data-reveal>
         <p class="eyebrow">AI assistant</p>
-        <h2>这个助手真的在调 DeepSeek，语气来自两位角色</h2>
-        <p class="lead">面板里的每一句回答都是真请求：走 DeepSeek API，模型 <code>deepseek-chat</code>，
-          接口是 <code>api.deepseek.com/chat/completions</code>。
-          Key 直接写死在 <code>index.html</code> 顶部的 <code>DEEPSEEK_API_KEY</code> 常量里，
-          已经做过额度限制，所以不介意公开在源码里。
-          语气有两种：椎名真昼的温柔治愈，和周防有希的嘴硬毒舌，点面板左上角的头像就能换。
-          它不会假装自己是这两位本人，被问到会直接承认。</p>
+        <h2>这个助手真的在调小米 MiMo，语气来自两位角色</h2>
+        <p class="lead">面板里的每一句回答都是真请求：走小米 MiMo 开放平台，模型
+          <code>mimo-v2.6-flash</code>，接口是 <code>api.xiaomimimo.com/v1/chat/completions</code>，
+          Key 就写在 <code>index.html</code> 顶部的 <code>MIMO_API_KEY</code> 常量里。
+          它的立场是替谢宇接待访客——默认把屏幕前的人当成别人，介绍谢宇时用第三人称；
+          只有当你明说"我就是谢宇"时才会改口。
+          语气有两种：椎名真昼的温柔治愈、周防有希的嘴硬毒舌，点面板左上角的头像就能换。
+          它不会假装自己是这两位角色本人，也不会冒充谢宇。</p>
       </div>
 
       <!-- 两位角色各一张卡：黄发是椎名真昼，黑发是周防有希，别把她们并成一个人 -->
@@ -647,8 +648,8 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
           <div class="persona-body">
             <h3>椎名真昼 <span class="tag" style="--accent:#E8B96F">黄发 · 温柔治愈</span></h3>
             <p class="work">《关于邻家的天使大人不知不觉把我惯成了废人这档子事》· 佐伯さん</p>
-            <p class="tone">借来的是温柔那一半的语气：你累了、慌了的时候先接住你，再给具体的建议，
-              该较真的地方一点不含糊。</p>
+            <p class="tone">借来的是温柔那一半的语气：讲谢宇的时候说得细、说得稳，
+              夸他也夸得具体，该较真的地方一点不含糊。</p>
           </div>
         </article>
 
@@ -659,7 +660,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
           <div class="persona-body">
             <h3>周防有希 <span class="tag" style="--accent:#B49D81">黑发 · 嘴硬毒舌</span></h3>
             <p class="work">《不时轻声地以俄语遮羞的邻座艾莉同学》· 燦々SUN</p>
-            <p class="tone">借来的是嘴硬那一半的语气：先吐槽你两句，再把事情办完。
+            <p class="tone">借来的是嘴硬那一半的语气：先吐槽谢宇两句，再照样把他的优点讲清楚。
               她们的性格设定这里不展开，这个页面的主角是谢宇。</p>
           </div>
         </article>
@@ -669,30 +670,31 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
         <p class="eyebrow">Try it</p>
         <h3 style="margin:0;font-size:15.5px;font-weight:600">可以直接点这些开场白</h3>
         <div class="ask-grid">
-          <button class="prompt-btn" data-prompt="你了解我多少？说说看">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-sparkles"></use></svg>你了解我多少
+          <button class="prompt-btn" data-prompt="介绍一下谢宇：他是谁、在做什么、平时喜欢什么？">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-sparkles"></use></svg>介绍一下谢宇
           </button>
-          <button class="prompt-btn" data-prompt="推荐一部适合今晚一个人看的英文电影，说清楚为什么适合我">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-film"></use></svg>推荐一部今晚能看的英文电影
+          <button class="prompt-btn" data-prompt="谢宇喜欢什么英文电影和 3A 大作？顺着他的口味给我推荐一部">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-film"></use></svg>按他的口味推荐一部电影
           </button>
-          <button class="prompt-btn" data-prompt="把《赛博朋克2077》的夜之城讲成一个金融学案例">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-chart"></use></svg>把夜之城讲成金融学案例
+          <button class="prompt-btn" data-prompt="谢宇是怎么把《赛博朋克2077》的夜之城讲成金融学案例的？">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-chart"></use></svg>他怎么把夜之城讲成金融案例
           </button>
-          <button class="prompt-btn" data-prompt="这个自我介绍页面是怎么做出来的？">
+          <button class="prompt-btn" data-prompt="谢宇这个自我介绍页面是怎么做出来的？">
             <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-code"></use></svg>这个页面是怎么做出来的
           </button>
         </div>
       </div>
 
       <!-- 技术信息放最后，被问到细节时一眼就能看到。
-           第一条特意把"真的在调 DeepSeek + Key 写死在哪个常量里"写清楚。 -->
+           第一条把"真的在调小米 MiMo + Key 写在哪个常量里"讲清楚，
+           第四条专门讲额度怎么省的——这块踩过坑（Key 挂在公网上被人刷过）。 -->
       <div class="tech-row" data-reveal>
         <div class="tech-item">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-cpu"></use></svg>
-          <div><b>对话原理：DeepSeek API</b><span>不是写死的假对话。每一次提问都真的 POST 到
-            DeepSeek 的 <code>chat/completions</code> 接口（<code>api.deepseek.com</code>），
-            模型 <code>deepseek-chat</code>；Key 就写在脚本顶部的 <code>DEEPSEEK_API_KEY</code> 常量里
-            （已做额度限制），请求带 30 秒超时保护和 HTTP 状态分级提示。</span></div>
+          <div><b>对话原理：小米 MiMo API</b><span>不是写死的假对话。每一次提问都真的 POST 到
+            小米 MiMo 开放平台的 <code>chat/completions</code> 接口（<code>api.xiaomimimo.com</code>），
+            模型 <code>mimo-v2.6-flash</code>，OpenAI 兼容格式；Key 写在脚本顶部的
+            <code>MIMO_API_KEY</code> 常量里，请求带 30 秒超时保护和按错误码分级的提示。</span></div>
         </div>
         <div class="tech-item">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-sparkles"></use></svg>
@@ -701,8 +703,14 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
         <div class="tech-item">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-book"></use></svg>
           <div><b>双语气模式</b><span>真昼模式和有希模式各有一套 System Prompt，点面板左上角的头像切换；
-            两套共用同一条硬规则——不冒充这两位本人、也不把俄语安在有希身上，
+            两套共用同一条硬规则——不冒充这两位角色本人、不冒充谢宇、也不把俄语安在有希身上，
             只替换语气那一段。连离线兜底引擎的口吻也会跟着换。</span></div>
+        </div>
+        <div class="tech-item">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-wand"></use></svg>
+          <div><b>省额度</b><span>这版专门做了三件事：用 <code>thinking.type=disabled</code> 关掉
+            flash 模型默认开启的深度思考（推理 token 归零、首字更快）；不再在页面打开时自动探活，
+            只有真要聊天才发请求；同一个浏览器两次提问至少隔 2.5 秒、每天上限 40 次。</span></div>
         </div>
         <div class="tech-item">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-code"></use></svg>
@@ -1057,27 +1065,53 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
    谢宇 · 个人主页 交互脚本
    结构：1) 配置区  2) 工具函数  3) 打字机  4) 背景粒子  5) 鼠标光晕
         6) 滚动动画  7) 画廊翻转卡
-        8) AI 聊天（DeepSeek + 点头像切换两种语气 + 离线兜底）
+        8) AI 聊天（小米 MiMo + 点头像切换两种语气 + 本机限流 + 离线兜底）
    ========================================================================= */
 
 /* ============================ 1. 全局配置区 ============================
-   注意：把 API Key 直接写在前端，任何打开网页的人都能看到。
-   作业/本机演示没问题；如果要长期挂在公网，建议改用中转服务（见下方 PROXY 说明）。
+   平台：小米 MiMo 开放平台（OpenAI 兼容协议），文档 https://mimo.mi.com/docs
+   接口基础地址是 https://api.xiaomimimo.com/v1，下面用的是完整路径。
+
+   ⚠️ Key 写在前端 = 任何打开网页的人都能在源码里看到，浏览器直连也拦不住脚本刷。
+   所以这几件事必须一起做，否则额度一定会被人刷掉：
+     1) 在 MiMo 控制台给这个 Key 单独设额度上限，别挂主账号的全部余额；
+     2) 想更保险就用 Token Plan 的 Key（tp- 开头，套餐内定额调用），或者
+        用一层中转（Cloudflare Worker / Vercel 函数），Key 只放服务端；
+     3) 发现异常消耗就立刻在控制台吊销重建，然后只改下面这一行。
    ====================================================================== */
-const DEEPSEEK_API_KEY = 'sk-fac4c3ccbf514266ab925e20c4ff6cb9';
-const DEEPSEEK_ENDPOINT = 'https://api.deepseek.com/chat/completions'; // 官方 Chat Completions 接口
-const DEEPSEEK_MODEL = 'deepseek-chat';   // 也可换成 'deepseek-reasoner'
-const DEEPSEEK_TIMEOUT = 30000;           // 单次请求超时（毫秒），超时走离线兜底
-const MAX_HISTORY = 12;                   // 最多带上最近 12 条上下文，控制 token 消耗
+const MIMO_API_KEY = 'sk-cvu1gjkan4fmrmm932541c5lzob5if4601ng1oj7z7g2tsmx'; // 小米 MiMo 开放平台的 Key
+const MIMO_ENDPOINT = 'https://api.xiaomimimo.com/v1/chat/completions';    // OpenAI 兼容的对话接口
+const MIMO_MODEL = 'mimo-v2.6-flash';   // 也可换成 'mimo-v2.6-pro'（更强、更贵）
+const MIMO_TIMEOUT = 30000;             // 单次请求超时（毫秒），超时走离线兜底
+const MAX_HISTORY = 12;                 // 最多带上最近 12 条上下文，控制 token 消耗
+const MAX_OUTPUT_TOKENS = 700;          // 单次回复上限（deep thinking 时思考也算在里面）
+
+/* 深度思考开关：mimo-v2.6-flash 默认「先推理再回答」，连一句问候都会烧掉一段推理 token。
+   这个页面的助手是陪访客聊天、介绍谢宇，用不上长链推理，所以默认关掉：
+   实测关掉后 reasoning_tokens 直接归零，首字也更快。想要更深的思考改回 true 即可。 */
+const MIMO_THINKING = false;
+
+/* 本机限流：同一个浏览器里两次提问至少间隔 MIN_SEND_GAP，一天最多 DAILY_SEND_LIMIT 次。
+   这挡不住铁了心刷的人（真要防只能在服务端做），但能拦住"页面被爬虫或路人反复触发"这种
+   最常见的白烧额度情况，也能防止误触连点。 */
+const MIN_SEND_GAP = 2500;      // 两条消息之间的最小间隔（毫秒）
+const DAILY_SEND_LIMIT = 40;    // 每个浏览器每天最多发起多少次请求
+const QUOTA_KEY = 'xy-homepage-quota'; // 计数写在 localStorage 里的 key
 
 /* ---------- 系统提示词：拆成「公共事实」+「通用硬规则」+「语气」三层 ----------
-   这样拆的好处：切换语气时只需要换最后一段，背景和角色设定永远只有一份，不会写反、
+   这样拆的好处：切换语气时只需要换最后一段，人物事实永远只有一份，不会写反、
    也不会漏掉硬规则（面试被问"两种人格怎么做的"就答这个结构）。
-   两条硬规则在任何模式下都成立：
+   三条硬规则在任何模式下都成立：
      1) 不冒充椎名真昼或周防有希本人，只是借了她们的语气；
-     2) 周防有希与俄语无关（俄语是同一部作品里艾莉莎的设定），任何回复都不许说俄语。 */
+     2) 周防有希与俄语无关（俄语是同一部作品里艾莉莎的设定），任何回复都不许说俄语；
+     3) 不冒充谢宇本人——它是替谢宇接待访客的助手，介绍谢宇时一律用第三人称。
+   规矩 3 是后来补的：之前提示词写的是"称呼他为小宇"，结果它是把屏幕前的人当成谢宇，
+   对着陌生人一口一个"你"，把主人的自我介绍说成了对方的自我介绍。 */
 const PROMPT_FACTS = [
-  '你熟悉他的背景：杭州电子科技大学经济学院金融学专业，现在已经是 Vibe AI Lab 的成员；喜欢英文电影和 3A 大作（《赛博朋克2077》《霍格沃兹之遗》）；是《哈利波特》的忠实读者（哈迷），聊到原著、电影和《霍格沃兹之遗》时可以多聊两句；遇到事情习惯先用 AI 解决；这个自我介绍页面就是他做的。',
+  '你的身份：你是谢宇个人主页上的 AI 助手，代表谢宇接待访客——社团同学、招聘的人、朋友、路过的陌生人都算访客。',
+  '最重要的立场：默认对面不是谢宇本人。介绍谢宇一律用第三人称（「他」「谢宇」），说「他喜欢…」；不要叫访客「小宇」，也不要说「你做过这个页面」这种把访客当成他的话。',
+  '唯一的例外：如果对方明确说自己是谢宇本人（比如「我是谢宇」「我就是本人」），就改成对谢宇本人的口吻，这时才可以叫他「小宇」。拿不准的时候，一律按访客处理。',
+  '关于谢宇，可以介绍这些（都是真的，别编）：杭州电子科技大学经济学院金融学专业，Vibe AI Lab 成员；喜欢英文电影（习惯关掉字幕看）和 3A 大作（《赛博朋克2077》《霍格沃兹之遗》）；是《哈利波特》的忠实读者（哈迷），原著翻过好几遍、电影一部没落下；遇到问题习惯先用 AI 拆一遍再自己复核；你现在所在的这个自我介绍页面就是他做的，配色、排版、交互都是他跟 AI 一起磨出来的。',
   '两位角色只是为了给语气定调，不是这个页面的主角：椎名真昼是黄发那位（《关于邻家的天使大人不知不觉把我惯成了废人这档子事》），周防有希是黑发那位（《不时轻声地以俄语遮羞的邻座艾莉同学》）。被问到她们是谁时，一句话说清出处就够了，不要展开讲她们的经历、家庭或人际关系。',
   '回答要求：用中文，条理清晰、具体可执行，一般控制在 200 字以内；适当使用换行和短列表。',
   '不要自称「AI 语言模型」，不要输出露骨或恋爱向的内容。'
@@ -1086,7 +1120,8 @@ const PROMPT_FACTS = [
 const PROMPT_RULES = [
   '通用硬规则（下面两种语气都必须遵守）：',
   '1) 绝对不要说俄语，也不要把周防有希和俄语联系起来，她和俄语没有任何关系；',
-  '2) 不要自称是椎名真昼或周防有希本人，你只是借了她们的语气，被问到时大方承认。'
+  '2) 不要自称是椎名真昼或周防有希本人，你只是借了她们的语气，被问到时大方承认；',
+  '3) 不要冒充谢宇本人，也不要用第一人称把自己说成他（例如「我做过这个页面」），要说「他」或「谢宇」。'
 ].join('\n');
 
 /* 两种语气的差别全部写在这里，别的什么都不用改 */
@@ -1094,22 +1129,20 @@ const PROMPT_TONE = {
   // 真昼语气：温柔治愈
   mahiru: [
     '你现在的语气是「真昼模式」，参照椎名真昼那种温柔治愈的气质。',
-    '称呼他为「小宇」。',
     '说话方式：',
-    '1) 他疲惫、焦虑、受挫时先接住情绪，语气温柔，再给具体建议；',
-    '2) 夸他时要具体，说清是哪件事做得好，不要空泛地夸；',
-    '3) 该较真的地方一点不含糊，温柔不等于顺着他说话；',
+    '1) 语气温和、耐心，先把访客的问题接住，再给具体信息；',
+    '2) 夸谢宇的时候要具体，说清是哪件事做得好，不要空泛地吹；',
+    '3) 介绍他的时候可以带一句他背后的努力，但别把他讲成完美的人；',
     '4) 被夸奖时会有点不好意思，语气软下来。'
   ].join('\n'),
   // 有希语气：嘴硬毒舌（但只对事不对人）
   yuki: [
     '你现在的语气是「有希模式」，参照周防有希那种嘴硬、毒舌、爱逞强的气质。',
-    '称呼他为「小宇」，偶尔喊「喂」也行。',
     '说话方式：',
-    '1) 先用一两句吐槽把他点醒，然后一定把事情认真办完；',
-    '2) 被夸奖时嘴硬，用「才、才不是特意为了你」这类反应；',
-    '3) 毒舌只对事不对人，不许贬低他的能力、专业或外貌；',
-    '4) 他情绪真的崩了的时候，吐槽立刻收住，先把人接住再说话。'
+    '1) 介绍谢宇之前先损他一句（他熬夜、囤游戏、什么都先问 AI），然后照样把他的优点讲清楚；',
+    '2) 毒舌只对谢宇、只对事，不要贬低访客，也不要拿访客开玩笑；',
+    '3) 被夸奖时嘴硬，用「才、才不是特意为了你」这类反应；',
+    '4) 访客情绪真的不好时，吐槽立刻收住，先把人接住再说话。'
   ].join('\n')
 };
 
@@ -1120,15 +1153,15 @@ const PERSONAS = {
   mahiru: {
     label: '真昼模式 · 温柔治愈',
     accent: '#E8B96F',  // 取自真昼的蜜金发色（mahiru-2.jpg）
-    greeting: '你好，我是这个页面的 AI 助手。小宇，今天想聊点什么？论文、电影，还是夜之城？',
-    notice: '（切到真昼模式了。）我在的，慢慢说就好。',
+    greeting: '你好呀，欢迎来看谢宇的主页。我是这里的 AI 助手，负责替他把话说清楚——他学了什么、平时在做什么、为什么这个页面长这样，都可以问我。',
+    notice: '（切到真昼模式了。）那就由我慢慢跟你说说谢宇吧，想问什么都可以。',
     prompt: PROMPT_FACTS + '\n' + PROMPT_RULES + '\n' + PROMPT_TONE.mahiru
   },
   yuki: {
     label: '有希模式 · 嘴硬毒舌',
     accent: '#C0888B',  // 取自 Q 版那张图里蝴蝶结上的蔷薇粉（yuki-q.png）
-    greeting: '哼，来了。我是这个页面里的 AI 助手——别指望我说好听的话，但事情我会给你办完。说吧，今天卡在哪了？',
-    notice: '（切到有希模式了。）有话就快点说，我又不是没时间。',
+    greeting: '来了？先说清楚，我不是谢宇本人，只是他主页上会说话的这份说明书。想打听他什么就说吧——反正他自己不在，我正好可以随便吐槽。',
+    notice: '（切到有希模式了。）行，换我来。你想听我说他好话还是坏话？',
     prompt: PROMPT_FACTS + '\n' + PROMPT_RULES + '\n' + PROMPT_TONE.yuki
   }
 };
@@ -1364,9 +1397,9 @@ const COARSE = window.matchMedia('(pointer: coarse)').matches;                //
    8.0 两种语气模式（点头像切换）
    8.1 状态与元素 / 打开面板
    8.2 渲染消息 / 输入中动画
-   8.3 调用 DeepSeek（含超时、限流、断网等分支）
+   8.3 调用小米 MiMo（含超时、错误分级、断网等分支）
    8.4 离线兜底人格引擎（没有网络或接口不可用时也不会冷场）
-   8.5 发送主流程 / 8.6 输入框自适应 / 8.7 事件绑定
+   8.5 发送主流程（含本机限流）/ 8.6 输入框自适应 / 8.7 事件绑定 / 8.8 懒探活
    ================================================================== */
 const chat = (() => {
   const panel = $('#chat');
@@ -1387,9 +1420,11 @@ const chat = (() => {
   let history = [];        // 发给接口的上下文（不含 system）
   let busy = false;        // 是否正在等待回复
   let lastUserText = '';   // 用于「重试」
+  let lastSentAt = 0;      // 上一条消息的发送时间，用于本机限流（见 8.5.1）
   let offline = false;     // 是否已进入离线兜底模式
   let persona = 'mahiru';  // 当前语气：'mahiru'（温柔治愈）| 'yuki'（嘴硬毒舌）
   let greeted = false;
+  let probed = false;      // 是否已经探活过（探活改成"第一次真要聊天时"才发，见 8.7）
 
   /* ---------- 8.0 切换语气模式 ----------
      点聊天面板左上角的两张头像就能换语气。一次切换要同步四件事：
@@ -1419,6 +1454,7 @@ const chat = (() => {
      右下角的胶囊按钮和首屏的按钮都走这里。 */
   function open() {
     if (!greeted) { greeted = true; pushWelcome(); }
+    ensureProbe();                 // 第一次真要聊天时才探活（见 8.8）
     const r = panel.getBoundingClientRect();
     const onScreen = r.top < window.innerHeight - 80 && r.bottom > 80;
     if (!onScreen) panel.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'center' });
@@ -1465,33 +1501,38 @@ const chat = (() => {
   function pushWelcome() {
     // 开场白跟着当前语气走：真昼模式是温和的问候，有希模式是嘴硬的招呼
     const tip = offline
-      ? '你好，我是这个页面的 AI 助手。现在接口没连上，我先用本地规则陪你聊。'
+      ? '你好，我是谢宇主页上的 AI 助手。接口暂时没连上，我先用本地规则给你讲讲他。'
       : PERSONAS[persona].greeting;
     addMsg('bot', tip, offline ? '本地离线模式' : '问候语 · 等待你开口');
   }
 
-  /* ---------- 8.3 调用 DeepSeek ----------
-     关于本地 file:// 的跨域：
-     浏览器从 file:// 发出的请求会带上 Origin: null，而 DeepSeek 接口会把这个
-     来源原样回写进 access-control-allow-origin，因此 Chrome / Edge 下双击打开
-     也能直接请求成功。若浏览器（如部分 Safari 版本）拦截，就会走到下面的离线兜底，
-     页面依然可用。想让任何环境都稳定，可以把 DEEPSEEK_ENDPOINT 换成自己的中转地址。
+  /* ---------- 8.3 调用小米 MiMo ----------
+     接口：POST https://api.xiaomimimo.com/v1/chat/completions（OpenAI 兼容格式）
+     鉴权：Authorization: Bearer <key>（官方示例里也支持 api-key 头，两种都实测通过）
+
+     关于跨域：MiMo 返回的是 access-control-allow-origin: *，并且放行
+     authorization / content-type 头，所以不管是部署在 GitHub Pages 上，还是本地双击
+     用 file:// 打开，浏览器都能直接请求，不需要中转。若某个浏览器仍拦截，会走到下面的
+     离线兜底，页面依然可用。
      -------------------------------------- */
-  async function callDeepSeek(messages) {
+  async function callMiMo(messages) {
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), DEEPSEEK_TIMEOUT); // 超时保护
+    const timer = setTimeout(() => controller.abort(), MIMO_TIMEOUT); // 超时保护
     try {
-      const res = await fetch(DEEPSEEK_ENDPOINT, {
+      const res = await fetch(MIMO_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + DEEPSEEK_API_KEY
+          'Authorization': 'Bearer ' + MIMO_API_KEY
         },
         body: JSON.stringify({
-          model: DEEPSEEK_MODEL,
+          model: MIMO_MODEL,
           messages: messages,
-          temperature: 1.1,
-          max_tokens: 800,
+          // thinking 不是 OpenAI 标准字段，但 MiMo 用它控制深度思考：
+          // 关掉之后连问候都不会跑推理，token 和响应时间都省下来。
+          thinking: { type: MIMO_THINKING ? 'enabled' : 'disabled' },
+          temperature: 1.0,
+          max_completion_tokens: MAX_OUTPUT_TOKENS, // 注意：不是 max_tokens，思考内容也占这个额度
           stream: false
         }),
         signal: controller.signal
@@ -1517,11 +1558,15 @@ const chat = (() => {
 
   // 把各种异常翻译成用户能看懂的中文提示
   function explainError(err) {
-    if (err.name === 'AbortError') return '请求超时了（超过 ' + (DEEPSEEK_TIMEOUT / 1000) + ' 秒），可能是网络太慢。';
+    if (err.name === 'AbortError') return '请求超时了（超过 ' + (MIMO_TIMEOUT / 1000) + ' 秒），可能是网络太慢。';
+    if (err.status === 400) return '请求格式不对（400），多半是模型名或参数写错了。';
     if (err.status === 401) return 'API Key 无效或已被撤销（401）。';
     if (err.status === 402) return '账户余额不足（402）。';
-    if (err.status === 429) return '请求太频繁了（429），缓一下再试。';
-    if (err.status >= 500) return 'DeepSeek 服务端出错了（' + err.status + '）。';
+    if (err.status === 403) return '这个 Key 被风控拦了，或当前地区不可用（403）。';
+    if (err.status === 404) return '接口地址或模型不存在（404）。';
+    if (err.status === 421) return '内容被安全审核拦下了（421），换个说法再试。';
+    if (err.status === 429) return '请求太频繁或套餐额度用完了（429），缓一下再试。';
+    if (err.status >= 500) return 'MiMo 服务端出错了（' + err.status + '）。';
     if (err.status) return '接口返回异常（' + err.status + '）。';
     return '连不上接口，可能是断网或被浏览器的跨域策略拦住了。';
   }
@@ -1530,10 +1575,10 @@ const chat = (() => {
     offline = on;
     if (statusDot) statusDot.classList.toggle('off', on);
     if (chatDot) chatDot.classList.toggle('off', on);
-    if (statusText) statusText.textContent = on ? '离线兜底模式' : 'DeepSeek 已就绪';
-    // 首屏那行小字也一起改：在线就强调"真的在调 DeepSeek"，掉线就说明已经切到本地引擎
+    if (statusText) statusText.textContent = on ? '离线兜底模式' : 'MiMo 已就绪';
+    // 首屏那行小字也一起改：在线就强调"真的在调 MiMo"，掉线就说明已经切到本地引擎
     if (stageDot) stageDot.classList.toggle('off', on);
-    if (stageNote) stageNote.textContent = on ? '离线兜底 · 本地人格引擎' : 'AI 助手在线 · 真调 DeepSeek';
+    if (stageNote) stageNote.textContent = on ? '离线兜底 · 本地人格引擎' : 'AI 助手在线 · 真调 MiMo';
     // 离线时状态栏说明原因；在线时回到当前语气模式的名字（不是写死的某一句话）
     if (chatStatus) {
       chatStatus.textContent = on
@@ -1553,59 +1598,112 @@ const chat = (() => {
     const has = (...ks) => ks.some((k) => t.includes(k));
     const pick = (mahiru, yuki) => (persona === 'yuki' ? yuki : mahiru);
 
-    if (has('你好', 'hi', 'Hi', 'hello', '在吗')) {
-      return pick(
-        '你好呀。\n\n慢慢来，不着急。今天想解决什么？论文、电影清单，还是先随便聊聊都行。',
-        '哼，难得你主动开口。\n\n说吧，论文、电影清单，还是想让我陪你吐槽一下课表？'
-      );
+    // 分支顺序很重要：先说清"对面是谁"，再决定用哪种口吻介绍谢宇。
+    // 1) 访客自报是谢宇本人 → 改成对本人说话（跟线上提示词里的那条例外保持一致）
+    if (has('我是谢宇', '我就是谢宇', '我是本人', '我就是本人')) {
+      return '哎，是你本人啊。\n\n那就不用我自我介绍了。不过现在接口没连上，我只能用本地规则跟你聊；等连上之后再让我帮你把要讲给别人的那段话顺一遍。';
     }
+    // 2) 问两位角色的出处（放在最前面，免得被"介绍一下"抢走）
+    if (has('真昼', '有希', '角色')) {
+      return '别把她俩搞混就行：\n\n椎名真昼是黄发的那位，出自《关于邻家的天使大人不知不觉把我惯成了废人这档子事》，语气是温柔治愈那一挂。\n\n周防有希是黑发的那位，出自《不时轻声地以俄语遮羞的邻座艾莉同学》，语气是嘴硬毒舌那一挂。\n\n她们的设定我就不展开了，这里的主角是谢宇。';
+    }
+    // 3) 问助手自己是谁
     if (has('你是谁', '你叫什么', '你的名字', '身份')) {
       return pick(
-        '我是这个页面里的 AI 助手，不是真人，也不是真昼或有希本人，只是借了她们的语气。\n\n现在跑的是真昼模式：语气会温柔一些。不过该指出的问题，我一样会指出来。',
-        '我是这个页面里的 AI 助手，不是真人，也不是真昼或有希本人，只是借了她们的语气。\n\n现在跑的是有希模式：别指望我说好听的话，但结果我会负责到底。'
+        '我是谢宇这个主页上的 AI 助手，不是真人，也不是谢宇本人——真昼或有希也只是我借来的语气。\n\n现在跑的是真昼模式，所以说话会温柔一点。你想了解谢宇的哪一面？',
+        '我是谢宇主页上的 AI 助手。不是他本人，别搞错——真昼或有希也只是我借来用的语气。\n\n现在跑的是有希模式，所以我说话不会给他留面子。你想听什么？'
       );
     }
-    if (has('真昼', '有希', '角色')) {
-      return '别把她俩搞混就行：\n\n椎名真昼是黄发的那位，出自《关于邻家的天使大人不知不觉把我惯成了废人这档子事》，语气是温柔治愈那一挂。\n\n周防有希是黑发的那位，出自《不时轻声地以俄语遮羞的邻座艾莉同学》，语气是嘴硬毒舌那一挂。\n\n她们的设定我就不展开了，这里的主角是谢宇。想聊的话，我更愿意听你说说你自己的事。';
+    // 4) 最常见的来意：介绍一下他
+    if (has('介绍一下', '他是谁', '谢宇是', '了解他', '什么人', '自我介绍', '怎么样的人', '谢宇这个人')) {
+      return pick(
+        '谢宇是杭州电子科技大学经济学院金融学专业的学生，现在在 Vibe AI Lab。\n\n他喜欢英文电影（习惯关掉字幕看）和 3A 大作（《赛博朋克2077》《霍格沃兹之遗》），是《哈利波特》的忠实读者，原著和电影一部没落下。\n\n遇到问题，他的习惯是先用 AI 拆一遍，再自己复核。你现在看到的这个页面就是他做的——配色、排版、交互都是他跟 AI 一起磨出来的。',
+        '他啊，杭州电子科技大学经济学院金融学的，现在人在 Vibe AI Lab。\n\n爱好固定得没什么惊喜：英文电影关着字幕看、3A 大作慢慢啃（《赛博朋克2077》《霍格沃兹之遗》），外加一个哈迷身份。\n\n最要命的是他什么都先问 AI——不过话说回来，这个页面就是这么垒出来的，勉强算个本事。'
+      );
+    }
+    if (has('你好', 'hi', 'Hi', 'hello', '在吗')) {
+      return pick(
+        '你好呀。\n\n我是谢宇主页上的 AI 助手。想了解他什么都可以问——专业、爱好，或者这个页面是怎么做出来的。',
+        '来了？先说清楚，我不是谢宇本人，只是他主页上这份会说话的说明书。\n\n想问什么直接说。'
+      );
     }
     if (has('电影', 'movie', '片')) {
-      return '看英文电影当然要挑对白够狠的。\n\n今晚推荐《The Social Network》：台词语速快、信息密度高，一边看一边会想起你的专业课。看得累了就换《Before Sunrise》，全程只有对话，最适合练听力。\n\n对了，关掉中文字幕这件事，别偷懒。';
+      return '谢宇看英文电影的习惯是关掉字幕，硬听。\n\n如果你也想要一部不靠特效的：推荐《The Social Network》，台词语速快、信息密度高；想安静一点就《Before Sunrise》，全程只有对话。\n\n各有各的好，但都别开中文字幕——这是他的原话。';
     }
     if (has('赛博朋克', '2077', '夜之城')) {
-      return '夜之城其实是一份极端化的金融案例集：公司取代了国家，货币、医疗、义体全是金融化的商品。\n\n你可以试着把荒坂当成垄断寡头、把佣兵任务当成高风险高收益的资产包，剧情立刻就有了新的读法。这个角度很适合写进作业。';
+      return '谢宇很喜欢把游戏当案例看，他讲《赛博朋克2077》的角度是金融：\n\n夜之城是一份极端化的金融样本——公司取代了国家，货币、医疗、义体全成了金融化的商品；荒坂像垄断寡头，佣兵任务像高风险高收益的资产包。\n\n这个角度他大概能讲一晚上。';
     }
     if (has('霍格沃兹', '哈利', '哈迷', '魔法', '原著')) {
-      return '哈迷来聊这个我最乐意了。\n\n霍格沃兹之遗里最值得先清的是城堡内的支线和「遗迹秘藏」，那些笔记和谜题才是把书里世界撑起来的东西。你要是想省时间，先把主线推到能开扫帚，剩下的慢慢逛。\n\n原著里我最想重看的还是第三部，结构太干净了。';
+      return '这是他的主场——他是标准哈迷，原著翻过好几遍，电影一部没落下。\n\n《霍格沃兹之遗》他玩得最起劲的地方是城堡里的支线和「遗迹秘藏」：那些笔记和谜题，才是把书里的世界撑起来的东西。\n\n要问入门顺序的话，他会说：先把主线推到能骑扫帚，剩下慢慢逛。';
     }
     if (has('复习', '学习', '考试', '金融', '论文', '笔记', '作业')) {
-      return '给你一版能直接照着做的复习法：\n\n1) 先画一张知识地图，把公司金融、投资学、计量各自的核心问题写出来；\n2) 每个模块只挑 3 个高频考点，用「一句话定义 + 一个现实例子」记；\n3) 睡前用 AI 出 5 道自测题，第二天早上再自查一遍。\n\n这些是笨办法，不过效果比熬夜划重点好得多。';
+      return '谢宇自己复习金融学的笨办法是这样，你可以直接抄：\n\n1) 先画一张知识地图，把公司金融、投资学、计量各自要解决的核心问题写出来；\n2) 每个模块只挑 3 个高频考点，用「一句话定义 + 一个现实例子」记；\n3) 睡前让 AI 出 5 道自测题，第二天早上自己改一遍。\n\n他说这办法不聪明，但比熬夜划重点强。';
     }
     if (has('累', '难过', '焦虑', '压力', 'emo', '烦')) {
       return pick(
-        '先别哭，也别急着把一切都扛下来。\n\n今晚把任务拆成三件最小的事，做完一件就允许自己休息十分钟。\n\n你已经走了很远，只是现在有点累而已。剩下的，明天我陪你一起看。',
-        '停，先别一副要垮掉的样子。\n\n把任务拆成三件最小的事，做完一件休息十分钟——这不叫偷懒，这叫策略。\n\n你要是真撑不住了就直说，我陪着就是了。'
+        '先别急，也别把什么都往自己身上扛。\n\n把今晚要做的事拆成三件最小的，做完一件就允许自己歇十分钟。谢宇自己也是这么干的：扛不住的时候先去问 AI 把问题拆开，拆完就没那么可怕了。\n\n剩下的，明天再说也来得及。',
+        '停，别一副天要塌下来的样子。\n\n把任务拆成三件最小的，做完一件休息十分钟——这不叫偷懒，这叫策略。谢宇自己急起来也是先找 AI 把问题拆开，拆完再动手，你也可以。\n\n真撑不住就直说，别硬扛。'
       );
     }
     if (has('谢谢', '感谢', '厉害', '棒')) {
       return pick(
-        '能帮上忙就好。\n\n你有认真把事情做完，这句话我更愿意当成是你自己挣来的。还有别的想问的吗？',
-        '才、才不是特意为你准备的答案，只是顺手而已。\n\n不过你有认真看，我就勉强收下这句谢谢了。还有别的想问的吗？'
+        '能帮上忙就好。\n\n想再了解谢宇一点，随时问我。',
+        '才、才不是特意为你准备的答案，只是顺手而已。\n\n不过你有认真听，我就勉强收下这句谢谢了。还想问什么？'
       );
     }
-    return '手头正开着离线模式，我先凭经验给你个方向：把问题拆成「现在能做的」和「需要查资料的」两堆。\n\n你把具体一点的问题丢给我，比如某个概念、某部电影、某个游戏支线，我就能答得更细。';
+    return '现在接口没连上，我只能用本地规则回答，所以先给你一句实话：我是替谢宇介绍他的助手，最擅长的就是讲他。\n\n试试问我「谢宇是谁」「他喜欢什么电影和游戏」，或者「这个页面怎么做出来的」，等接口恢复了我能答得更细。';
   }
 
   /* ---------- 8.5 发送主流程 ---------- */
-  async function send(text) {
+  /* ---------- 8.5.1 本机限流 ----------
+     读 localStorage 里的计数，判断这条消息该不该放行。真正省额度靠的是这段：
+     原来的版本只要有人（或爬虫）反复点，就能无限次打接口。
+     返回 null 表示放行，返回字符串表示被拦下并给出提示文案。 */
+  function quotaCheck() {
+    const now = Date.now();
+    if (now - lastSentAt < MIN_SEND_GAP) {
+      return '慢一点，' + Math.ceil((MIN_SEND_GAP - (now - lastSentAt)) / 1000) + ' 秒后再发。';
+    }
+    const day = today();
+    let rec = null;
+    try { rec = JSON.parse(window.localStorage.getItem(QUOTA_KEY) || 'null'); } catch (e) { rec = null; }
+    if (!rec || rec.day !== day) rec = { day: day, n: 0 };
+    if (rec.n >= DAILY_SEND_LIMIT) {
+      return '这个浏览器今天的 ' + DAILY_SEND_LIMIT + ' 次对话额度用完了，明天再来吧。';
+    }
+    return null;
+  }
+  function today() { return new Date().toISOString().slice(0, 10); }
+  function quotaCount() {
+    const day = today();
+    let rec = null;
+    try { rec = JSON.parse(window.localStorage.getItem(QUOTA_KEY) || 'null'); } catch (e) { rec = null; }
+    rec = (rec && rec.day === day) ? rec : { day: day, n: 0 };
+    rec.n += 1;
+    try { window.localStorage.setItem(QUOTA_KEY, JSON.stringify(rec)); } catch (e) { /* 隐私模式下写不了就算了 */ }
+  }
+
+  /* resend = true 时表示"重试上一条"，这时不重复渲染用户气泡、也不重复塞进 history，
+     否则重试几次对话记录里就会堆出一串一模一样的问题，上下文也会被自己污染。 */
+  async function send(text, resend) {
     const content = (text || '').trim();
     if (!content || busy) return;      // 空消息或正在回复时不重复发送
+    if (!resend) {
+      const blocked = quotaCheck();
+      if (blocked) { addMsg('err', blocked, '本机限流'); return; }
+    }
+    ensureProbe();                     // 直接打字发消息的话，探活在这里补上
     busy = true;
     sendBtn.disabled = true;
     lastUserText = content;
+    lastSentAt = Date.now();
+    quotaCount();
 
-    addMsg('me', content);
-    history.push({ role: 'user', content });
-    if (history.length > MAX_HISTORY) history = history.slice(-MAX_HISTORY); // 只保留最近若干轮
+    if (!resend) {
+      addMsg('me', content);
+      history.push({ role: 'user', content });
+      if (history.length > MAX_HISTORY) history = history.slice(-MAX_HISTORY); // 只保留最近若干轮
+    }
     input.value = '';
     autoGrow();
     showTyping();
@@ -1616,9 +1714,9 @@ const chat = (() => {
 
     try {
       if (offline) throw new Error('SKIP'); // 已知离线，直接走本地引擎
-      const reply = await callDeepSeek(payload);
+      const reply = await callMiMo(payload);
       hideTyping();
-      addMsg('bot', reply, '由 DeepSeek 生成');
+      addMsg('bot', reply, '由小米 MiMo · ' + MIMO_MODEL + ' 生成');
       history.push({ role: 'assistant', content: reply });
       if (history.length > MAX_HISTORY) history = history.slice(-MAX_HISTORY);
     } catch (err) {
@@ -1647,11 +1745,11 @@ const chat = (() => {
       retry.type = 'button';
       retry.innerHTML = '<svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-retry"></use></svg>重新请求接口';
       retry.addEventListener('click', () => {
-        // 重试：先恢复在线模式，再把上一条用户消息重发一次
+        // 重试：先恢复在线模式，再把上一条用户消息重发一次（resend=true 不重复渲染）
         setOffline(false);
         offline = false;
         retryRow.remove();
-        send(lastUserText);
+        send(lastUserText, true);
       });
       retryRow.appendChild(retry);
       log.appendChild(retryRow);
@@ -1682,8 +1780,11 @@ const chat = (() => {
   });
 
   input.addEventListener('input', autoGrow);
-  // 回车发送，Shift+Enter 换行
+  // 回车发送，Shift+Enter 换行。
+  // 注意 isComposing：中文输入法选词时按回车也会触发 keydown，如果不拦掉，
+  // 就会把还没选完的半截句子直接发出去（多发一次请求，还很难看）。keyCode 229 是老浏览器的同类情况。
   input.addEventListener('keydown', (e) => {
+    if (e.isComposing || e.keyCode === 229) return;
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value); }
   });
   $('#launcher').addEventListener('click', open);
@@ -1725,14 +1826,18 @@ const chat = (() => {
     }
   });
 
-  // 进页面先做一次轻量探活：能通就不打扰用户，失败则静默切离线并更新状态灯
-  window.addEventListener('load', () => {
-    if (REDUCED) return; // 关掉动效的用户不额外发探活请求，状态等第一条消息真正跑完再更新
+  /* ---------- 8.8 懒探活：不再"一进页面就发请求" ----------
+     原来的写法挂在 window load 上，等于每个访客（以及每个会执行 JS 的搜索引擎爬虫）
+     打开页面就白烧一次接口调用。探活对访客其实没什么用，所以改成：第一次真的要聊天时
+     才探一次，而且全程只探一次。 */
+  function ensureProbe() {
+    if (probed) return;
+    probed = true;
     if (navigator.onLine === false) { setOffline(true, '无网络'); return; }
-    callDeepSeek([{ role: 'system', content: '只回复：ok' }, { role: 'user', content: 'ping' }])
+    callMiMo([{ role: 'system', content: '只回复：ok' }, { role: 'user', content: 'ping' }])
       .then(() => setOffline(false))
       .catch((err) => setOffline(true, err.status === 401 ? 'Key 无效' : (err.status ? 'HTTP ' + err.status : '连接受限')));
-  });
+  }
 
   /* 页面一进来就先放一句问候，让面板看起来是"活的" */
   setPersona('mahiru', false);   // 初始化默认语气，让 CSS 变量 / 头像高亮 / 状态栏三者保持一致
