@@ -135,6 +135,7 @@ button{font-family:inherit;color:inherit;cursor:pointer}
   padding:6px 12px 6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--glass);white-space:nowrap}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--sea);box-shadow:0 0 0 3px rgba(127,216,232,.16);flex:none}
 .dot.off{background:var(--wine);box-shadow:0 0 0 3px rgba(163,43,69,.18)}
+.dot.wait{background:var(--honey);box-shadow:0 0 0 3px rgba(232,185,111,.18)}
 .nav-toggle{display:none;width:38px;height:38px;border:1px solid var(--line);border-radius:50%;
   background:var(--glass);align-items:center;justify-content:center}
 .nav-toggle:hover{border-color:var(--line-strong)}
@@ -179,6 +180,13 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:
 /* 首屏高度交给内容决定（名字 + 介绍 + 右侧常驻的聊天面板），
    这样双击打开网页的第一眼就能看到 AI 助手，而不是先看到一整屏的图。 */
 .hero{display:flex;flex-direction:column;justify-content:center;padding:118px 0 74px;position:relative;z-index:3}
+.exhibition-notice{display:flex;align-items:flex-start;gap:12px;margin:0 auto 24px;
+  padding:13px 16px;border:1px solid rgba(232,185,111,.34);border-radius:var(--r);
+  background:linear-gradient(100deg,rgba(232,185,111,.13),rgba(127,216,232,.07));
+  box-shadow:0 18px 42px -32px rgba(232,185,111,.65)}
+.exhibition-notice .icon{width:19px;height:19px;color:var(--honey);margin-top:2px}
+.exhibition-notice p{margin:0;font-size:13px;line-height:1.75;color:var(--ink-dim)}
+.exhibition-notice b{color:var(--ink);font-weight:600;margin-right:7px}
 /* 用 areas 排版：桌面端文字在左、聊天面板独占右列；
    窄屏（见下面的媒体查询）会换成单列，聊天面板插在标题和正文之间。 */
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(400px,.98fr);
@@ -234,6 +242,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--sea);flex:none;
   box-shadow:0 0 0 4px rgba(127,216,232,.18);animation:live 2.4s var(--ease) infinite}
 .live-dot.off{background:var(--wine);box-shadow:0 0 0 4px rgba(163,43,69,.18);animation:none}
+.live-dot.wait{background:var(--honey);box-shadow:0 0 0 4px rgba(232,185,111,.18);animation:live 2.4s var(--ease) infinite}
 @keyframes live{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.42;transform:scale(.8)}}
 .scroll-hint{position:absolute;left:24px;bottom:34px;display:flex;align-items:center;gap:10px;
   font-size:11.5px;letter-spacing:.2em;color:var(--ink-faint);text-transform:uppercase}
@@ -388,7 +397,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
 .launcher .icon{width:18px;height:18px}
 
 .chat{display:flex;flex-direction:column;border-radius:var(--r);overflow:hidden;width:100%;
-  height:clamp(420px,54svh,520px);
+  height:clamp(580px,68svh,650px);
   border:1px solid rgba(255,255,255,.16);background:rgba(14,14,24,.72);
   backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);
   box-shadow:0 44px 90px -40px rgba(0,0,0,.95),
@@ -418,6 +427,29 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
 .icon-btn{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;
   border:1px solid transparent;background:transparent;color:var(--ink-dim);transition:background .25s,color .25s,border-color .25s}
 .icon-btn:hover{color:var(--ink);background:var(--glass);border-color:var(--line)}
+.api-config{flex:none;padding:11px 12px 10px;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018))}
+.config-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.config-head b{font-size:11.5px;font-weight:600;letter-spacing:.08em;color:var(--ink-dim)}
+.config-badge{margin-left:auto;font-size:10px;line-height:1;color:var(--ink-faint);
+  padding:5px 7px;border:1px solid var(--line);border-radius:999px;white-space:nowrap}
+.config-grid{display:grid;grid-template-columns:minmax(0,1.32fr) minmax(0,.68fr);gap:8px}
+.config-field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.config-field>span,.config-field>label{font-size:10.5px;letter-spacing:.08em;color:var(--ink-faint)}
+.key-control{position:relative;min-width:0}
+.key-control input,.config-field select{width:100%;height:36px;border-radius:6px;outline:none;
+  border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--ink);
+  font-family:inherit;font-size:12px;transition:border-color .25s,background .25s}
+.key-control input{padding:0 38px 0 10px}
+.key-control input::placeholder{color:var(--ink-faint)}
+.key-control input:focus,.config-field select:focus{border-color:rgba(127,216,232,.55);background:rgba(255,255,255,.085)}
+.key-toggle{position:absolute;right:3px;top:3px;width:30px;height:30px;display:grid;place-items:center;
+  border:none;border-radius:5px;background:transparent;color:var(--ink-faint)}
+.key-toggle:hover{color:var(--ink);background:var(--glass)}
+.config-field select{padding:0 9px;cursor:pointer}
+.config-field select option{background:#171725;color:var(--ink)}
+.config-hint{margin:8px 0 0;font-size:10.5px;line-height:1.6;color:var(--ink-faint)}
+.config-hint strong{color:var(--ink-dim);font-weight:500}
 .chat-log{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin}
 .chat-log::-webkit-scrollbar{width:6px}
 .chat-log::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:3px}
@@ -484,7 +516,9 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
   .wrap{padding:0 18px}
   .hero{padding:108px 0 54px}
   .hero-name{letter-spacing:.04em}
-  .chat{height:min(560px,76svh)}
+  .chat{height:min(640px,82svh)}
+  .config-grid{grid-template-columns:1fr}
+  .config-badge{display:none}
   .launcher{right:16px;bottom:16px;height:46px;padding:0 16px 0 14px}
   .persona{grid-template-columns:104px minmax(0,1fr);gap:14px;padding:14px}
   .face-back{padding:22px 18px;gap:14px}
@@ -532,7 +566,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
     </nav>
     <div class="nav-right">
       <div class="nav-status" id="navStatus" title="MiMo 连接状态">
-        <i class="dot" id="statusDot"></i><span id="statusText">MiMo 已就绪</span>
+        <i class="dot wait" id="statusDot"></i><span id="statusText">等待 API Key</span>
       </div>
       <button class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks">
         <svg class="icon" viewBox="0 0 24 24"><use href="#i-menu"></use></svg>
@@ -544,6 +578,12 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
 <main>
   <!-- ============================ 首屏 ============================ -->
   <section class="hero" id="home">
+    <div class="wrap">
+      <aside class="exhibition-notice" role="note" aria-label="展示期温馨提示">
+        <svg class="icon" viewBox="0 0 24 24"><use href="#i-key"></use></svg>
+        <p><b>温馨提示</b>已过展示期，主人公已停用他的 API Key。如需使用 AI 助手，请填写你自己的 API Key 哦。</p>
+      </aside>
+    </div>
     <div class="wrap hero-grid">
       <!-- 首屏被拆成一个个小格子，用 grid-template-areas 排版（见 CSS 的 .hero-grid）。
            桌面端：左边是文字、右边整列留给聊天面板；
@@ -562,7 +602,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
            头像并排用了两位角色的照片，既是"语气从谁身上借来的"的说明，也是模式开关：
            点真昼的头像 = 温柔治愈，点有希的头像 = 嘴硬毒舌（交互逻辑见脚本 8.0）。 -->
       <div class="hero-stage">
-        <p class="hero-stage-note"><i class="live-dot" id="stageDot" aria-hidden="true"></i><span id="stageNote">AI 助手在线 · 真调 MiMo</span></p>
+        <p class="hero-stage-note"><i class="live-dot wait" id="stageDot" aria-hidden="true"></i><span id="stageNote">展示已结束 · 请填写自己的 API Key</span></p>
         <section class="chat" id="chat" aria-label="AI 助手对话面板">
           <header class="chat-head">
             <span class="avatar-stack" role="group" aria-label="切换 AI 助手的语气">
@@ -577,7 +617,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
             </span>
             <div class="chat-id">
               <b>AI 助手</b>
-              <span><i class="dot" id="chatDot"></i><span id="chatStatus">真昼模式 · 温柔治愈</span></span>
+              <span><i class="dot wait" id="chatDot"></i><span id="chatStatus">真昼模式 · 待配置</span></span>
             </div>
             <div class="chat-head-actions">
               <button class="icon-btn" id="clearChat" aria-label="清空对话" title="清空对话">
@@ -585,6 +625,35 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
               </button>
             </div>
           </header>
+
+          <!-- 展示期结束后不再内置任何 Key。访客在这里输入自己的 MiMo Key、选择模型，
+               Key 只写入 sessionStorage，关闭当前标签页后即失效。 -->
+          <div class="api-config" aria-label="AI 助手连接设置">
+            <div class="config-head">
+              <b>连接你自己的 MiMo</b>
+              <span class="config-badge">Key 仅存当前标签页</span>
+            </div>
+            <div class="config-grid">
+              <div class="config-field">
+                <label for="apiKeyInput">API Key</label>
+                <span class="key-control">
+                  <input id="apiKeyInput" type="password" autocomplete="off" spellcheck="false"
+                    placeholder="粘贴你的 MiMo API Key" aria-describedby="configHint" />
+                  <button class="key-toggle" id="toggleKey" type="button" aria-label="显示 API Key" title="显示 API Key">
+                    <svg class="icon icon-sm" viewBox="0 0 24 24"><use id="eyeIcon" href="#i-eye"></use></svg>
+                  </button>
+                </span>
+              </div>
+              <div class="config-field">
+                <label for="modelSelect">模型</label>
+                <select id="modelSelect" aria-label="选择 MiMo 模型">
+                  <option value="mimo-v2.6-flash">V2.6 Flash · 快速</option>
+                  <option value="mimo-v2.6-pro">V2.6 Pro · 更强</option>
+                </select>
+              </div>
+            </div>
+            <p class="config-hint" id="configHint">只用于你的浏览器直连 MiMo，不会发送给本站。调用费用由你自己的 Key 承担。</p>
+          </div>
 
           <!-- role=log + aria-live：新消息会被读屏播报 -->
           <div class="chat-log" id="chatLog" role="log" aria-live="polite" aria-relevant="additions"></div>
@@ -629,10 +698,10 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
     <div class="wrap">
       <div data-reveal>
         <p class="eyebrow">AI assistant</p>
-        <h2>这个助手真的在调小米 MiMo，两个角色由它来演</h2>
-        <p class="lead">面板里的每一句回答都是真请求：走小米 MiMo 开放平台，模型
-          <code>mimo-v2.6-flash</code>，接口是 <code>api.xiaomimimo.com/v1/chat/completions</code>，
-          Key 就写在 <code>index.html</code> 顶部的 <code>MIMO_API_KEY</code> 常量里——不是写死的假对话。
+        <h2>自带 MiMo API Key，两个角色由你选的模型来演</h2>
+        <p class="lead">展示期已经结束，页面不再内置站长 Key。访客在聊天面板顶部填写自己的
+          MiMo API Key，再选择 <code>mimo-v2.6-flash</code> 或 <code>mimo-v2.6-pro</code>，
+          浏览器就会直接请求 <code>api.xiaomimimo.com/v1/chat/completions</code>——不是写死的假对话。
           两位角色由这个模型扮演：真昼模式开口先报自己的名字，有希模式也一样，自我介绍完再替谢宇把话讲清楚。
           它们的立场是替谢宇接待访客，介绍谢宇时用第三人称；点面板左上角的头像就能换语气。</p>
       </div>
@@ -684,19 +753,19 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
       </div>
 
       <!-- 技术信息放最后，被问到细节时一眼就能看到。
-           第一条把"真的在调小米 MiMo + Key 写在哪个常量里"讲清楚，
-           第四条专门讲额度怎么省的——这块踩过坑（Key 挂在公网上被人刷过）。 -->
+           第一条把"访客自带 Key + 浏览器直连 MiMo"讲清楚，
+           第四条解释展示期结束后如何避免继续消耗站长额度。 -->
       <div class="tech-row" data-reveal>
         <div class="tech-item">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-cpu"></use></svg>
-          <div><b>对话原理：小米 MiMo API</b><span>不是写死的假对话。每一次提问都真的 POST 到
+          <div><b>对话原理：自带 MiMo API Key</b><span>不是写死的假对话。每一次提问都真的 POST 到
             小米 MiMo 开放平台的 <code>chat/completions</code> 接口（<code>api.xiaomimimo.com</code>），
-            模型 <code>mimo-v2.6-flash</code>，OpenAI 兼容格式；Key 写在脚本顶部的
-            <code>MIMO_API_KEY</code> 常量里，请求带 30 秒超时保护和按错误码分级的提示。</span></div>
+            OpenAI 兼容格式；模型由访客在面板里选择，Key 只保存在当前标签页的
+            <code>sessionStorage</code>，请求带 30 秒超时保护和按错误码分级的提示。</span></div>
         </div>
         <div class="tech-item">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-sparkles"></use></svg>
-          <div><b>离线兜底</b><span>断网、Key 失效或被跨域拦住时自动切到本地规则引擎，对话不会冷场。</span></div>
+          <div><b>离线兜底</b><span>断网、Key 失效、余额不足或被跨域拦住时自动切到本地规则引擎，对话不会冷场。</span></div>
         </div>
         <div class="tech-item">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-book"></use></svg>
@@ -706,9 +775,9 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
         </div>
         <div class="tech-item">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-wand"></use></svg>
-          <div><b>省额度</b><span>这版专门做了三件事：用 <code>thinking.type=disabled</code> 关掉
-            flash 模型默认开启的深度思考（推理 token 归零、首字更快）；不再在页面打开时自动探活，
-            只有真要聊天才发请求；同一个浏览器两次提问至少隔 2.5 秒、每天上限 40 次。</span></div>
+          <div><b>额度由自己掌控</b><span>展示期结束后不再内置站长 Key；页面打开和配置 Key 都不会发请求，
+            只有点击发送才调用接口；同时用 <code>thinking.type=disabled</code> 关闭深度思考，
+            并限制同一浏览器两次提问至少隔 2.5 秒、每天最多 40 次，减少误触和重复请求。</span></div>
         </div>
         <div class="tech-item">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-code"></use></svg>
@@ -1048,6 +1117,9 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
   <g id="i-palette"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/></g>
   <g id="i-flip"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></g>
   <g id="i-trash"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></g>
+  <g id="i-key"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></g>
+  <g id="i-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></g>
+  <g id="i-eye-off"><path d="m15 18-.722-3.25"/><path d="M2 8a10.645 10.645 0 0 0 20 0"/><path d="m20 15-1.726-2.05"/><path d="m4 15 1.726-2.05"/><path d="m9 18 .722-3.25"/></g>
   <g id="i-down"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></g>
   <g id="i-send"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></g>
   <g id="i-retry"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></g>
@@ -1063,23 +1135,21 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
    谢宇 · 个人主页 交互脚本
    结构：1) 配置区  2) 工具函数  3) 打字机  4) 背景粒子  5) 鼠标光晕
         6) 滚动动画  7) 画廊翻转卡
-        8) AI 聊天（小米 MiMo + 点头像切换两种语气 + 本机限流 + 离线兜底）
+   8) AI 聊天（访客自填 MiMo Key + 选择模型 + 点头像切换语气 + 离线兜底）
    ========================================================================= */
 
 /* ============================ 1. 全局配置区 ============================
    平台：小米 MiMo 开放平台（OpenAI 兼容协议），文档 https://mimo.mi.com/docs
    接口基础地址是 https://api.xiaomimimo.com/v1，下面用的是完整路径。
 
-   ⚠️ Key 写在前端 = 任何打开网页的人都能在源码里看到，浏览器直连也拦不住脚本刷。
-   所以这几件事必须一起做，否则额度一定会被人刷掉：
-     1) 在 MiMo 控制台给这个 Key 单独设额度上限，别挂主账号的全部余额；
-     2) 想更保险就用 Token Plan 的 Key（tp- 开头，套餐内定额调用），或者
-        用一层中转（Cloudflare Worker / Vercel 函数），Key 只放服务端；
-     3) 发现异常消耗就立刻在控制台吊销重建，然后只改下面这一行。
+   展示期结束后，页面不再内置站长 Key。访客必须在聊天面板里填写自己的 MiMo Key，
+   再选择模型。Key 只写入当前标签页的 sessionStorage，关闭标签页就会失效。
+   页面没有中转服务器，请求由浏览器直接发往 MiMo；本站不会收集访客的 Key。
    ====================================================================== */
-const MIMO_API_KEY = 'sk-ca9dveao117r53opx5ma2xltxu7m1r0ouwuz13im1dupre8p'; // 小米 MiMo 开放平台的 Key
 const MIMO_ENDPOINT = 'https://api.xiaomimimo.com/v1/chat/completions';    // OpenAI 兼容的对话接口
-const MIMO_MODEL = 'mimo-v2.6-flash';   // 也可换成 'mimo-v2.6-pro'（更强、更贵）
+const DEFAULT_MIMO_MODEL = 'mimo-v2.6-flash'; // 面板默认选中 Flash，访客可以改选 Pro
+const API_KEY_SESSION = 'xy-homepage-mimo-key'; // Key 只放 sessionStorage，不跨标签页、不长期保存
+const MODEL_STORAGE = 'xy-homepage-mimo-model'; // 模型选择可以记住，不包含任何密钥
 const MIMO_TIMEOUT = 30000;             // 单次请求超时（毫秒），超时走离线兜底
 const MAX_HISTORY = 12;                 // 最多带上最近 12 条上下文，控制 token 消耗
 const MAX_OUTPUT_TOKENS = 700;          // 单次回复上限（deep thinking 时思考也算在里面）
@@ -1406,8 +1476,8 @@ const COARSE = window.matchMedia('(pointer: coarse)').matches;                //
    8.1 状态与元素 / 打开面板
    8.2 渲染消息 / 输入中动画
    8.3 调用小米 MiMo（含超时、错误分级、断网等分支）
-   8.4 离线兜底人格引擎（没有网络或接口不可用时也不会冷场）
-   8.5 发送主流程（含本机限流）/ 8.6 输入框自适应 / 8.7 事件绑定 / 8.8 懒探活
+   8.4 离线兜底人格引擎（接口不可用时也不会冷场）
+   8.5 发送主流程（含本机限流）/ 8.6 输入框自适应 / 8.7 事件绑定与 API 配置
    ================================================================== */
 const chat = (() => {
   const panel = $('#chat');
@@ -1424,15 +1494,21 @@ const chat = (() => {
   const stageNote = $('#stageNote');                       // 首屏那条状态文字
   const heroStage = panel.closest('.hero-stage') || panel; // --persona 挂在这一层，面板和它背后的柔光一起变色
   const personaBtns = $$('.avatar-btn');                   // 头像开关：真昼 / 有希
+  const apiKeyInput = $('#apiKeyInput');                   // 访客自己的 MiMo Key
+  const modelSelect = $('#modelSelect');                   // 访客选择的 MiMo 模型
+  const toggleKey = $('#toggleKey');                       // Key 显示 / 隐藏
+  const eyeIcon = $('#eyeIcon');
 
   let history = [];        // 发给接口的上下文（不含 system）
   let busy = false;        // 是否正在等待回复
   let lastUserText = '';   // 用于「重试」
   let lastSentAt = 0;      // 上一条消息的发送时间，用于本机限流（见 8.5.1）
-  let offline = false;     // 是否已进入离线兜底模式
+  let connection = 'idle'; // idle=待填 Key | configured=已填写 | online=调用成功 | offline=离线兜底
+  let offline = false;     // 兼容旧流程的布尔值，由 setConnection() 统一维护
+  let apiKey = '';         // 只在内存 / sessionStorage 中保存，不写入公开源码
+  let selectedModel = DEFAULT_MIMO_MODEL;
   let persona = 'mahiru';  // 当前语气：'mahiru'（温柔治愈）| 'yuki'（嘴硬毒舌）
   let greeted = false;
-  let probed = false;      // 是否已经探活过（探活改成"第一次真要聊天时"才发，见 8.7）
 
   /* ---------- 8.0 切换语气模式 ----------
      点聊天面板左上角的两张头像就能换语气。一次切换要同步四件事：
@@ -1452,8 +1528,73 @@ const chat = (() => {
       btn.classList.toggle('is-active', on);
       btn.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
-    if (chatStatus && !offline) chatStatus.textContent = cfg.label;
+    if (chatStatus) chatStatus.textContent = cfg.label;
+    renderConnection();
     if (announce) addMsg('bot', cfg.notice, cfg.label);
+  }
+
+  /* ---------- 8.0.1 访客自己的 API 配置 ----------
+     不再内置站长 Key。Key 用 sessionStorage 保存：刷新当前标签页还在，关掉标签页就没了；
+     模型偏好存 localStorage，只是方便下次继续选同一个模型，不涉及密钥。 */
+  function hasApiKey() {
+    return apiKey.trim().length >= 8;
+  }
+
+  function saveConfig() {
+    apiKey = apiKeyInput ? apiKeyInput.value.trim() : '';
+    selectedModel = modelSelect ? modelSelect.value : DEFAULT_MIMO_MODEL;
+    try {
+      if (apiKey) window.sessionStorage.setItem(API_KEY_SESSION, apiKey);
+      else window.sessionStorage.removeItem(API_KEY_SESSION);
+      window.localStorage.setItem(MODEL_STORAGE, selectedModel);
+    } catch (e) { /* 隐私模式禁用存储时，Key 仍只留在当前页面内存里 */ }
+    setConnection(hasApiKey() ? 'configured' : 'idle');
+  }
+
+  function restoreConfig() {
+    try { apiKey = window.sessionStorage.getItem(API_KEY_SESSION) || ''; } catch (e) { apiKey = ''; }
+    try { selectedModel = window.localStorage.getItem(MODEL_STORAGE) || DEFAULT_MIMO_MODEL; } catch (e) { selectedModel = DEFAULT_MIMO_MODEL; }
+    if (apiKeyInput) apiKeyInput.value = apiKey;
+    if (modelSelect) {
+      const known = Array.from(modelSelect.options).some((opt) => opt.value === selectedModel);
+      modelSelect.value = known ? selectedModel : DEFAULT_MIMO_MODEL;
+      selectedModel = modelSelect.value;
+    }
+    setConnection(hasApiKey() ? 'configured' : 'idle');
+  }
+
+  // 四种连接状态统一在这里落 UI，避免圆点、导航栏和聊天标题各说各话。
+  function setConnection(state, reason) {
+    connection = state;
+    offline = state === 'offline';
+    renderConnection(reason);
+  }
+
+  function renderConnection(reason) {
+    const waiting = connection === 'idle';
+    const connected = connection === 'online';
+    const failed = connection === 'offline';
+    const dots = [statusDot, chatDot, stageDot].filter(Boolean);
+    dots.forEach((dot) => {
+      dot.classList.toggle('off', failed);
+      dot.classList.toggle('wait', waiting || connection === 'configured');
+    });
+
+    if (statusText) {
+      statusText.textContent = failed ? '离线兜底模式'
+        : connected ? 'MiMo 已连接'
+          : waiting ? '等待 API Key' : 'API Key 已填写';
+    }
+    if (stageNote) {
+      stageNote.textContent = failed ? '离线兜底 · 本地人格引擎'
+        : connected ? '你的 API 已连接 · 真调 MiMo'
+          : waiting ? '展示已结束 · 请填写自己的 API Key' : '使用你的 MiMo Key · 浏览器直连';
+    }
+    if (chatStatus) {
+      chatStatus.textContent = failed
+        ? '本地离线模式' + (reason ? '：' + reason : '')
+        : PERSONAS[persona].label + (waiting ? ' · 待配置' : connected ? '' : ' · 待发送');
+    }
   }
 
   /* ---------- 8.1 打开对话 ----------
@@ -1462,13 +1603,15 @@ const chat = (() => {
      右下角的胶囊按钮和首屏的按钮都走这里。 */
   function open() {
     if (!greeted) { greeted = true; pushWelcome(); }
-    ensureProbe();                 // 第一次真要聊天时才探活（见 8.8）
     const r = panel.getBoundingClientRect();
     const onScreen = r.top < window.innerHeight - 80 && r.bottom > 80;
     if (!onScreen) panel.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'center' });
     panel.classList.add('flash');
     setTimeout(() => panel.classList.remove('flash'), 900);
-    setTimeout(() => input.focus({ preventScroll: true }), REDUCED ? 0 : 260);
+    setTimeout(() => {
+      const target = hasApiKey() ? input : apiKeyInput;
+      if (target) target.focus({ preventScroll: true });
+    }, REDUCED ? 0 : 260);
   }
 
   /* ---------- 8.2 消息渲染 ---------- */
@@ -1524,6 +1667,8 @@ const chat = (() => {
      离线兜底，页面依然可用。
      -------------------------------------- */
   async function callMiMo(messages) {
+    if (!hasApiKey()) throw new Error('MISSING_KEY');
+    saveConfig(); // 请求前再读一次输入框，保证用户刚粘贴的 Key / 刚切换的模型立即生效
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), MIMO_TIMEOUT); // 超时保护
     try {
@@ -1531,10 +1676,10 @@ const chat = (() => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + MIMO_API_KEY
+          'Authorization': 'Bearer ' + apiKey
         },
         body: JSON.stringify({
-          model: MIMO_MODEL,
+          model: selectedModel,
           messages: messages,
           // thinking 不是 OpenAI 标准字段，但 MiMo 用它控制深度思考：
           // 关掉之后连问候都不会跑推理，token 和响应时间都省下来。
@@ -1566,6 +1711,7 @@ const chat = (() => {
 
   // 把各种异常翻译成用户能看懂的中文提示
   function explainError(err) {
+    if (err.message === 'MISSING_KEY') return '请先填写你自己的 MiMo API Key。';
     if (err.name === 'AbortError') return '请求超时了（超过 ' + (MIMO_TIMEOUT / 1000) + ' 秒），可能是网络太慢。';
     if (err.status === 400) return '请求格式不对（400），多半是模型名或参数写错了。';
     if (err.status === 401) return 'API Key 无效或已被撤销（401）。';
@@ -1579,25 +1725,9 @@ const chat = (() => {
     return '连不上接口，可能是断网或被浏览器的跨域策略拦住了。';
   }
 
-  function setOffline(on, reason) {
-    offline = on;
-    if (statusDot) statusDot.classList.toggle('off', on);
-    if (chatDot) chatDot.classList.toggle('off', on);
-    if (statusText) statusText.textContent = on ? '离线兜底模式' : 'MiMo 已就绪';
-    // 首屏那行小字也一起改：在线就强调"真的在调 MiMo"，掉线就说明已经切到本地引擎
-    if (stageDot) stageDot.classList.toggle('off', on);
-    if (stageNote) stageNote.textContent = on ? '离线兜底 · 本地人格引擎' : 'AI 助手在线 · 真调 MiMo';
-    // 离线时状态栏说明原因；在线时回到当前语气模式的名字（不是写死的某一句话）
-    if (chatStatus) {
-      chatStatus.textContent = on
-        ? '本地离线模式' + (reason ? '：' + reason : '')
-        : PERSONAS[persona].label;
-    }
-  }
-
   /* ---------- 8.4 离线兜底人格引擎 ----------
      规则命中就按角色口吻回答；没命中就给一句通用鼓励。
-     目的是：断网 / 无 Key / 跨域被拦时，页面依然像一个完整的作品。
+     目的是：断网 / 接口报错 / 跨域被拦时，页面依然像一个完整的作品。
      语气同样跟着当前模式走：pick(m, y) 用来在"温柔版"和"嘴硬版"之间二选一，
      事实类回答（角色设定、电影、游戏）两个模式共用，免得同一件事写出两个版本。
      ---------------------------------------- */
@@ -1670,8 +1800,8 @@ const chat = (() => {
 
   /* ---------- 8.5 发送主流程 ---------- */
   /* ---------- 8.5.1 本机限流 ----------
-     读 localStorage 里的计数，判断这条消息该不该放行。真正省额度靠的是这段：
-     原来的版本只要有人（或爬虫）反复点，就能无限次打接口。
+     读 localStorage 里的计数，判断这条消息该不该放行。现在调用的是访客自己的 Key，
+     限流主要防止误触连点和重复请求，也避免一天内无意中产生太多费用。
      返回 null 表示放行，返回字符串表示被拦下并给出提示文案。 */
   function quotaCheck() {
     const now = Date.now();
@@ -1702,11 +1832,16 @@ const chat = (() => {
   async function send(text, resend) {
     const content = (text || '').trim();
     if (!content || busy) return;      // 空消息或正在回复时不重复发送
+    if (!hasApiKey()) {
+      addMsg('err', '请先在面板顶部填写你自己的 MiMo API Key，再选择模型并发送。', '需要先配置');
+      setConnection('idle');
+      if (apiKeyInput) apiKeyInput.focus({ preventScroll: true });
+      return;
+    }
     if (!resend) {
       const blocked = quotaCheck();
       if (blocked) { addMsg('err', blocked, '本机限流'); return; }
     }
-    ensureProbe();                     // 直接打字发消息的话，探活在这里补上
     busy = true;
     sendBtn.disabled = true;
     lastUserText = content;
@@ -1730,7 +1865,8 @@ const chat = (() => {
       if (offline) throw new Error('SKIP'); // 已知离线，直接走本地引擎
       const reply = await callMiMo(payload);
       hideTyping();
-      addMsg('bot', reply, '由小米 MiMo · ' + MIMO_MODEL + ' 生成');
+      setConnection('online');
+      addMsg('bot', reply, '由小米 MiMo · ' + selectedModel + ' 生成');
       history.push({ role: 'assistant', content: reply });
       if (history.length > MAX_HISTORY) history = history.slice(-MAX_HISTORY);
     } catch (err) {
@@ -1745,7 +1881,7 @@ const chat = (() => {
       const isConn = !err.status || err.status >= 500
         || err.status === 401 || err.status === 402 || err.status === 403;
       if (isConn && err.message !== 'SKIP') {
-        setOffline(true, err.status === 401 ? 'Key 无效' : (err.status ? 'HTTP ' + err.status : '连接失败'));
+        setConnection('offline', err.status === 401 ? 'Key 无效' : (err.status ? 'HTTP ' + err.status : '连接失败'));
       }
 
       const tip = err.message === 'SKIP' ? '' :
@@ -1765,8 +1901,7 @@ const chat = (() => {
       retry.innerHTML = '<svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-retry"></use></svg>重新请求接口';
       retry.addEventListener('click', () => {
         // 重试：先恢复在线模式，再把上一条用户消息重发一次（resend=true 不重复渲染）
-        setOffline(false);
-        offline = false;
+        setConnection(hasApiKey() ? 'configured' : 'idle');
         retryRow.remove();
         send(lastUserText, true);
       });
@@ -1806,6 +1941,32 @@ const chat = (() => {
     if (e.isComposing || e.keyCode === 229) return;
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value); }
   });
+
+  // API Key 输入只更新内存和当前标签页的 sessionStorage；切换模型不会清空当前对话。
+  apiKeyInput.addEventListener('input', () => {
+    apiKey = apiKeyInput.value.trim();
+    setConnection(hasApiKey() ? 'configured' : 'idle');
+  });
+  apiKeyInput.addEventListener('change', saveConfig);
+  apiKeyInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      saveConfig();
+      input.focus({ preventScroll: true });
+    }
+  });
+  modelSelect.addEventListener('change', () => {
+    saveConfig();
+    input.focus({ preventScroll: true });
+  });
+  toggleKey.addEventListener('click', () => {
+    const show = apiKeyInput.type === 'password';
+    apiKeyInput.type = show ? 'text' : 'password';
+    toggleKey.setAttribute('aria-label', show ? '隐藏 API Key' : '显示 API Key');
+    toggleKey.setAttribute('title', show ? '隐藏 API Key' : '显示 API Key');
+    if (eyeIcon) eyeIcon.setAttribute('href', show ? '#i-eye-off' : '#i-eye');
+  });
+
   $('#launcher').addEventListener('click', open);
   $('#heroChatBtn').addEventListener('click', open);
 
@@ -1845,21 +2006,9 @@ const chat = (() => {
     }
   });
 
-  /* ---------- 8.8 懒探活：不再"一进页面就发请求" ----------
-     原来的写法挂在 window load 上，等于每个访客（以及每个会执行 JS 的搜索引擎爬虫）
-     打开页面就白烧一次接口调用。探活对访客其实没什么用，所以改成：第一次真的要聊天时
-     才探一次，而且全程只探一次。 */
-  function ensureProbe() {
-    if (probed) return;
-    probed = true;
-    if (navigator.onLine === false) { setOffline(true, '无网络'); return; }
-    callMiMo([{ role: 'system', content: '只回复：ok' }, { role: 'user', content: 'ping' }])
-      .then(() => setOffline(false))
-      .catch((err) => setOffline(true, err.status === 401 ? 'Key 无效' : (err.status ? 'HTTP ' + err.status : '连接受限')));
-  }
-
   /* 页面一进来就先放一句问候，让面板看起来是"活的" */
   setPersona('mahiru', false);   // 初始化默认语气，让 CSS 变量 / 头像高亮 / 状态栏三者保持一致
+  restoreConfig();               // 恢复当前标签页里的 Key 和上次选择的模型，不发起任何网络请求
   greeted = true;
   pushWelcome();
 
