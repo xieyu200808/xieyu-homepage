@@ -69,9 +69,11 @@ AI 助手的提示词会按原著性格来塑造语气，而不是套用「万�
 
 ## AI 助手
 
-- 原理：对话真的在调小米 MiMo 开放平台 —— `POST https://api.xiaomimimo.com/v1/chat/completions`
-  （OpenAI 兼容协议），模型由访客在面板里选择 `mimo-v2.6-flash` 或 `mimo-v2.6-pro`，
-  API Key 也由访客自己填写，不是本地假回复
+- 原理：对话真的在调访客选择的服务商，三家都使用 OpenAI 兼容的 `chat/completions` 协议：
+  - 小米 MiMo：`mimo-v2.6-flash`、`mimo-v2.6-pro`
+  - DeepSeek：`deepseek-chat`、`deepseek-reasoner`
+  - 通义千问：`qwen-plus`、`qwen-max`
+  API Key 由访客自己填写，不是本地假回复；服务商、模型和 Key 都在聊天面板顶部切换
 - 人格：两位角色由模型**扮演**，各自以本人身份说话，开口先自我介绍（名字、出自哪部作品、
   在这个页面里负责什么），然后才回答访客的问题。点聊天面板左上角的头像切换：
   - 真昼模式（黄发头像）· 认真温柔：蜜金 `#E8B96F`
@@ -93,10 +95,11 @@ AI 助手的提示词会按原著性格来塑造语气，而不是套用「万�
 - API Key 输入框默认留空；没有填写时不会发起任何网络请求，也不会自动探活。
 - Key 只写入当前标签页的 `sessionStorage`，刷新后仍在，关闭标签页即失效；不会写入源码、Git 仓库或长期存储。
 - 模型选择保存在 `localStorage`，只记录模型 ID，不包含任何密钥。
-- 页面没有中转服务器，请求由访客的浏览器直接发往 MiMo，本站不会收到访客的 Key。
+- 页面没有中转服务器，请求由访客的浏览器直接发往当前选择的服务商，本站不会收到访客的 Key。
 - 页面仍保留 30 秒超时、错误码提示、失败重试、2.5 秒发送间隔和每天 40 次的本机限流，
   主要用来防止误触和重复请求。
-- 深度思考通过 `thinking: { type: 'disabled' }` 关闭，减少访客自己的 token 消耗。
+- MiMo 请求默认带 `thinking: { type: 'disabled' }`，减少访客自己的 token 消耗；
+  DeepSeek Reasoner 会保留其自身的推理能力。
 
 ### 关于旧 Key
 
@@ -108,9 +111,10 @@ AI 助手的提示词会按原著性格来塑造语气，而不是套用「万�
 
 ### 关于跨域
 
-MiMo 接口返回的是 `access-control-allow-origin: *`，并且放行 `authorization`、`content-type`
-请求头，所以不管是访问 GitHub Pages 上的地址，还是本地双击用 `file://` 打开，浏览器都能直接请求，
-不需要中转。若某个浏览器仍然拦截了请求，页面会自动切到离线人格引擎，功能依然完整。
+三家接口的预检请求都放行 `authorization`、`content-type`：
+MiMo 和通义千问返回 `access-control-allow-origin: *`，DeepSeek 会回显当前页面来源。
+因此访问 GitHub Pages 地址或本地双击用 `file://` 打开时，浏览器都能直接请求，不需要中转。
+若网络、Key 或浏览器策略仍导致请求失败，页面会自动切到离线人格引擎，功能依然完整。
 
 ## 部署到 GitHub Pages
 

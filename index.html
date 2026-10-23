@@ -433,8 +433,9 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
 .config-head b{font-size:11.5px;font-weight:600;letter-spacing:.08em;color:var(--ink-dim)}
 .config-badge{margin-left:auto;font-size:10px;line-height:1;color:var(--ink-faint);
   padding:5px 7px;border:1px solid var(--line);border-radius:999px;white-space:nowrap}
-.config-grid{display:grid;grid-template-columns:minmax(0,1.32fr) minmax(0,.68fr);gap:8px}
+.config-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:8px}
 .config-field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.config-key{grid-column:1/-1}
 .config-field>span,.config-field>label{font-size:10.5px;letter-spacing:.08em;color:var(--ink-faint)}
 .key-control{position:relative;min-width:0}
 .key-control input,.config-field select{width:100%;height:36px;border-radius:6px;outline:none;
@@ -565,7 +566,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
       <a href="#gallery">角色</a>
     </nav>
     <div class="nav-right">
-      <div class="nav-status" id="navStatus" title="MiMo 连接状态">
+      <div class="nav-status" id="navStatus" title="模型 API 连接状态">
         <i class="dot wait" id="statusDot"></i><span id="statusText">等待 API Key</span>
       </div>
       <button class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false" aria-controls="navLinks">
@@ -626,33 +627,41 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
             </div>
           </header>
 
-          <!-- 展示期结束后不再内置任何 Key。访客在这里输入自己的 MiMo Key、选择模型，
+          <!-- 展示期结束后不再内置任何 Key。访客在这里选择服务商、模型并输入对应 Key，
                Key 只写入 sessionStorage，关闭当前标签页后即失效。 -->
           <div class="api-config" aria-label="AI 助手连接设置">
             <div class="config-head">
-              <b>连接你自己的 MiMo</b>
+              <b>连接你自己的模型 API</b>
               <span class="config-badge">Key 仅存当前标签页</span>
             </div>
             <div class="config-grid">
               <div class="config-field">
+                <label for="providerSelect">服务商</label>
+                <select id="providerSelect" aria-label="选择模型服务商">
+                  <option value="mimo">小米 MiMo</option>
+                  <option value="deepseek">DeepSeek</option>
+                  <option value="qwen">通义千问</option>
+                </select>
+              </div>
+              <div class="config-field">
+                <label for="modelSelect">模型</label>
+                <select id="modelSelect" aria-label="选择模型">
+                  <option value="mimo-v2.6-flash">MiMo V2.6 Flash · 快速</option>
+                  <option value="mimo-v2.6-pro">MiMo V2.6 Pro · 更强</option>
+                </select>
+              </div>
+              <div class="config-field config-key">
                 <label for="apiKeyInput">API Key</label>
                 <span class="key-control">
                   <input id="apiKeyInput" type="password" autocomplete="off" spellcheck="false"
-                    placeholder="粘贴你的 MiMo API Key" aria-describedby="configHint" />
+                    placeholder="粘贴对应服务商的 API Key" aria-describedby="configHint" />
                   <button class="key-toggle" id="toggleKey" type="button" aria-label="显示 API Key" title="显示 API Key">
                     <svg class="icon icon-sm" viewBox="0 0 24 24"><use id="eyeIcon" href="#i-eye"></use></svg>
                   </button>
                 </span>
               </div>
-              <div class="config-field">
-                <label for="modelSelect">模型</label>
-                <select id="modelSelect" aria-label="选择 MiMo 模型">
-                  <option value="mimo-v2.6-flash">V2.6 Flash · 快速</option>
-                  <option value="mimo-v2.6-pro">V2.6 Pro · 更强</option>
-                </select>
-              </div>
             </div>
-            <p class="config-hint" id="configHint">只用于你的浏览器直连 MiMo，不会发送给本站。调用费用由你自己的 Key 承担。</p>
+            <p class="config-hint" id="configHint">Key 只用于浏览器直连所选服务商，不会发送给本站；调用费用由你自己承担。</p>
           </div>
 
           <!-- role=log + aria-live：新消息会被读屏播报 -->
@@ -698,10 +707,10 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
     <div class="wrap">
       <div data-reveal>
         <p class="eyebrow">AI assistant</p>
-        <h2>自带 MiMo API Key，两个角色由你选的模型来演</h2>
-        <p class="lead">展示期已经结束，页面不再内置站长 Key。访客在聊天面板顶部填写自己的
-          MiMo API Key，再选择 <code>mimo-v2.6-flash</code> 或 <code>mimo-v2.6-pro</code>，
-          浏览器就会直接请求 <code>api.xiaomimimo.com/v1/chat/completions</code>——不是写死的假对话。
+        <h2>自带 API Key，多家模型任你切换</h2>
+        <p class="lead">展示期已经结束，页面不再内置站长 Key。访客在聊天面板顶部选择
+          小米 MiMo、DeepSeek 或通义千问，再选择对应模型并填写自己的 Key，
+          浏览器就会直接请求该服务商的 OpenAI 兼容接口——不是写死的假对话。
           两位角色由这个模型扮演：真昼模式开口先报自己的名字，有希模式也一样，自我介绍完再替谢宇把话讲清楚。
           它们的立场是替谢宇接待访客，介绍谢宇时用第三人称；点面板左上角的头像就能换语气。</p>
       </div>
@@ -753,15 +762,15 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
       </div>
 
       <!-- 技术信息放最后，被问到细节时一眼就能看到。
-           第一条把"访客自带 Key + 浏览器直连 MiMo"讲清楚，
+           第一条把"访客自带 Key + 浏览器直连多家服务商"讲清楚，
            第四条解释展示期结束后如何避免继续消耗站长额度。 -->
       <div class="tech-row" data-reveal>
         <div class="tech-item">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-cpu"></use></svg>
-          <div><b>对话原理：自带 MiMo API Key</b><span>不是写死的假对话。每一次提问都真的 POST 到
-            小米 MiMo 开放平台的 <code>chat/completions</code> 接口（<code>api.xiaomimimo.com</code>），
-            OpenAI 兼容格式；模型由访客在面板里选择，Key 只保存在当前标签页的
-            <code>sessionStorage</code>，请求带 30 秒超时保护和按错误码分级的提示。</span></div>
+          <div><b>对话原理：多服务商直连</b><span>不是写死的假对话。访客可选小米 MiMo、DeepSeek 或通义千问，
+            每次提问都真的 POST 到所选服务商的 OpenAI 兼容 <code>chat/completions</code> 接口。
+            页面会按服务商切换 <code>max_tokens</code> / <code>max_completion_tokens</code> 等参数；
+            Key 只保存在当前标签页的 <code>sessionStorage</code>，请求带 30 秒超时和错误码提示。</span></div>
         </div>
         <div class="tech-item">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-sparkles"></use></svg>
@@ -777,8 +786,8 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
         <div class="tech-item">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-wand"></use></svg>
           <div><b>额度由自己掌控</b><span>展示期结束后不再内置站长 Key；页面打开和配置 Key 都不会发请求，
-            只有点击发送才调用接口；同时用 <code>thinking.type=disabled</code> 关闭深度思考，
-            并限制同一浏览器两次提问至少隔 2.5 秒、每天最多 40 次，减少误触和重复请求。</span></div>
+            只有点击发送才调用接口；MiMo 默认关闭深度思考，并限制同一浏览器两次提问至少隔 2.5 秒、
+            每天最多 40 次，减少误触和重复请求。</span></div>
         </div>
         <div class="tech-item">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><use href="#i-code"></use></svg>
@@ -1136,29 +1145,61 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px;position:relative;z-
    谢宇 · 个人主页 交互脚本
    结构：1) 配置区  2) 工具函数  3) 打字机  4) 背景粒子  5) 鼠标光晕
         6) 滚动动画  7) 画廊翻转卡
-   8) AI 聊天（访客自填 MiMo Key + 选择模型 + 点头像切换语气 + 离线兜底）
+   8) AI 聊天（访客自选服务商 / 模型 / Key + 点头像切换语气 + 离线兜底）
    ========================================================================= */
 
 /* ============================ 1. 全局配置区 ============================
-   平台：小米 MiMo 开放平台（OpenAI 兼容协议），文档 https://mimo.mi.com/docs
-   接口基础地址是 https://api.xiaomimimo.com/v1，下面用的是完整路径。
-
-   展示期结束后，页面不再内置站长 Key。访客必须在聊天面板里填写自己的 MiMo Key，
-   再选择模型。Key 只写入当前标签页的 sessionStorage，关闭标签页就会失效。
-   页面没有中转服务器，请求由浏览器直接发往 MiMo；本站不会收集访客的 Key。
+   页面支持多个 OpenAI 兼容服务商。访客先选服务商，再选该服务商的模型并填写 Key。
+   展示期结束后，页面不再内置站长 Key；Key 只写入当前标签页的 sessionStorage。
+   页面没有中转服务器，请求由浏览器直接发往访客选择的服务商。
    ====================================================================== */
-const MIMO_ENDPOINT = 'https://api.xiaomimimo.com/v1/chat/completions';    // OpenAI 兼容的对话接口
-const DEFAULT_MIMO_MODEL = 'mimo-v2.6-flash'; // 面板默认选中 Flash，访客可以改选 Pro
-const API_KEY_SESSION = 'xy-homepage-mimo-key'; // Key 只放 sessionStorage，不跨标签页、不长期保存
-const MODEL_STORAGE = 'xy-homepage-mimo-model'; // 模型选择可以记住，不包含任何密钥
-const MIMO_TIMEOUT = 30000;             // 单次请求超时（毫秒），超时走离线兜底
+const API_PROVIDERS = {
+  mimo: {
+    label: '小米 MiMo',
+    short: 'MiMo',
+    endpoint: 'https://api.xiaomimimo.com/v1/chat/completions',
+    keyPlaceholder: '粘贴你的 MiMo API Key',
+    tokenParam: 'max_completion_tokens',
+    temperature: 1.0,
+    extra: { thinking: { type: 'disabled' } },
+    models: [
+      { value: 'mimo-v2.6-flash', label: 'MiMo V2.6 Flash · 快速' },
+      { value: 'mimo-v2.6-pro', label: 'MiMo V2.6 Pro · 更强' }
+    ]
+  },
+  deepseek: {
+    label: 'DeepSeek',
+    short: 'DeepSeek',
+    endpoint: 'https://api.deepseek.com/chat/completions',
+    keyPlaceholder: '粘贴你的 DeepSeek API Key',
+    tokenParam: 'max_tokens',
+    temperature: 1.0,
+    omitTemperature: ['deepseek-reasoner'],
+    models: [
+      { value: 'deepseek-chat', label: 'DeepSeek Chat · 通用对话' },
+      { value: 'deepseek-reasoner', label: 'DeepSeek Reasoner · 深度推理' }
+    ]
+  },
+  qwen: {
+    label: '通义千问',
+    short: 'Qwen',
+    endpoint: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',
+    keyPlaceholder: '粘贴你的 DashScope API Key',
+    tokenParam: 'max_tokens',
+    temperature: 0.8,
+    models: [
+      { value: 'qwen-plus', label: 'Qwen Plus · 均衡' },
+      { value: 'qwen-max', label: 'Qwen Max · 更强' }
+    ]
+  }
+};
+const DEFAULT_PROVIDER = 'mimo';
+const PROVIDER_STORAGE = 'xy-homepage-provider'; // 只记服务商 ID，不含密钥
+const MODEL_STORAGE = 'xy-homepage-models';      // 按服务商记住模型 ID，不包含密钥
+const KEY_SESSION_PREFIX = 'xy-homepage-key-';   // 每个服务商单独放当前标签页
+const REQUEST_TIMEOUT = 30000;          // 单次请求超时（毫秒），超时走离线兜底
 const MAX_HISTORY = 12;                 // 最多带上最近 12 条上下文，控制 token 消耗
 const MAX_OUTPUT_TOKENS = 700;          // 单次回复上限（deep thinking 时思考也算在里面）
-
-/* 深度思考开关：mimo-v2.6-flash 默认「先推理再回答」，连一句问候都会烧掉一段推理 token。
-   这个页面的助手是陪访客聊天、介绍谢宇，用不上长链推理，所以默认关掉：
-   实测关掉后 reasoning_tokens 直接归零，首字也更快。想要更深的思考改回 true 即可。 */
-const MIMO_THINKING = false;
 
 /* 本机限流：同一个浏览器里两次提问至少间隔 MIN_SEND_GAP，一天最多 DAILY_SEND_LIMIT 次。
    这挡不住铁了心刷的人（真要防只能在服务端做），但能拦住"页面被爬虫或路人反复触发"这种
@@ -1474,7 +1515,7 @@ const COARSE = window.matchMedia('(pointer: coarse)').matches;                //
    8.0 两种语气模式（点头像切换）
    8.1 状态与元素 / 打开面板
    8.2 渲染消息 / 输入中动画
-   8.3 调用小米 MiMo（含超时、错误分级、断网等分支）
+   8.3 调用所选服务商（含超时、错误分级、断网等分支）
    8.4 离线兜底人格引擎（接口不可用时也不会冷场）
    8.5 发送主流程（含本机限流）/ 8.6 输入框自适应 / 8.7 事件绑定与 API 配置
    ================================================================== */
@@ -1493,8 +1534,10 @@ const chat = (() => {
   const stageNote = $('#stageNote');                       // 首屏那条状态文字
   const heroStage = panel.closest('.hero-stage') || panel; // --persona 挂在这一层，面板和它背后的柔光一起变色
   const personaBtns = $$('.avatar-btn');                   // 头像开关：真昼 / 有希
-  const apiKeyInput = $('#apiKeyInput');                   // 访客自己的 MiMo Key
-  const modelSelect = $('#modelSelect');                   // 访客选择的 MiMo 模型
+  const providerSelect = $('#providerSelect');             // 服务商：MiMo / DeepSeek / 通义千问
+  const apiKeyInput = $('#apiKeyInput');                   // 当前服务商的 Key
+  const modelSelect = $('#modelSelect');                   // 当前服务商的模型
+  const configHint = $('#configHint');                     // 配置区说明，随服务商变化
   const toggleKey = $('#toggleKey');                       // Key 显示 / 隐藏
   const eyeIcon = $('#eyeIcon');
 
@@ -1505,7 +1548,9 @@ const chat = (() => {
   let connection = 'idle'; // idle=待填 Key | configured=已填写 | online=调用成功 | offline=离线兜底
   let offline = false;     // 兼容旧流程的布尔值，由 setConnection() 统一维护
   let apiKey = '';         // 只在内存 / sessionStorage 中保存，不写入公开源码
-  let selectedModel = DEFAULT_MIMO_MODEL;
+  let selectedProvider = DEFAULT_PROVIDER;
+  let selectedModel = API_PROVIDERS[DEFAULT_PROVIDER].models[0].value;
+  let modelByProvider = {}; // { mimo: '...', deepseek: '...' }，只记录模型 ID
   let persona = 'mahiru';  // 当前语气：'mahiru'（认真温柔）| 'yuki'（小恶魔营业）
   let greeted = false;
 
@@ -1539,27 +1584,91 @@ const chat = (() => {
     return apiKey.trim().length >= 8;
   }
 
+  function getProvider() {
+    return API_PROVIDERS[selectedProvider] || API_PROVIDERS[DEFAULT_PROVIDER];
+  }
+
+  function keyStorageName(providerKey) {
+    return KEY_SESSION_PREFIX + providerKey;
+  }
+
+  function populateModels(providerKey, preferredModel) {
+    const provider = API_PROVIDERS[providerKey] || API_PROVIDERS[DEFAULT_PROVIDER];
+    if (!modelSelect) return;
+    modelSelect.innerHTML = '';
+    provider.models.forEach((model) => {
+      const option = document.createElement('option');
+      option.value = model.value;
+      option.textContent = model.label;
+      modelSelect.appendChild(option);
+    });
+    const known = provider.models.some((model) => model.value === preferredModel);
+    selectedModel = known ? preferredModel : provider.models[0].value;
+    modelSelect.value = selectedModel;
+  }
+
+  function syncProviderUi() {
+    const provider = getProvider();
+    if (providerSelect) providerSelect.value = selectedProvider;
+    if (apiKeyInput) apiKeyInput.placeholder = provider.keyPlaceholder;
+    if (configHint) {
+      configHint.textContent = 'Key 只用于浏览器直连 ' + provider.label +
+        '，不会发送给本站；若服务商限制跨域，会提示错误并启用本地兜底。';
+    }
+  }
+
   function saveConfig() {
+    if (providerSelect && API_PROVIDERS[providerSelect.value]) selectedProvider = providerSelect.value;
     apiKey = apiKeyInput ? apiKeyInput.value.trim() : '';
-    selectedModel = modelSelect ? modelSelect.value : DEFAULT_MIMO_MODEL;
+    selectedModel = modelSelect ? modelSelect.value : getProvider().models[0].value;
+    modelByProvider[selectedProvider] = selectedModel;
     try {
-      if (apiKey) window.sessionStorage.setItem(API_KEY_SESSION, apiKey);
-      else window.sessionStorage.removeItem(API_KEY_SESSION);
-      window.localStorage.setItem(MODEL_STORAGE, selectedModel);
+      if (apiKey) window.sessionStorage.setItem(keyStorageName(selectedProvider), apiKey);
+      else window.sessionStorage.removeItem(keyStorageName(selectedProvider));
+      window.localStorage.setItem(PROVIDER_STORAGE, selectedProvider);
+      window.localStorage.setItem(MODEL_STORAGE, JSON.stringify(modelByProvider));
     } catch (e) { /* 隐私模式禁用存储时，Key 仍只留在当前页面内存里 */ }
     setConnection(hasApiKey() ? 'configured' : 'idle');
   }
 
   function restoreConfig() {
-    try { apiKey = window.sessionStorage.getItem(API_KEY_SESSION) || ''; } catch (e) { apiKey = ''; }
-    try { selectedModel = window.localStorage.getItem(MODEL_STORAGE) || DEFAULT_MIMO_MODEL; } catch (e) { selectedModel = DEFAULT_MIMO_MODEL; }
+    try {
+      const savedProvider = window.localStorage.getItem(PROVIDER_STORAGE);
+      if (savedProvider && API_PROVIDERS[savedProvider]) selectedProvider = savedProvider;
+    } catch (e) { selectedProvider = DEFAULT_PROVIDER; }
+    try {
+      const raw = window.localStorage.getItem(MODEL_STORAGE);
+      const parsed = raw ? JSON.parse(raw) : {};
+      if (parsed && typeof parsed === 'object') modelByProvider = parsed;
+    } catch (e) { modelByProvider = {}; }
+    // 兼容上一版只保存 MiMo 模型的 key。
+    try {
+      const legacyModel = window.localStorage.getItem('xy-homepage-mimo-model');
+      if (legacyModel && !modelByProvider.mimo) modelByProvider.mimo = legacyModel;
+    } catch (e) { /* 忽略旧存储 */ }
+
+    populateModels(selectedProvider, modelByProvider[selectedProvider]);
+    try {
+      apiKey = window.sessionStorage.getItem(keyStorageName(selectedProvider)) || '';
+      if (!apiKey && selectedProvider === 'mimo') {
+        apiKey = window.sessionStorage.getItem('xy-homepage-mimo-key') || '';
+      }
+    } catch (e) { apiKey = ''; }
     if (apiKeyInput) apiKeyInput.value = apiKey;
-    if (modelSelect) {
-      const known = Array.from(modelSelect.options).some((opt) => opt.value === selectedModel);
-      modelSelect.value = known ? selectedModel : DEFAULT_MIMO_MODEL;
-      selectedModel = modelSelect.value;
-    }
+    syncProviderUi();
     setConnection(hasApiKey() ? 'configured' : 'idle');
+  }
+
+  function switchProvider(providerKey) {
+    if (!API_PROVIDERS[providerKey]) return;
+    selectedProvider = providerKey;
+    populateModels(selectedProvider, modelByProvider[selectedProvider]);
+    try {
+      apiKey = window.sessionStorage.getItem(keyStorageName(selectedProvider)) || '';
+    } catch (e) { apiKey = ''; }
+    if (apiKeyInput) apiKeyInput.value = apiKey;
+    syncProviderUi();
+    saveConfig();
   }
 
   // 四种连接状态统一在这里落 UI，避免圆点、导航栏和聊天标题各说各话。
@@ -1581,13 +1690,13 @@ const chat = (() => {
 
     if (statusText) {
       statusText.textContent = failed ? '离线兜底模式'
-        : connected ? 'MiMo 已连接'
+        : connected ? getProvider().short + ' 已连接'
           : waiting ? '等待 API Key' : 'API Key 已填写';
     }
     if (stageNote) {
       stageNote.textContent = failed ? '离线兜底 · 本地人格引擎'
-        : connected ? '你的 API 已连接 · 真调 MiMo'
-          : waiting ? '展示已结束 · 请填写自己的 API Key' : '使用你的 MiMo Key · 浏览器直连';
+        : connected ? '你的 ' + getProvider().short + ' API 已连接 · 真调模型'
+          : waiting ? '展示已结束 · 请填写自己的 API Key' : '使用 ' + getProvider().short + ' · 浏览器直连';
     }
     if (chatStatus) {
       chatStatus.textContent = failed
@@ -1649,44 +1758,44 @@ const chat = (() => {
   }
 
   function pushWelcome() {
-    // 开场白跟着当前语气走：真昼模式是温和的问候，有希模式是嘴硬的招呼
+    // 开场白跟着当前语气走：真昼认真克制，有希机灵、会卖关子
     const tip = offline
       ? '你好，我是谢宇主页上的 AI 助手。接口暂时没连上，我先用本地规则给你讲讲他。'
       : PERSONAS[persona].greeting;
     addMsg('bot', tip, offline ? '本地离线模式' : '问候语 · 等待你开口');
   }
 
-  /* ---------- 8.3 调用小米 MiMo ----------
-     接口：POST https://api.xiaomimimo.com/v1/chat/completions（OpenAI 兼容格式）
-     鉴权：Authorization: Bearer <key>（官方示例里也支持 api-key 头，两种都实测通过）
-
-     关于跨域：MiMo 返回的是 access-control-allow-origin: *，并且放行
-     authorization / content-type 头，所以不管是部署在 GitHub Pages 上，还是本地双击
-     用 file:// 打开，浏览器都能直接请求，不需要中转。若某个浏览器仍拦截，会走到下面的
-     离线兜底，页面依然可用。
+  /* ---------- 8.3 调用访客选择的服务商 ----------
+     三家服务商都走 OpenAI 兼容的 chat/completions 协议，但 token 参数和额外字段并不完全一样：
+       · MiMo 使用 max_completion_tokens，并支持 thinking.type
+       · DeepSeek / 通义千问使用 max_tokens
+       · DeepSeek Reasoner 不接受 temperature，所以请求时按模型省略
+     浏览器直接请求；若服务商没有放开 CORS，会给出错误并切到本地兜底。
      -------------------------------------- */
-  async function callMiMo(messages) {
+  async function callModel(messages) {
     if (!hasApiKey()) throw new Error('MISSING_KEY');
-    saveConfig(); // 请求前再读一次输入框，保证用户刚粘贴的 Key / 刚切换的模型立即生效
+    saveConfig(); // 请求前再读一次，保证刚粘贴的 Key / 刚切换的服务商和模型立即生效
+    const provider = getProvider();
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), MIMO_TIMEOUT); // 超时保护
+    const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT); // 超时保护
     try {
-      const res = await fetch(MIMO_ENDPOINT, {
+      const body = {
+        model: selectedModel,
+        messages: messages,
+        stream: false
+      };
+      body[provider.tokenParam] = MAX_OUTPUT_TOKENS;
+      if (provider.extra) Object.assign(body, provider.extra);
+      const omitTemperature = provider.omitTemperature || [];
+      if (!omitTemperature.includes(selectedModel)) body.temperature = provider.temperature;
+
+      const res = await fetch(provider.endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + apiKey
         },
-        body: JSON.stringify({
-          model: selectedModel,
-          messages: messages,
-          // thinking 不是 OpenAI 标准字段，但 MiMo 用它控制深度思考：
-          // 关掉之后连问候都不会跑推理，token 和响应时间都省下来。
-          thinking: { type: MIMO_THINKING ? 'enabled' : 'disabled' },
-          temperature: 1.0,
-          max_completion_tokens: MAX_OUTPUT_TOKENS, // 注意：不是 max_tokens，思考内容也占这个额度
-          stream: false
-        }),
+        body: JSON.stringify(body),
         signal: controller.signal
       });
 
@@ -1696,6 +1805,7 @@ const chat = (() => {
         const err = new Error('HTTP ' + res.status);
         err.status = res.status;
         err.detail = detail.slice(0, 300);
+        err.provider = provider.label;
         throw err;
       }
       const data = await res.json();
@@ -1710,8 +1820,8 @@ const chat = (() => {
 
   // 把各种异常翻译成用户能看懂的中文提示
   function explainError(err) {
-    if (err.message === 'MISSING_KEY') return '请先填写你自己的 MiMo API Key。';
-    if (err.name === 'AbortError') return '请求超时了（超过 ' + (MIMO_TIMEOUT / 1000) + ' 秒），可能是网络太慢。';
+    if (err.message === 'MISSING_KEY') return '请先填写你自己的 ' + getProvider().label + ' API Key。';
+    if (err.name === 'AbortError') return '请求超时了（超过 ' + (REQUEST_TIMEOUT / 1000) + ' 秒），可能是网络太慢。';
     if (err.status === 400) return '请求格式不对（400），多半是模型名或参数写错了。';
     if (err.status === 401) return 'API Key 无效或已被撤销（401）。';
     if (err.status === 402) return '账户余额不足（402）。';
@@ -1719,7 +1829,7 @@ const chat = (() => {
     if (err.status === 404) return '接口地址或模型不存在（404）。';
     if (err.status === 421) return '内容被安全审核拦下了（421），换个说法再试。';
     if (err.status === 429) return '请求太频繁或套餐额度用完了（429），缓一下再试。';
-    if (err.status >= 500) return 'MiMo 服务端出错了（' + err.status + '）。';
+    if (err.status >= 500) return (err.provider || getProvider().label) + ' 服务端出错了（' + err.status + '）。';
     if (err.status) return '接口返回异常（' + err.status + '）。';
     return '连不上接口，可能是断网或被浏览器的跨域策略拦住了。';
   }
@@ -1835,7 +1945,7 @@ const chat = (() => {
     const content = (text || '').trim();
     if (!content || busy) return;      // 空消息或正在回复时不重复发送
     if (!hasApiKey()) {
-      addMsg('err', '请先在面板顶部填写你自己的 MiMo API Key，再选择模型并发送。', '需要先配置');
+      addMsg('err', '请先在面板顶部选择服务商和模型，再填写你自己的 ' + getProvider().label + ' API Key。', '需要先配置');
       setConnection('idle');
       if (apiKeyInput) apiKeyInput.focus({ preventScroll: true });
       return;
@@ -1846,6 +1956,9 @@ const chat = (() => {
     }
     busy = true;
     sendBtn.disabled = true;
+    providerSelect.disabled = true;
+    modelSelect.disabled = true;
+    apiKeyInput.disabled = true;
     lastUserText = content;
     lastSentAt = Date.now();
     quotaCount();
@@ -1865,10 +1978,10 @@ const chat = (() => {
 
     try {
       if (offline) throw new Error('SKIP'); // 已知离线，直接走本地引擎
-      const reply = await callMiMo(payload);
+      const reply = await callModel(payload);
       hideTyping();
       setConnection('online');
-      addMsg('bot', reply, '由小米 MiMo · ' + selectedModel + ' 生成');
+      addMsg('bot', reply, '由 ' + getProvider().label + ' · ' + selectedModel + ' 生成');
       history.push({ role: 'assistant', content: reply });
       if (history.length > MAX_HISTORY) history = history.slice(-MAX_HISTORY);
     } catch (err) {
@@ -1913,6 +2026,9 @@ const chat = (() => {
     } finally {
       busy = false;
       sendBtn.disabled = false;
+      providerSelect.disabled = false;
+      modelSelect.disabled = false;
+      apiKeyInput.disabled = false;
       input.focus();
     }
   }
@@ -1944,9 +2060,13 @@ const chat = (() => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value); }
   });
 
-  // API Key 输入只更新内存和当前标签页的 sessionStorage；切换模型不会清空当前对话。
+  // 每个服务商的 Key 分开存，只在当前标签页的 sessionStorage 中保留。
   apiKeyInput.addEventListener('input', () => {
     apiKey = apiKeyInput.value.trim();
+    try {
+      if (apiKey) window.sessionStorage.setItem(keyStorageName(selectedProvider), apiKey);
+      else window.sessionStorage.removeItem(keyStorageName(selectedProvider));
+    } catch (e) { /* 隐私模式禁用存储时只留内存 */ }
     setConnection(hasApiKey() ? 'configured' : 'idle');
   });
   apiKeyInput.addEventListener('change', saveConfig);
@@ -1956,6 +2076,10 @@ const chat = (() => {
       saveConfig();
       input.focus({ preventScroll: true });
     }
+  });
+  providerSelect.addEventListener('change', () => {
+    switchProvider(providerSelect.value);
+    input.focus({ preventScroll: true });
   });
   modelSelect.addEventListener('change', () => {
     saveConfig();
@@ -1972,11 +2096,11 @@ const chat = (() => {
   $('#launcher').addEventListener('click', open);
   $('#heroChatBtn').addEventListener('click', open);
 
-  // 面板滚出视口之后，右下角才浮出「回到对话」的胶囊按钮，避免和首屏内容抢位置
+  // 面板几乎完全离开视口后才浮出胶囊，避免它在手机上压住配置控件
   if (launcher && 'IntersectionObserver' in window) {
     new IntersectionObserver((entries) => {
       launcher.classList.toggle('on', !entries[0].isIntersecting);
-    }, { threshold: 0.4 }).observe(panel);
+    }, { threshold: 0.12 }).observe(panel);
   } else if (launcher) {
     launcher.classList.add('on');
   }
